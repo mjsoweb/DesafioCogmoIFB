@@ -1,0 +1,765 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* ========================================
+   1. VARIÁVEIS E CONFIGURAÇÕES GERAIS
+======================================== */
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #1d165c;
+  background: #f7f5fb;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Identidade visual Cogmo */
+  --azul-escuro: #1d165c;
+  --azul: #6129ac;
+  --ciano: #f9326e;
+  --roxo-escuro: #18003a;
+  --roxo: #6129ac;
+  --rosa: #fb5155;
+  --rosa-forte: #f92a75;
+
+  --fundo: #f7f5fb;
+  --borda: #ebe5f3;
+
+  --degrade-cogmo: linear-gradient(
+    110deg,
+    #fb5155 0%,
+    #f92a75 100%
+  );
+
+  --sombra-card: 0 6px 24px rgba(43, 18, 83, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--azul-escuro);
+  background: var(--fundo);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ========================================
+   2. ESTRUTURA PRINCIPAL
+======================================== */
+
+.aplicacao {
+  min-height: 100vh;
+  background: var(--fundo);
+}
+
+.conteudo {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at top right,
+      rgba(216, 51, 113, 0.07),
+      transparent 42%
+    ),
+    var(--fundo);
+}
+
+/* ========================================
+   3. MENU LATERAL
+======================================== */
+
+.menu-lateral {
+  background: linear-gradient(
+    180deg,
+    #18003a 0%,
+    #040837 100%
+  ) !important;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px;
+}
+
+.marca-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fb5155;
+  font-size: 28px;
+}
+
+.marca-nome {
+  margin: 0;
+  color: #fff;
+  font-family: 'Manrope', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.marca-subtitulo {
+  display: block;
+  margin-top: 3px;
+  color: #d6b8f4;
+  font-size: 11px;
+}
+
+.menu-titulo {
+  padding: 12px 24px 8px;
+  color: #b8a5d2;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.menu-navegacao .ant-menu {
+  color: #d5c8e7;
+  background: transparent;
+  border-inline-end: none !important;
+}
+
+.menu-navegacao .ant-menu-item {
+  margin: 5px 12px;
+  width: calc(100% - 24px);
+  color: #d5c8e7;
+  border-radius: 9px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.menu-navegacao .ant-menu-item-selected {
+  color: #fff !important;
+  background: linear-gradient(
+    100deg,
+    #6129ac,
+    #772d9f
+  ) !important;
+  box-shadow: 0 4px 14px rgba(97, 41, 172, 0.28);
+}
+
+.menu-navegacao .ant-menu-item:hover {
+  color: #fff !important;
+  background: rgba(251, 81, 85, 0.15) !important;
+}
+
+.menu-rodape {
+  margin-top: auto;
+  padding: 18px;
+  color: #c5b5da;
+  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.indicador-ponto {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #00bb6e;
+  box-shadow: 0 0 10px rgba(0, 187, 110, 0.35);
+}
+
+/* ========================================
+   4. CABEÇALHO
+======================================== */
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 0 32px;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--borda);
+}
+
+.cabecalho-legenda {
+  margin-bottom: 4px;
+  color: #8977a4;
+  font-size: 12px;
+}
+
+.cabecalho-titulo {
+  margin: 0;
+  color: var(--azul-escuro);
+  font-family: 'Manrope', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+/* ========================================
+   5. CONTEÚDO DAS PÁGINAS
+======================================== */
+
+.conteudo-principal {
+  padding: 28px 32px;
+}
+
+.pagina {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.pagina-introducao {
+  margin-bottom: 28px;
+}
+
+.sobretitulo {
+  margin-bottom: 8px;
+  color: #772d9f;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.pagina-introducao h1,
+.pagina-introducao h2,
+.pagina-introducao h3 {
+  color: #1d165c;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.pagina-introducao p {
+  max-width: 760px;
+  color: #756b8c;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ========================================
+   6. AVISO DE DADOS SIMULADOS
+======================================== */
+
+.alerta-simulado {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 15px 18px;
+  color: #5d4380;
+  background: #f4eafb;
+  border: 1px solid #e6d6f5;
+  border-radius: 12px;
+}
+
+.alerta-simulado strong {
+  color: #6129ac;
+}
+
+.aviso-superior {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aviso-separador {
+  color: #f9326e;
+}
+
+/* ========================================
+   7. PAINÉIS E CARTÕES
+======================================== */
+
+.painel-card,
+.indicador-card,
+.grafico-card,
+.tabela-card {
+  background: #fff;
+  border: 1px solid #ebe5f3;
+  border-radius: 16px;
+  box-shadow: var(--sombra-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.painel-card,
+.grafico-card {
+  padding: 22px;
+}
+
+.painel-card:hover,
+.indicador-card:hover,
+.grafico-card:hover {
+  box-shadow: 0 10px 28px rgba(43, 18, 83, 0.09);
+}
+
+.secao-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.icone-secao,
+.indicador-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  color: #6129ac;
+  background: #f0e8fb;
+  border-radius: 12px;
+  font-size: 20px;
+}
+
+.titulo-secao {
+  color: #1d165c;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+}
+
+.secao-cabecalho h4.ant-typography,
+.titulo-secao h4.ant-typography,
+.tabela-cabecalho h4.ant-typography,
+.proxima-etapa h4.ant-typography {
+  color: #1d165c;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+}
+
+/* ========================================
+   8. CARTÕES DE INDICADORES
+======================================== */
+
+.indicador-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 150px;
+  padding: 22px;
+}
+
+.indicador-icone.verde {
+  color: #087f61;
+  background: #e4f8ef;
+}
+
+.indicador-conteudo {
+  min-width: 0;
+}
+
+.indicador-conteudo h3.ant-typography {
+  margin-top: 0;
+  color: #1d165c;
+  font-family: 'Manrope', sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.indicador-conteudo p {
+  margin-bottom: 4px;
+  color: #756b8c;
+  font-size: 13px;
+}
+
+/* ========================================
+   9. SELETORES E CAMPOS
+======================================== */
+
+.campo-estacao {
+  margin-bottom: 20px;
+}
+
+.campo-estacao label,
+.filtro-campo label {
+  display: block;
+  margin-bottom: 8px;
+  color: #40305f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.seletor-estacao,
+.campo-largo {
+  width: 100%;
+}
+
+.seletor-estacao .ant-select-selector,
+.campo-largo .ant-select-selector,
+.campo-largo.ant-input,
+.filtro-campo .ant-input {
+  min-height: 40px;
+  border-color: #e4d9f0 !important;
+  border-radius: 9px !important;
+}
+
+.texto-ajuda {
+  display: block;
+  margin-top: 7px;
+  color: #897c9c;
+  font-size: 12px;
+}
+
+.ant-select-focused .ant-select-selector,
+.ant-input:focus,
+.ant-input-focused {
+  border-color: #8a45c4 !important;
+  box-shadow: 0 0 0 2px rgba(97, 41, 172, 0.1) !important;
+}
+
+/* ========================================
+   10. BOTÕES
+======================================== */
+
+.ant-btn {
+  min-height: 36px;
+  border-radius: 9px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.ant-btn-primary {
+  color: #fff !important;
+  background: var(--degrade-cogmo) !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(249, 42, 117, 0.18);
+}
+
+.ant-btn-primary:hover {
+  color: #fff !important;
+  opacity: 0.9;
+}
+
+/* ========================================
+   11. HISTÓRICO E GRÁFICOS
+======================================== */
+
+.grafico-card {
+  margin-bottom: 20px;
+}
+
+.unidade-grafico {
+  color: #772d9f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.grafico-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  padding: 24px;
+  color: #897c9c;
+  text-align: center;
+  background:
+    linear-gradient(
+      rgba(97, 41, 172, 0.055) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(97, 41, 172, 0.055) 1px,
+      transparent 1px
+    ),
+    #fcfaff;
+  background-size: 28px 28px;
+  border: 1px dashed #d9c7ec;
+  border-radius: 12px;
+}
+
+.grafico-placeholder-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  color: #772d9f;
+  background: #f0e8fb;
+  border-radius: 15px;
+  font-size: 24px;
+}
+
+.grafico-placeholder p {
+  max-width: 360px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ant-radio-button-wrapper-checked:not(
+  .ant-radio-button-wrapper-disabled
+) {
+  color: #6129ac !important;
+  background: #f4eafb !important;
+  border-color: #6129ac !important;
+}
+
+.ant-radio-button-wrapper:hover {
+  color: #772d9f;
+}
+
+/* ========================================
+   12. PRÓXIMAS ETAPAS E NOTAS
+======================================== */
+
+.proxima-etapa {
+  margin-top: 24px;
+  padding: 22px;
+  background: linear-gradient(
+    115deg,
+    #fff 50%,
+    #f4eafb 100%
+  );
+  border: 1px solid #ebe5f3;
+  border-radius: 16px;
+}
+
+.proxima-etapa p {
+  color: #756b8c;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.nota-informativa {
+  margin-top: 16px;
+  padding: 14px 16px;
+  color: #756b8c;
+  background: #fff;
+  border-left: 3px solid #f9326e;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ========================================
+   13. FILTROS DA CONSULTA
+======================================== */
+
+.filtros-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.filtros-consulta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filtro-campo {
+  min-width: 0;
+}
+
+.filtro-campo .ant-select,
+.filtro-campo .ant-picker,
+.filtro-campo .ant-input {
+  width: 100%;
+}
+
+/* ========================================
+   14. TABELA DE CONSULTA
+======================================== */
+
+.tabela-card {
+  overflow: hidden;
+}
+
+.tabela-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px;
+  color: #1d165c;
+  border-bottom: 1px solid var(--borda);
+}
+
+.ant-table-wrapper {
+  overflow-x: auto;
+}
+
+.ant-table-thead > tr > th {
+  color: #1d165c !important;
+  background: #f4eafb !important;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ant-table-tbody > tr > td {
+  color: #514568;
+  font-size: 13px;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #fcf8ff !important;
+}
+
+.tabela-vazia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  padding: 28px;
+  color: #897c9c;
+  text-align: center;
+}
+
+.tabela-vazia > .anticon {
+  margin-bottom: 12px;
+  color: #946bb8;
+  font-size: 32px;
+}
+
+.tabela-vazia p {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* ========================================
+   15. RODAPÉ
+======================================== */
+
+.rodape {
+  padding: 22px 32px;
+  color: #897c9c;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ========================================
+   16. ACESSIBILIDADE
+======================================== */
+
+.ant-menu-item:focus-visible,
+.ant-btn:focus-visible,
+.ant-select-selector:focus-visible {
+  outline: 2px solid #fb5155;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   17. RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 1024px) {
+  .conteudo-principal {
+    padding: 24px;
+  }
+
+  .cabecalho {
+    padding: 0 24px;
+  }
+
+  .filtros-consulta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-lateral {
+    max-width: 100%;
+  }
+
+  .cabecalho {
+    min-height: 68px;
+    padding: 0 18px;
+  }
+
+  .cabecalho-titulo {
+    font-size: 16px;
+  }
+
+  .conteudo-principal {
+    padding: 20px 14px;
+  }
+
+  .pagina-introducao {
+    margin-bottom: 20px;
+  }
+
+  .painel-card,
+  .grafico-card {
+    padding: 16px;
+  }
+
+  .indicador-card {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .filtros-consulta {
+    grid-template-columns: 1fr;
+  }
+
+  .filtros-cabecalho,
+  .tabela-cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .rodape {
+    padding: 18px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marca {
+    padding: 18px 14px;
+  }
+
+  .marca-nome {
+    font-size: 18px;
+  }
+
+  .cabecalho {
+    padding: 0 14px;
+  }
+
+  .conteudo-principal {
+    padding: 16px 10px;
+  }
+
+  .indicador-icone,
+  .icone-secao {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+  }
+
+  .grafico-placeholder {
+    min-height: 210px;
+    padding: 16px;
+  }
+}
