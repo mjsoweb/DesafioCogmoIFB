@@ -75,7 +75,7 @@ export default function HistoricoMedicoes() {
         </Text>
       </Card>
 
-      <Row gutter={[20, 20]}>
+      <Row gutter={[24, 24]}>
         <Col xs={24} xl={12}>
           <EspacoGrafico
             titulo="Nível do rio"

@@ -192,28 +192,190 @@ button {
    4. CABEÇALHO
 ======================================== */
 
-.cabecalho {
+/* Cabeçalho principal */
+.layout-principal > .cabecalho {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 76px;
+  gap: 24px;
+
+  width: 100%;
+  height: 84px;
+  min-height: 84px;
   padding: 0 32px;
+
   background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid var(--borda);
+  border-bottom: 1px solid #e8eaf2;
+  box-shadow: 0 2px 10px rgba(16, 44, 71, 0.035);
+  line-height: normal;
+  flex-shrink: 0;
+}
+
+.cabecalho-identidade {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.cabecalho-simbolo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+
+  color: #7b35bd;
+  background: #f3eaff;
+  border: 1px solid #eadbff;
+  border-radius: 13px;
+  font-size: 22px;
+}
+
+.cabecalho-textos {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 
 .cabecalho-legenda {
-  margin-bottom: 4px;
-  color: #8977a4;
-  font-size: 12px;
+  color: #8a62b5;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
 }
 
 .cabecalho-titulo {
-  margin: 0;
-  color: var(--azul-escuro);
-  font-family: 'Manrope', sans-serif;
-  font-size: 19px;
-  font-weight: 800;
+  color: #142b55;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cabecalho-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  padding: 10px 14px;
+  background: #f8f5fc;
+  border: 1px solid #eee5f8;
+  border-radius: 12px;
+}
+
+.status-icone {
+  display: flex;
+  align-items: center;
+  color: #8350b5;
+  font-size: 18px;
+}
+
+.status-textos {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.status-titulo {
+  color: #34415b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-subtitulo {
+  color: #8b95a8;
+  font-size: 11px;
+}
+
+.status-ponto {
+  width: 7px;
+  height: 7px;
+  margin-left: 4px;
+  flex-shrink: 0;
+
+  background: #12b886;
+  border-radius: 50%;
+}
+
+/* Área principal: sem sobreposição com o cabeçalho */
+.layout-principal > .conteudo {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 26px 32px;
+  overflow-x: hidden;
+}
+
+.conteudo-principal {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+  .layout-principal > .cabecalho {
+    height: auto;
+    min-height: 76px;
+    padding: 14px 18px;
+    gap: 12px;
+  }
+
+  .cabecalho-simbolo {
+    width: 38px;
+    height: 38px;
+    font-size: 19px;
+  }
+
+  .cabecalho-titulo {
+    font-size: 15px;
+  }
+
+  .cabecalho-status {
+    padding: 8px;
+  }
+
+  .status-icone,
+  .status-subtitulo,
+  .status-ponto {
+    display: none;
+  }
+
+  .status-titulo {
+    font-size: 10px;
+  }
+
+  .layout-principal > .conteudo {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cabecalho-identidade {
+    gap: 8px;
+  }
+
+  .cabecalho-legenda {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .cabecalho-titulo {
+    font-size: 13px;
+  }
+
+  .cabecalho-status {
+    max-width: 120px;
+  }
+
+  .status-titulo {
+    line-height: 1.3;
+  }
 }
 
 /* ========================================
@@ -225,6 +387,10 @@ button {
 }
 
 .pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -299,16 +465,17 @@ button {
 .tabela-card {
   background: #fff;
   border: 1px solid #ebe5f3;
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: var(--sombra-card);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
+/* Mais espaçamento interno nos cards de painéis e gráficos */
 .painel-card,
 .grafico-card {
-  padding: 22px;
+  padding: 26px;
+  margin-bottom: 4px;
 }
-
 .painel-card:hover,
 .indicador-card:hover,
 .grafico-card:hover {
@@ -762,4 +929,116 @@ button {
     min-height: 210px;
     padding: 16px;
   }
+}
+
+
+/* ========================================
+   FILTROS DA CONSULTA — ALINHAMENTO E RESPONSIVIDADE
+======================================== */
+
+.filtros-consulta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(190px, 0.95fr);
+  align-items: end;
+  gap: 16px;
+
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.filtro-campo,
+.filtro-acao {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.filtro-campo label {
+  display: block;
+  min-height: 20px;
+  margin-bottom: 8px;
+
+  color: #40305f;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.filtro-campo .ant-select,
+.filtro-campo .ant-input {
+  width: 100%;
+  min-width: 0;
+}
+
+.filtro-campo .ant-select-single {
+  height: 42px;
+}
+
+.filtro-campo .ant-select-selector,
+.filtro-campo .ant-input {
+  min-height: 42px;
+  border-color: #e4d9f0 !important;
+  border-radius: 9px !important;
+}
+
+.filtro-campo .ant-input-affix-wrapper {
+  display: flex;
+  align-items: center;
+  height: 42px;
+}
+
+.filtro-acao {
+  padding-top: 28px;
+}
+
+.botao-aplicar-filtros {
+  width: 100%;
+  height: 42px;
+  min-height: 42px;
+  border-radius: 9px;
+  font-weight: 600;
+}
+
+/* Tablet: dois campos na primeira linha e botão abaixo */
+@media (max-width: 1024px) {
+  .filtros-consulta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .filtro-acao {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+
+  .botao-aplicar-filtros {
+    width: 100%;
+  }
+}
+
+/* Celular: todos os controles em uma única coluna */
+@media (max-width: 600px) {
+  .filtros-consulta {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .filtro-acao {
+    grid-column: auto;
+  }
+
+  .filtro-campo label {
+    margin-bottom: 6px;
+  }
+}
+
+/* Foco visível para navegação por teclado */
+.filtros-consulta .ant-select-focused .ant-select-selector,
+.filtros-consulta .ant-input:focus,
+.filtros-consulta .ant-input-affix-wrapper-focused,
+.filtros-consulta .ant-btn:focus-visible {
+  outline: 2px solid #8a45c4;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(97, 41, 172, 0.12);
 }

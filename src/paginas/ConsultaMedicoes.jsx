@@ -69,36 +69,50 @@ export default function ConsultaMedicoes() {
           </div>
         </div>
 
-        <div className="filtros-consulta">
-          <div className="filtro-campo">
-            <Text strong>Estação</Text>
-            <Select
-              placeholder="Todas as estações"
-              size="large"
-              options={[]}
-              className="campo-largo"
-            />
-          </div>
+       
+<div className="filtros-consulta">
+  <div className="filtro-campo">
+    <label htmlFor="filtro-estacao">Estação</label>
+    <Select
+      id="filtro-estacao"
+      placeholder="Todas as estações"
+      size="large"
+      options={[
+        { value: 'estacao-1', label: 'Estação demonstrativa 01' },
+        { value: 'estacao-2', label: 'Estação demonstrativa 02' },
+        { value: 'estacao-3', label: 'Estação demonstrativa 03' },
+      ]}
+      className="campo-largo"
+      aria-label="Filtrar por estação"
+    />
+  </div>
 
-          <div className="filtro-campo">
-            <Text strong>Pesquisar registro</Text>
-            <Input
-              size="large"
-              placeholder="Buscar por estação ou registro"
-              prefix={<SearchOutlined />}
-              disabled
-            />
-          </div>
+  <div className="filtro-campo">
+    <label htmlFor="pesquisa-registro">Pesquisar registro</label>
+    <Input
+      id="pesquisa-registro"
+      size="large"
+      placeholder="Buscar por estação ou registro"
+      prefix={<SearchOutlined />}
+      disabled
+      aria-label="Pesquisar por estação ou registro"
+    />
+  </div>
 
-          <Button
-            type="primary"
-            size="large"
-            icon={<FilterOutlined />}
-            disabled
-          >
-            Aplicar filtros
-          </Button>
-        </div>
+  <div className="filtro-acao">
+    <Button
+      type="primary"
+      size="large"
+      icon={<FilterOutlined />}
+      disabled
+      block
+      className="botao-aplicar-filtros"
+    >
+      Aplicar filtros
+    </Button>
+  </div>
+</div>
+
 
         <Text type="secondary" className="texto-ajuda">
           Os filtros ainda não executam consultas nesta sprint.
