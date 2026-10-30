@@ -6,7 +6,7 @@ import {
   Space
 } from "antd";
 
-import AvisoSimulacao from "../components/AvisoSimulacao";
+import AvisoSimulacao from "../componentes/AvisoSimulacao";
 
 const { Title } = Typography;
 
