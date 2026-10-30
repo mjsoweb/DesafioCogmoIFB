@@ -1,6 +1,6 @@
 import { Card, Col, Row, Typography, Button, Space } from "antd";
 
-import AvisoSimulacao from "../components/AvisoSimulacao";
+import AvisoSimulacao from "../componentes/AvisoSimulacao";
 
 const { Title, Text } = Typography;
 
