@@ -25,7 +25,7 @@ function EspacoGrafico({ titulo, descricao, icone, unidade }) {
         </div>
         <Text strong>Gráfico reservado</Text>
         <Text type="secondary">
-          A visualização será implementada em uma próxima sprint.
+         
         </Text>
         <Text className="unidade-grafico">{unidade}</Text>
       </div>
@@ -40,8 +40,7 @@ export default function HistoricoMedicoes() {
         <Text className="sobretitulo">ANÁLISE TEMPORAL</Text>
         <Title level={2}>Histórico de Medições</Title>
         <Paragraph>
-          Estrutura para consultar a evolução do nível do rio e da
-          precipitação ao longo do tempo.
+          
         </Paragraph>
       </div>
 
@@ -54,7 +53,7 @@ export default function HistoricoMedicoes() {
             <div>
               <Title level={4}>Período de consulta</Title>
               <Text type="secondary">
-                Escolha um intervalo para a futura visualização.
+               
               </Text>
             </div>
           </div>
@@ -71,7 +70,7 @@ export default function HistoricoMedicoes() {
           />
         </div>
         <Text type="secondary" className="texto-ajuda">
-          Os controles são demonstrativos e ainda não aplicam filtros.
+          
         </Text>
       </Card>
 
@@ -97,8 +96,8 @@ export default function HistoricoMedicoes() {
 
       <div className="nota-informativa">
         <Text type="secondary">
-          Os gráficos serão implementados nas próximas sprints com
-          dados explicitamente identificados como simulados.
+          Gráficos
+          
         </Text>
       </div>
     </div>
