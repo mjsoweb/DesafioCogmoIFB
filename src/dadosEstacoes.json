@@ -1,0 +1,29 @@
+[
+  {
+    "id": "est-01",
+    "estacao": "Estação Centro",
+    "rio": "Rio Descoberto",
+    "municipio": "Ceilândia",
+    "nivel": 2.85,
+    "precipitacao": 15.2,
+    "dataHora": "04/11/2026 14:30"
+  },
+  {
+    "id": "est-02",
+    "estacao": "Estação Norte",
+    "rio": "Rio Corumbá",
+    "municipio": "Taguatinga",
+    "nivel": 1.40,
+    "precipitacao": 0.0,
+    "dataHora": "04/11/2026 14:30"
+  },
+  {
+    "id": "est-03",
+    "estacao": "Estação Sul",
+    "rio": "Ribeirão Melchior",
+    "municipio": "Samambaia",
+    "nivel": 3.10,
+    "precipitacao": 28.4,
+    "dataHora": "04/11/2026 14:30"
+  }
+]

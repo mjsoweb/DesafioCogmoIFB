@@ -1,4 +1,5 @@
 
+
 import {
   Button,
   Card,
@@ -6,6 +7,7 @@ import {
   Select,
   Space,
   Table,
+  Tag,
   Typography,
 } from 'antd';
 import {
@@ -13,6 +15,9 @@ import {
   FilterOutlined,
   DatabaseOutlined,
 } from '@ant-design/icons';
+
+import AvisoSimulacao from '../componentes/AvisoSimulacao';
+import { estacoes, registrosExemplo } from '../dados/estacoes';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -41,6 +46,9 @@ const colunas = [
     title: 'Situação',
     dataIndex: 'situacao',
     key: 'situacao',
+    render: (situacao) => (
+      <Tag color={situacao === 'Normal' ? 'green' : 'gold'}>{situacao}</Tag>
+    ),
   },
 ];
 
@@ -51,10 +59,11 @@ export default function ConsultaMedicoes() {
         <Text className="sobretitulo">CONSULTA DE REGISTROS</Text>
         <Title level={2}>Consulta de Medições</Title>
         <Paragraph>
-          Área preparada para consultar e organizar os registros
-          das estações de monitoramento.
+          Registros ilustrativos das estações de monitoramento.
         </Paragraph>
       </div>
+
+      <AvisoSimulacao />
 
       <Card className="painel-card" bordered={false}>
         <div className="secao-cabecalho">
@@ -64,55 +73,41 @@ export default function ConsultaMedicoes() {
           <div>
             <Title level={4}>Filtros de consulta</Title>
             <Text type="secondary">
-              Campos reservados para as próximas etapas do projeto.
+              Filtros apenas visuais nesta sprint.
             </Text>
           </div>
         </div>
 
-       
-<div className="filtros-consulta">
-  <div className="filtro-campo">
-    <label htmlFor="filtro-estacao">Estação</label>
-    <Select
-      id="filtro-estacao"
-      placeholder="Todas as estações"
-      size="large"
-      options={[
-        { value: 'estacao-1', label: 'Estação demonstrativa 01' },
-        { value: 'estacao-2', label: 'Estação demonstrativa 02' },
-        { value: 'estacao-3', label: 'Estação demonstrativa 03' },
-      ]}
-      className="campo-largo"
-      aria-label="Filtrar por estação"
-    />
-  </div>
+        <div className="filtros-consulta">
+          <div className="filtro-campo">
+            <Text strong>Estação</Text>
+            <Select
+              placeholder="Todas as estações"
+              size="large"
+              options={estacoes.map((e) => ({ value: e.id, label: e.nome }))}
+              className="campo-largo"
+            />
+          </div>
 
-  <div className="filtro-campo">
-    <label htmlFor="pesquisa-registro">Pesquisar registro</label>
-    <Input
-      id="pesquisa-registro"
-      size="large"
-      placeholder="Buscar por estação ou registro"
-      prefix={<SearchOutlined />}
-      disabled
-      aria-label="Pesquisar por estação ou registro"
-    />
-  </div>
+          <div className="filtro-campo">
+            <Text strong>Pesquisar registro</Text>
+            <Input
+              size="large"
+              placeholder="Buscar por estação ou registro"
+              prefix={<SearchOutlined />}
+              disabled
+            />
+          </div>
 
-  <div className="filtro-acao">
-    <Button
-      type="primary"
-      size="large"
-      icon={<FilterOutlined />}
-      disabled
-      block
-      className="botao-aplicar-filtros"
-    >
-      Aplicar filtros
-    </Button>
-  </div>
-</div>
-
+          <Button
+            type="primary"
+            size="large"
+            icon={<FilterOutlined />}
+            disabled
+          >
+            Aplicar filtros
+          </Button>
+        </div>
 
         <Text type="secondary" className="texto-ajuda">
           Os filtros ainda não executam consultas nesta sprint.
@@ -124,19 +119,19 @@ export default function ConsultaMedicoes() {
           <div>
             <Title level={4}>Registros de medições</Title>
             <Text type="secondary">
-              Tabela preparada para receber os registros simulados.
+              Registros fictícios, apenas para demonstração.
             </Text>
           </div>
 
           <Space>
             <DatabaseOutlined />
-            <Text type="secondary">Sem dados nesta etapa</Text>
+            <Text type="secondary">{registrosExemplo.length} registros de exemplo</Text>
           </Space>
         </div>
 
         <Table
           columns={colunas}
-          dataSource={[]}
+          dataSource={registrosExemplo}
           pagination={false}
           locale={{
             emptyText: (
