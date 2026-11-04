@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 /* ========================================
@@ -307,7 +306,7 @@ button {
   width: 100%;
   min-width: 0;
   min-height: 0;
-  padding: 26px 32px;
+  padding: 0;
   overflow-x: hidden;
 }
 
@@ -1041,4 +1040,435 @@ button {
   outline: 2px solid #8a45c4;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(97, 41, 172, 0.12);
+}
+/* ========================================
+   MENU RESPONSIVO
+======================================== */
+
+/* Botões do menu */
+.botao-menu-mobile,
+.botao-fechar-menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+/* Desktop: menu sempre visível */
+.menu-lateral {
+  flex: 0 0 250px;
+  min-width: 250px !important;
+  max-width: 250px !important;
+  width: 250px !important;
+  min-height: 100vh;
+}
+
+/* Ajuste da estrutura principal */
+.aplicacao {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.layout-principal {
+  min-width: 0;
+  width: 100%;
+}
+
+/* ========================================
+   TABLETS E CELULARES
+======================================== */
+
+@media (max-width: 991px) {
+
+  .menu-lateral {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+
+    height: 100vh;
+    min-height: 100vh;
+
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .menu-lateral.menu-lateral-aberto {
+    transform: translateX(0);
+  }
+
+  /* Fundo escuro atrás do menu */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(10, 5, 30, 0.48);
+  }
+
+  /* Botão de abrir */
+  .botao-menu-mobile {
+    display: flex;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+
+    color: #6129ac;
+    background: #f3eaff;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+
+  /* Botão de fechar */
+  .botao-fechar-menu {
+    display: flex;
+    margin-left: auto;
+    width: 32px;
+    height: 32px;
+
+    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .marca {
+    gap: 10px;
+  }
+
+  .cabecalho {
+    gap: 12px;
+  }
+}
+
+/* ========================================
+   CELULARES PEQUENOS
+======================================== */
+
+@media (max-width: 480px) {
+
+  .cabecalho {
+    padding: 10px 12px !important;
+    gap: 8px;
+  }
+
+  .cabecalho-identidade {
+    gap: 8px;
+  }
+
+  .cabecalho-simbolo {
+    width: 34px;
+    height: 34px;
+    font-size: 17px;
+  }
+
+  .cabecalho-legenda {
+    font-size: 7px;
+    letter-spacing: 0.7px;
+  }
+
+  .cabecalho-titulo {
+    font-size: 12px;
+  }
+
+  .cabecalho-status {
+    padding: 6px;
+    max-width: 105px;
+  }
+
+  .status-titulo {
+    font-size: 9px;
+  }
+}
+
+
+/* =========================================
+   MENU RECOLHÍVEL — DESKTOP E MOBILE
+========================================= */
+
+/* Botões de controle do menu */
+.botao-menu-desktop,
+.botao-menu-mobile,
+.botao-fechar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Botão de recolher no desktop */
+.botao-menu-desktop {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  margin-right: 16px;
+  color: #6129ac;
+  background: #f3eaff;
+  border-radius: 10px;
+  font-size: 19px;
+}
+
+.botao-menu-desktop:hover {
+  color: #fff;
+  background: #6129ac;
+}
+
+/* Botão de abrir no celular */
+.botao-menu-mobile {
+  display: none;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  color: #6129ac;
+  background: #f3eaff;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.botao-menu-mobile:hover {
+  color: #fff;
+  background: #6129ac;
+}
+
+/* Botão de fechar dentro do menu mobile */
+.botao-fechar-menu {
+  display: none;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* Comportamento geral do menu */
+.menu-lateral {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.aplicacao {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.layout-principal {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Menu recolhido no desktop */
+.menu-lateral.ant-layout-sider-collapsed .marca {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.menu-lateral.ant-layout-sider-collapsed .marca-textos,
+.menu-lateral.ant-layout-sider-collapsed .menu-titulo,
+.menu-lateral.ant-layout-sider-collapsed .menu-rodape {
+  display: none;
+}
+
+.menu-lateral.ant-layout-sider-collapsed .marca-icone {
+  margin: 0;
+}
+
+/* Conteúdo sem espaçamento duplicado */
+.layout-principal > .conteudo {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   TABLETS E CELULARES
+========================================= */
+
+@media (max-width: 991px) {
+  /* Menu vira uma gaveta lateral */
+  .menu-lateral {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+    height: 100vh;
+    min-height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .menu-lateral.menu-lateral-aberto {
+    transform: translateX(0);
+  }
+
+  /* Fundo escuro atrás do menu */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(10, 5, 30, 0.48);
+  }
+
+  /* Botões */
+  .botao-menu-desktop {
+    display: none;
+  }
+
+  .botao-menu-mobile {
+    display: flex;
+  }
+
+  .botao-fechar-menu {
+    display: flex;
+  }
+
+  /* No mobile, o menu sempre mostra os textos */
+  .menu-lateral .marca-textos,
+  .menu-lateral .menu-titulo,
+  .menu-lateral .menu-rodape {
+    display: initial;
+  }
+
+  .menu-lateral .marca {
+    justify-content: flex-start;
+  }
+
+  .cabecalho {
+    gap: 12px;
+  }
+}
+
+/* =========================================
+   CELULARES PEQUENOS
+========================================= */
+
+@media (max-width: 480px) {
+  .cabecalho {
+    padding: 10px 12px !important;
+    gap: 8px;
+  }
+
+  .cabecalho-identidade {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .cabecalho-simbolo {
+    width: 34px;
+    height: 34px;
+    font-size: 17px;
+  }
+
+  .cabecalho-textos {
+    min-width: 0;
+  }
+
+  .cabecalho-legenda {
+    font-size: 7px;
+    letter-spacing: 0.7px;
+  }
+
+  .cabecalho-titulo {
+    font-size: 12px;
+  }
+
+  .cabecalho-status {
+    padding: 6px;
+    max-width: 105px;
+  }
+
+  .status-titulo {
+    font-size: 9px;
+  }
+}
+
+/* CORREÇÃO DA LARGURA DO MENU RECOLHIDO NO DESKTOP */
+
+@media (min-width: 992px) {
+
+  /* Menu aberto */
+  .menu-lateral:not(.ant-layout-sider-collapsed) {
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+    flex: 0 0 250px !important;
+  }
+
+  /* Menu recolhido */
+  .menu-lateral.ant-layout-sider-collapsed {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+    flex: 0 0 80px !important;
+  }
+
+  /* Ajusta o conteúdo interno */
+  .menu-lateral.ant-layout-sider-collapsed .ant-layout-sider-children {
+    width: 80px;
+  }
+
+  /* Centraliza os ícones */
+  .menu-lateral.ant-layout-sider-collapsed .menu-navegacao {
+    width: 80px;
+  }
+
+  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item {
+    width: 80px;
+    padding-inline: 0 !important;
+    text-align: center;
+  }
+
+  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item .ant-menu-item-icon {
+    margin-inline: 0 !important;
+    font-size: 18px;
+  }
+}
+
+/* CENTRALIZAÇÃO DOS ÍCONES NO MENU RECOLHIDO */
+
+@media (min-width: 992px) {
+
+  .menu-lateral.ant-layout-sider-collapsed .ant-menu {
+    width: 80px !important;
+    padding-inline: 0 !important;
+  }
+
+  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 80px !important;
+    height: 48px;
+    margin: 4px 0 !important;
+    padding: 0 !important;
+  }
+
+  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item .ant-menu-item-icon {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    min-width: 24px;
+    margin: 0 !important;
+    font-size: 19px;
+    line-height: 1;
+  }
+
+  .menu-lateral.ant-layout-sider-collapsed .ant-menu-title-content {
+    display: none !important;
+  }
 }

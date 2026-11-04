@@ -1,127 +1,21 @@
-
-// import { Layout, Menu, Typography, Tag } from 'antd';
-
-// import {
-//   DashboardOutlined,
-//   LineChartOutlined,
-//   TableOutlined,
-//   ExperimentOutlined,
-// } from '@ant-design/icons';
-
-// import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-
-// const { Header, Sider, Content } = Layout;
-// const { Text } = Typography;
-
-// const itensMenu = [
-//   {
-//     key: '/',
-//     icon: <DashboardOutlined />,
-//     label: 'Visão Geral',
-//   },
-//   {
-//     key: '/historico',
-//     icon: <LineChartOutlined />,
-//     label: 'Histórico de Medições',
-//   },
-//   {
-//     key: '/medicoes',
-//     icon: <TableOutlined />,
-//     label: 'Consulta de Medições',
-//   },
-// ];
-
-// export default function LayoutPrincipal() {
-//   const localizacao = useLocation();
-//   const navegar = useNavigate();
-
-//   return (
-//     <Layout className="aplicacao" hasSider>
-//       <Sider
-//         width={250}
-//         breakpoint="lg"
-//         collapsedWidth={0}
-//         className="menu-lateral"
-//       >
-//         <div className="marca">
-//           <div className="marca-icone">
-//             <ExperimentOutlined />
-//           </div>
-
-//           <div>
-//             <div className="marca-nome">COGMO</div>
-//             <div className="marca-subtitulo">TECHNOLOGY</div>
-//           </div>
-//         </div>
-
-//         <div className="menu-titulo">MONITORAMENTO</div>
-
-//         <Menu
-//           theme="dark"
-//           mode="inline"
-//           selectedKeys={[localizacao.pathname]}
-//           items={itensMenu}
-//           onClick={({ key }) => navegar(key)}
-//           className="menu-navegacao"
-//         />
-
-//         <div className="menu-rodape">
-//           <span className="indicador-ponto" />
-//           <span>Ambiente demonstrativo</span>
-//         </div>
-//       </Sider>
-
-//       <Layout className="layout-principal">
-//         <Header className="cabecalho">
-//           <div>
-//             <Text className="cabecalho-legenda">
-              
-//             </Text>
-
-//             <div className="cabecalho-titulo">
-              
-//             </div>
-//           </div>
-
-//           <Tag color="blue" bordered={false}>
-//             SPRINT 1
-//           </Tag>
-//         </Header>
-
-//         <Content className="conteudo">
-//           <div className="aviso-superior">
-//             <span>Projeto acadêmico</span>
-//             <span className="aviso-separador">•</span>
-//             <span>Dados demonstrativos</span>
-//           </div>
-
-//           <main className="conteudo-principal">
-//             <Outlet />
-//           </main>
-
-//           <footer className="rodape">
-//             Cogmo Technology · Projeto Integrador — Bolsa Futuro Digital
-//           </footer>
-//         </Content>
-//       </Layout>
-//     </Layout>
-//   );
-// }
-
-import { Layout, Menu, Typography } from 'antd';
+import { useState } from 'react';
+import { Grid, Layout, Menu } from 'antd';
 
 import {
   DashboardOutlined,
   LineChartOutlined,
   TableOutlined,
-  ExperimentOutlined,
+  EnvironmentOutlined,
   SafetyCertificateOutlined,
+  MenuOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
-const { Text } = Typography;
 
 const itensMenu = [
   {
@@ -144,24 +38,55 @@ const itensMenu = [
 export default function LayoutPrincipal() {
   const localizacao = useLocation();
   const navegar = useNavigate();
+  const telas = Grid.useBreakpoint();
+
+  const mobile = !telas.lg;
+
+  const [menuRecolhido, setMenuRecolhido] = useState(false);
+  const [menuAberto, setMenuAberto] = useState(false);
+
+  const menuRecolhidoAtual = mobile ? !menuAberto : menuRecolhido;
+
+  function selecionarPagina({ key }) {
+    navegar(key);
+    setMenuAberto(false);
+  }
 
   return (
     <Layout className="aplicacao" hasSider>
+      {mobile && menuAberto && (
+        <div
+          className="menu-overlay"
+          onClick={() => setMenuAberto(false)}
+        />
+      )}
+
       <Sider
         width={250}
-        breakpoint="lg"
-        collapsedWidth={0}
-        className="menu-lateral"
+        collapsedWidth={mobile ? 0 : 80}
+        collapsed={menuRecolhidoAtual}
+        trigger={null}
+        className={`menu-lateral ${
+          mobile && menuAberto ? 'menu-lateral-aberto' : ''
+        }`}
       >
         <div className="marca">
           <div className="marca-icone">
-            <ExperimentOutlined />
+           <img src="/logo-cogmo.png" alt="Logo Cogmo" />
           </div>
 
-          <div>
+          <div className="marca-textos">
             <div className="marca-nome">COGMO</div>
             <div className="marca-subtitulo">TECHNOLOGY</div>
           </div>
+
+          <button
+            className="botao-fechar-menu"
+            onClick={() => setMenuAberto(false)}
+            aria-label="Fechar menu"
+          >
+            <CloseOutlined />
+          </button>
         </div>
 
         <div className="menu-titulo">MONITORAMENTO</div>
@@ -169,9 +94,10 @@ export default function LayoutPrincipal() {
         <Menu
           theme="dark"
           mode="inline"
+          inlineCollapsed={!mobile && menuRecolhido}
           selectedKeys={[localizacao.pathname]}
           items={itensMenu}
-          onClick={({ key }) => navegar(key)}
+          onClick={selecionarPagina}
           className="menu-navegacao"
         />
 
@@ -183,16 +109,37 @@ export default function LayoutPrincipal() {
 
       <Layout className="layout-principal">
         <Header className="cabecalho">
+          <button
+            className="botao-menu-desktop"
+            onClick={() => setMenuRecolhido(!menuRecolhido)}
+            aria-label={
+              menuRecolhido ? 'Expandir menu' : 'Recolher menu'
+            }
+          >
+            {menuRecolhido ? (
+              <MenuUnfoldOutlined />
+            ) : (
+              <MenuFoldOutlined />
+            )}
+          </button>
+
+          <button
+            className="botao-menu-mobile"
+            onClick={() => setMenuAberto(true)}
+            aria-label="Abrir menu"
+          >
+            <MenuOutlined />
+          </button>
+
           <div className="cabecalho-identidade">
             <div className="cabecalho-simbolo">
-              <ExperimentOutlined />
+              <img src="/logo-cogmo.png" alt="Logo Cogmo" />
             </div>
 
             <div className="cabecalho-textos">
               <span className="cabecalho-legenda">
                 COGMO TECHNOLOGY
               </span>
-
               <span className="cabecalho-titulo">
                 Monitoramento Hidrológico
               </span>
@@ -223,7 +170,7 @@ export default function LayoutPrincipal() {
           </main>
 
           <footer className="rodape">
-            Cogmo Technology · Projeto Integrador — Bolsa Futuro Digital
+            Cogmo Technology · Projeto Integrador — Bolsa Futuro Digital IFB
           </footer>
         </Content>
       </Layout>
