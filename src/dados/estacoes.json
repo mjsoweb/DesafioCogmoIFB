@@ -1,0 +1,35 @@
+[
+  {
+    "key": "1",
+    "id": "estacao-1",
+    "estacao": "Estação demonstrativa 01",
+    "rio": "Rio Descoberto",
+    "municipio": "Ceilândia",
+    "nivel": "2.85 m",
+    "chuva": "15.2 mm/h",
+    "data": "04/11/2026 14:30",
+    "situacao": "Normal"
+  },
+  {
+    "key": "2",
+    "id": "estacao-2",
+    "estacao": "Estação demonstrativa 02",
+    "rio": "Rio Corumbá",
+    "municipio": "Taguatinga",
+    "nivel": "1.40 m",
+    "chuva": "0.0 mm/h",
+    "data": "04/11/2026 14:30",
+    "situacao": "Alerta"
+  },
+  {
+    "key": "3",
+    "id": "estacao-3",
+    "estacao": "Estação demonstrativa 03",
+    "rio": "Ribeirão Melchior",
+    "municipio": "Samambaia",
+    "nivel": "3.10 m",
+    "chuva": "28.4 mm/h",
+    "data": "04/11/2026 14:30",
+    "situacao": "Crítico"
+  }
+]
