@@ -47,7 +47,11 @@ function EspacoGrafico({ titulo, descricao, icone, unidade, pontos }) {
         </div>
         <Text strong>Gráfico reservado</Text>
         <Text type="secondary">
+<<<<<<< HEAD
           A visualização gráfica será implementada em uma próxima sprint.
+=======
+         
+>>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
         </Text>
         <Text className="unidade-grafico">{unidade}</Text>
       </div>
@@ -115,8 +119,12 @@ export default function HistoricoMedicoes() {
         <Text className="sobretitulo">ANÁLISE TEMPORAL</Text>
         <Title level={2}>Histórico de Medições</Title>
         <Paragraph>
+<<<<<<< HEAD
           Estrutura para consultar a evolução do nível do rio e da
           precipitação ao longo do tempo utilizando a API mock.
+=======
+          
+>>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
         </Paragraph>
       </div>
 
@@ -129,7 +137,11 @@ export default function HistoricoMedicoes() {
             <div>
               <Title level={4} style={{ margin: 0 }}>Período e Estação</Title>
               <Text type="secondary">
+<<<<<<< HEAD
                 Filtre os registros temporais para a futura visualização.
+=======
+               
+>>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
               </Text>
             </div>
           </div>
@@ -156,12 +168,17 @@ export default function HistoricoMedicoes() {
             />
           </Space>
         </div>
+<<<<<<< HEAD
         <Text type="secondary" className="texto-ajuda" style={{ display: 'block', marginTop: '12px' }}>
           Os controles já integram dados temporais mockados para a Sprint 3.
+=======
+        <Text type="secondary" className="texto-ajuda">
+          
+>>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
         </Text>
       </Card>
 
-      <Row gutter={[24, 24]}>
+      <Row gutter={[20, 20]}>
         <Col xs={24} xl={12}>
           <EspacoGrafico
             titulo="Nível do rio"
@@ -185,11 +202,17 @@ export default function HistoricoMedicoes() {
 
       <div className="nota-informativa" style={{ marginTop: '24px' }}>
         <Text type="secondary">
+<<<<<<< HEAD
           Os dados exibidos provêm dos serviços da API mock, preparando a base para os gráficos das próximas sprints.
+=======
+          Gráficos
+          
+>>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
         </Text>
       </div>
     </div>
   );
+<<<<<<< HEAD
 }
 // import { Card, Col, Radio, Row, Typography, List } from 'antd';
 // import {
@@ -315,3 +338,6 @@ export default function HistoricoMedicoes() {
 //     </div>
 //   );
 // }
+=======
+}
+>>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
