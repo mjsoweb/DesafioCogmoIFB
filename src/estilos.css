@@ -1,1474 +1,329 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-/* ========================================
-   1. VARIÁVEIS E CONFIGURAÇÕES GERAIS
-======================================== */
-
-:root {
-  font-family: 'DM Sans', sans-serif;
-  color: #1d165c;
-  background: #f7f5fb;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Identidade visual Cogmo */
-  --azul-escuro: #1d165c;
-  --azul: #6129ac;
-  --ciano: #f9326e;
-  --roxo-escuro: #18003a;
-  --roxo: #6129ac;
-  --rosa: #fb5155;
-  --rosa-forte: #f92a75;
-
-  --fundo: #f7f5fb;
-  --borda: #ebe5f3;
-
-  --degrade-cogmo: linear-gradient(
-    110deg,
-    #fb5155 0%,
-    #f92a75 100%
-  );
-
-  --sombra-card: 0 6px 24px rgba(43, 18, 83, 0.06);
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 * {
   box-sizing: border-box;
 }
 
-html {
-  min-width: 320px;
-  min-height: 100%;
-}
-
 body {
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  font-family: 'DM Sans', sans-serif;
-  color: var(--azul-escuro);
-  background: var(--fundo);
+  font-family: 'Inter', Arial, sans-serif;
+  background: #f3f6fa;
+  color: #17324d;
 }
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-#root {
-  min-height: 100vh;
-}
-
-/* ========================================
-   2. ESTRUTURA PRINCIPAL
-======================================== */
 
 .aplicacao {
   min-height: 100vh;
-  background: var(--fundo);
 }
-
-.conteudo {
-  min-height: 100vh;
-  background:
-    radial-gradient(
-      ellipse at top right,
-      rgba(216, 51, 113, 0.07),
-      transparent 42%
-    ),
-    var(--fundo);
-}
-
-/* ========================================
-   3. MENU LATERAL
-======================================== */
 
 .menu-lateral {
-  background: linear-gradient(
-    180deg,
-    #18003a 0%,
-    #040837 100%
-  ) !important;
+  background: #102c46 !important;
+  min-height: 100vh;
+  position: relative;
 }
 
 .marca {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 24px 20px;
+  padding: 28px 20px;
+  color: white;
 }
 
 .marca-icone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fb5155;
-  font-size: 28px;
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 13px;
+  background: #1a9c9a;
+  font-size: 23px;
 }
 
-.marca-nome {
-  margin: 0;
-  color: #fff;
-  font-family: 'Manrope', sans-serif;
-  font-size: 21px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
-.marca-subtitulo {
+.marca strong,
+.marca span {
   display: block;
-  margin-top: 3px;
-  color: #d6b8f4;
+}
+
+.marca strong {
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.marca span {
+  color: #b7c8d8;
   font-size: 11px;
+  margin-top: 4px;
 }
 
 .menu-titulo {
-  padding: 12px 24px 8px;
-  color: #b8a5d2;
+  padding: 10px 24px;
+  color: #90a8bd;
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-}
-
-.menu-navegacao .ant-menu {
-  color: #d5c8e7;
-  background: transparent;
-  border-inline-end: none !important;
-}
-
-.menu-navegacao .ant-menu-item {
-  margin: 5px 12px;
-  width: calc(100% - 24px);
-  color: #d5c8e7;
-  border-radius: 9px;
-  transition: background 0.25s ease, color 0.25s ease;
-}
-
-.menu-navegacao .ant-menu-item-selected {
-  color: #fff !important;
-  background: linear-gradient(
-    100deg,
-    #6129ac,
-    #772d9f
-  ) !important;
-  box-shadow: 0 4px 14px rgba(97, 41, 172, 0.28);
-}
-
-.menu-navegacao .ant-menu-item:hover {
-  color: #fff !important;
-  background: rgba(251, 81, 85, 0.15) !important;
-}
-
-.menu-rodape {
-  margin-top: auto;
-  padding: 18px;
-  color: #c5b5da;
-  font-size: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.13);
-}
-
-.indicador-ponto {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 8px;
-  border-radius: 50%;
-  background: #00bb6e;
-  box-shadow: 0 0 10px rgba(0, 187, 110, 0.35);
-}
-
-/* ========================================
-   4. CABEÇALHO
-======================================== */
-
-/* Cabeçalho principal */
-.layout-principal > .cabecalho {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-
-  width: 100%;
-  height: 84px;
-  min-height: 84px;
-  padding: 0 32px;
-
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid #e8eaf2;
-  box-shadow: 0 2px 10px rgba(16, 44, 71, 0.035);
-  line-height: normal;
-  flex-shrink: 0;
-}
-
-.cabecalho-identidade {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-width: 0;
-}
-
-.cabecalho-simbolo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-
-  color: #7b35bd;
-  background: #f3eaff;
-  border: 1px solid #eadbff;
-  border-radius: 13px;
-  font-size: 22px;
-}
-
-.cabecalho-textos {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-
-.cabecalho-legenda {
-  color: #8a62b5;
-  font-size: 10px;
-  font-weight: 700;
   letter-spacing: 1.5px;
 }
 
-.cabecalho-titulo {
-  color: #142b55;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.3;
+.menu-lateral .ant-menu {
+  background: transparent;
+  border-inline-end: none;
 }
 
-.cabecalho-status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+.menu-lateral .ant-menu-item {
+  margin: 6px 12px;
+  width: calc(100% - 24px);
+}
 
-  padding: 10px 14px;
-  background: #f8f5fc;
-  border: 1px solid #eee5f8;
+.menu-lateral .ant-menu-item-selected {
+  background: #1d5369 !important;
+}
+
+.aviso-lateral {
+  position: absolute;
+  bottom: 28px;
+  left: 18px;
+  right: 18px;
+  padding: 16px;
+  background: #1a3b55;
+  color: #dceaf5;
   border-radius: 12px;
+  font-size: 13px;
 }
 
-.status-icone {
+.aviso-lateral p {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.aviso-lateral span {
+  font-size: 11px;
+  color: #b7c8d8;
+  line-height: 1.5;
+}
+
+.cabecalho {
+  background: white;
+  padding: 25px 34px;
   display: flex;
   align-items: center;
-  color: #8350b5;
-  font-size: 18px;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid #e9eef4;
 }
 
-.status-textos {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.status-titulo {
-  color: #34415b;
+.caminho {
+  color: #8292a3;
   font-size: 12px;
-  font-weight: 600;
 }
 
-.status-subtitulo {
-  color: #8b95a8;
-  font-size: 11px;
+.cabecalho h1 {
+  margin: 8px 0 5px;
+  font-size: 25px;
+  letter-spacing: -0.7px;
 }
 
-.status-ponto {
-  width: 7px;
-  height: 7px;
-  margin-left: 4px;
-  flex-shrink: 0;
-
-  background: #12b886;
-  border-radius: 50%;
+.cabecalho p,
+.historico-cabecalho p {
+  margin: 0;
+  color: #7a8b9d;
+  font-size: 13px;
 }
 
-/* Área principal: sem sobreposição com o cabeçalho */
-.layout-principal > .conteudo {
+.conteudo {
+  padding: 28px 34px;
+  max-width: 1600px;
   width: 100%;
-  min-width: 0;
-  min-height: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-.conteudo-principal {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-}
-
-/* Ajustes para telas menores */
-@media (max-width: 768px) {
-  .layout-principal > .cabecalho {
-    height: auto;
-    min-height: 76px;
-    padding: 14px 18px;
-    gap: 12px;
-  }
-
-  .cabecalho-simbolo {
-    width: 38px;
-    height: 38px;
-    font-size: 19px;
-  }
-
-  .cabecalho-titulo {
-    font-size: 15px;
-  }
-
-  .cabecalho-status {
-    padding: 8px;
-  }
-
-  .status-icone,
-  .status-subtitulo,
-  .status-ponto {
-    display: none;
-  }
-
-  .status-titulo {
-    font-size: 10px;
-  }
-
-  .layout-principal > .conteudo {
-    padding: 20px 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cabecalho-identidade {
-    gap: 8px;
-  }
-
-  .cabecalho-legenda {
-    font-size: 8px;
-    letter-spacing: 1px;
-  }
-
-  .cabecalho-titulo {
-    font-size: 13px;
-  }
-
-  .cabecalho-status {
-    max-width: 120px;
-  }
-
-  .status-titulo {
-    line-height: 1.3;
-  }
-}
-
-/* ========================================
-   5. CONTEÚDO DAS PÁGINAS
-======================================== */
-
-.conteudo-principal {
-  padding: 28px 32px;
-}
-
-.pagina {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  width: 100%;
-  max-width: 1440px;
   margin: 0 auto;
 }
 
-.pagina-introducao {
-  margin-bottom: 28px;
+.seletor-card,
+.indicador,
+.grade-graficos .ant-card {
+  border-radius: 16px;
+  box-shadow: 0 5px 22px rgba(23, 50, 77, 0.045);
 }
 
-.sobretitulo {
-  margin-bottom: 8px;
-  color: #772d9f;
-  font-size: 11px;
+.seletor-card .ant-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.rotulo,
+.identificacao span {
+  color: #8192a3;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.pagina-introducao h1,
-.pagina-introducao h2,
-.pagina-introducao h3 {
-  color: #1d165c;
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.6px;
+.seletor-card h3 {
+  margin: 6px 0 0;
+  font-size: 15px;
 }
 
-.pagina-introducao p {
-  max-width: 760px;
-  color: #756b8c;
-  font-size: 14px;
-  line-height: 1.7;
+.seletor {
+  width: 260px;
 }
 
-/* ========================================
-   6. AVISO DE DADOS SIMULADOS
-======================================== */
-
-.alerta-simulado {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding: 15px 18px;
-  color: #5d4380;
-  background: #f4eafb;
-  border: 1px solid #e6d6f5;
-  border-radius: 12px;
-}
-
-.alerta-simulado strong {
-  color: #6129ac;
-}
-
-.aviso-superior {
+.identificacao {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
+  margin: 28px 0 18px;
 }
 
-.aviso-separador {
-  color: #f9326e;
+.identificacao-icone {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #dff4f1;
+  color: #168b83;
+  font-size: 22px;
 }
 
-/* ========================================
-   7. PAINÉIS E CARTÕES
-======================================== */
-
-.painel-card,
-.indicador-card,
-.grafico-card,
-.tabela-card {
-  background: #fff;
-  border: 1px solid #ebe5f3;
-  border-radius: 18px;
-  box-shadow: var(--sombra-card);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-
-/* Mais espaçamento interno nos cards de painéis e gráficos */
-.painel-card,
-.grafico-card {
-  padding: 26px;
-  margin-bottom: 4px;
-}
-.painel-card:hover,
-.indicador-card:hover,
-.grafico-card:hover {
-  box-shadow: 0 10px 28px rgba(43, 18, 83, 0.09);
-}
-
-.secao-cabecalho {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.icone-secao,
-.indicador-icone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  color: #6129ac;
-  background: #f0e8fb;
-  border-radius: 12px;
+.identificacao h2 {
+  margin: 5px 0;
   font-size: 20px;
 }
 
-.titulo-secao {
-  color: #1d165c;
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-}
-
-.secao-cabecalho h4.ant-typography,
-.titulo-secao h4.ant-typography,
-.tabela-cabecalho h4.ant-typography,
-.proxima-etapa h4.ant-typography {
-  color: #1d165c;
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-}
-
-/* ========================================
-   8. CARTÕES DE INDICADORES
-======================================== */
-
-.indicador-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  min-height: 150px;
-  padding: 22px;
-}
-
-.indicador-icone.verde {
-  color: #087f61;
-  background: #e4f8ef;
-}
-
-.indicador-conteudo {
-  min-width: 0;
-}
-
-.indicador-conteudo h3.ant-typography {
-  margin-top: 0;
-  color: #1d165c;
-  font-family: 'Manrope', sans-serif;
-  font-size: 25px;
-  font-weight: 800;
-}
-
-.indicador-conteudo p {
-  margin-bottom: 4px;
-  color: #756b8c;
-  font-size: 13px;
-}
-
-/* ========================================
-   9. SELETORES E CAMPOS
-======================================== */
-
-.campo-estacao {
-  margin-bottom: 20px;
-}
-
-.campo-estacao label,
-.filtro-campo label {
-  display: block;
-  margin-bottom: 8px;
-  color: #40305f;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.seletor-estacao,
-.campo-largo {
-  width: 100%;
-}
-
-.seletor-estacao .ant-select-selector,
-.campo-largo .ant-select-selector,
-.campo-largo.ant-input,
-.filtro-campo .ant-input {
-  min-height: 40px;
-  border-color: #e4d9f0 !important;
-  border-radius: 9px !important;
-}
-
-.texto-ajuda {
-  display: block;
-  margin-top: 7px;
-  color: #897c9c;
-  font-size: 12px;
-}
-
-.ant-select-focused .ant-select-selector,
-.ant-input:focus,
-.ant-input-focused {
-  border-color: #8a45c4 !important;
-  box-shadow: 0 0 0 2px rgba(97, 41, 172, 0.1) !important;
-}
-
-/* ========================================
-   10. BOTÕES
-======================================== */
-
-.ant-btn {
-  min-height: 36px;
-  border-radius: 9px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.ant-btn-primary {
-  color: #fff !important;
-  background: var(--degrade-cogmo) !important;
-  border: none !important;
-  box-shadow: 0 4px 12px rgba(249, 42, 117, 0.18);
-}
-
-.ant-btn-primary:hover {
-  color: #fff !important;
-  opacity: 0.9;
-}
-
-/* ========================================
-   11. HISTÓRICO E GRÁFICOS
-======================================== */
-
-.grafico-card {
-  margin-bottom: 20px;
-}
-
-.unidade-grafico {
-  color: #772d9f;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.grafico-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 260px;
-  padding: 24px;
-  color: #897c9c;
-  text-align: center;
-  background:
-    linear-gradient(
-      rgba(97, 41, 172, 0.055) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(97, 41, 172, 0.055) 1px,
-      transparent 1px
-    ),
-    #fcfaff;
-  background-size: 28px 28px;
-  border: 1px dashed #d9c7ec;
-  border-radius: 12px;
-}
-
-.grafico-placeholder-icone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  margin-bottom: 14px;
-  color: #772d9f;
-  background: #f0e8fb;
-  border-radius: 15px;
-  font-size: 24px;
-}
-
-.grafico-placeholder p {
-  max-width: 360px;
+.identificacao p {
   margin: 0;
+  color: #78899a;
   font-size: 13px;
-  line-height: 1.6;
 }
 
-.ant-radio-button-wrapper-checked:not(
-  .ant-radio-button-wrapper-disabled
-) {
-  color: #6129ac !important;
-  background: #f4eafb !important;
-  border-color: #6129ac !important;
-}
-
-.ant-radio-button-wrapper:hover {
-  color: #772d9f;
-}
-
-/* ========================================
-   12. PRÓXIMAS ETAPAS E NOTAS
-======================================== */
-
-.proxima-etapa {
-  margin-top: 24px;
-  padding: 22px;
-  background: linear-gradient(
-    115deg,
-    #fff 50%,
-    #f4eafb 100%
-  );
-  border: 1px solid #ebe5f3;
-  border-radius: 16px;
-}
-
-.proxima-etapa p {
-  color: #756b8c;
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.nota-informativa {
-  margin-top: 16px;
-  padding: 14px 16px;
-  color: #756b8c;
-  background: #fff;
-  border-left: 3px solid #f9326e;
-  border-radius: 8px;
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-/* ========================================
-   13. FILTROS DA CONSULTA
-======================================== */
-
-.filtros-cabecalho {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.filtros-consulta {
+.grade-cartoes,
+.grade-graficos {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
 
-.filtro-campo {
-  min-width: 0;
+.indicador .ant-card-body {
+  padding: 24px;
 }
 
-.filtro-campo .ant-select,
-.filtro-campo .ant-picker,
-.filtro-campo .ant-input {
-  width: 100%;
+.indicador-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 17px;
+  color: #63788b;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-/* ========================================
-   14. TABELA DE CONSULTA
-======================================== */
-
-.tabela-card {
-  overflow: hidden;
+.icone-agua,
+.icone-chuva {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: #e4f3fb;
+  color: #167dAB;
+  font-size: 25px;
 }
 
-.tabela-cabecalho {
+.icone-chuva {
+  background: #def6f0;
+  color: #168b83;
+  font-size: 20px;
+}
+
+.indicador .ant-statistic {
+  margin-bottom: 17px;
+}
+
+.horario {
+  margin: 14px 0 0;
+  color: #8392a2;
+  font-size: 11px;
+}
+
+.historico-cabecalho {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px 22px;
-  color: #1d165c;
-  border-bottom: 1px solid var(--borda);
+  gap: 18px;
+  margin: 34px 0 18px;
 }
 
-.ant-table-wrapper {
-  overflow-x: auto;
+.historico-cabecalho h2 {
+  font-size: 19px;
+  margin: 0 0 6px;
 }
 
-.ant-table-thead > tr > th {
-  color: #1d165c !important;
-  background: #f4eafb !important;
-  font-size: 12px;
-  font-weight: 700;
+.grade-graficos .ant-card-head {
+  min-height: 60px;
+  font-weight: 600;
 }
 
-.ant-table-tbody > tr > td {
-  color: #514568;
-  font-size: 13px;
+.grade-graficos .ant-card-body {
+  padding: 20px 12px;
 }
 
-.ant-table-tbody > tr:hover > td {
-  background: #fcf8ff !important;
+.unidade {
+  font-size: 11px;
+  font-weight: 400;
+  color: #7d8e9f;
 }
-
-.tabela-vazia {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 180px;
-  padding: 28px;
-  color: #897c9c;
-  text-align: center;
-}
-
-.tabela-vazia > .anticon {
-  margin-bottom: 12px;
-  color: #946bb8;
-  font-size: 32px;
-}
-
-.tabela-vazia p {
-  margin: 0;
-  font-size: 13px;
-}
-
-/* ========================================
-   15. RODAPÉ
-======================================== */
 
 .rodape {
-  padding: 22px 32px;
-  color: #897c9c;
-  font-size: 12px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  padding: 20px 0;
+  border-top: 1px solid #e1e8ef;
+  color: #8191a1;
+  font-size: 11px;
 }
 
-/* ========================================
-   16. ACESSIBILIDADE
-======================================== */
-
-.ant-menu-item:focus-visible,
-.ant-btn:focus-visible,
-.ant-select-selector:focus-visible {
-  outline: 2px solid #fb5155;
-  outline-offset: 2px;
-}
-
-/* ========================================
-   17. RESPONSIVIDADE
-======================================== */
-
-@media (max-width: 1024px) {
-  .conteudo-principal {
-    padding: 24px;
-  }
-
-  .cabecalho {
-    padding: 0 24px;
-  }
-
-  .filtros-consulta {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .menu-lateral {
-    max-width: 100%;
+    display: none;
+  }
+
+  .conteudo {
+    padding: 22px 18px;
   }
 
   .cabecalho {
-    min-height: 68px;
-    padding: 0 18px;
+    padding: 22px 18px;
   }
+}
 
-  .cabecalho-titulo {
-    font-size: 16px;
-  }
-
-  .conteudo-principal {
-    padding: 20px 14px;
-  }
-
-  .pagina-introducao {
-    margin-bottom: 20px;
-  }
-
-  .painel-card,
-  .grafico-card {
-    padding: 16px;
-  }
-
-  .indicador-card {
-    min-height: auto;
-    padding: 16px;
-  }
-
-  .filtros-consulta {
-    grid-template-columns: 1fr;
-  }
-
-  .filtros-cabecalho,
-  .tabela-cabecalho {
+@media (max-width: 600px) {
+  .cabecalho,
+  .seletor-card .ant-card-body,
+  .historico-cabecalho {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .rodape {
-    padding: 18px 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .marca {
-    padding: 18px 14px;
+  .cabecalho h1 {
+    font-size: 21px;
   }
 
-  .marca-nome {
-    font-size: 18px;
-  }
-
-  .cabecalho {
-    padding: 0 14px;
-  }
-
-  .conteudo-principal {
-    padding: 16px 10px;
-  }
-
-  .indicador-icone,
-  .icone-secao {
-    width: 36px;
-    height: 36px;
-    font-size: 17px;
-  }
-
-  .grafico-placeholder {
-    min-height: 210px;
-    padding: 16px;
-  }
-}
-
-
-/* ========================================
-   FILTROS DA CONSULTA — ALINHAMENTO E RESPONSIVIDADE
-======================================== */
-
-.filtros-consulta {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(190px, 0.95fr);
-  align-items: end;
-  gap: 16px;
-
-  width: 100%;
-  margin-bottom: 24px;
-}
-
-.filtro-campo,
-.filtro-acao {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-width: 0;
-}
-
-.filtro-campo label {
-  display: block;
-  min-height: 20px;
-  margin-bottom: 8px;
-
-  color: #40305f;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 20px;
-}
-
-.filtro-campo .ant-select,
-.filtro-campo .ant-input {
-  width: 100%;
-  min-width: 0;
-}
-
-.filtro-campo .ant-select-single {
-  height: 42px;
-}
-
-.filtro-campo .ant-select-selector,
-.filtro-campo .ant-input {
-  min-height: 42px;
-  border-color: #e4d9f0 !important;
-  border-radius: 9px !important;
-}
-
-.filtro-campo .ant-input-affix-wrapper {
-  display: flex;
-  align-items: center;
-  height: 42px;
-}
-
-.filtro-acao {
-  padding-top: 28px;
-}
-
-.botao-aplicar-filtros {
-  width: 100%;
-  height: 42px;
-  min-height: 42px;
-  border-radius: 9px;
-  font-weight: 600;
-}
-
-/* Tablet: dois campos na primeira linha e botão abaixo */
-@media (max-width: 1024px) {
-  .filtros-consulta {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .filtro-acao {
-    grid-column: 1 / -1;
-    padding-top: 0;
-  }
-
-  .botao-aplicar-filtros {
+  .seletor {
     width: 100%;
   }
-}
 
-/* Celular: todos os controles em uma única coluna */
-@media (max-width: 600px) {
-  .filtros-consulta {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
+  .grade-cartoes,
+  .grade-graficos {
+    grid-template-columns: 1fr;
   }
 
-  .filtro-acao {
-    grid-column: auto;
+  .historico-cabecalho .ant-radio-group {
+    max-width: 100%;
   }
 
-  .filtro-campo label {
-    margin-bottom: 6px;
-  }
-}
-
-/* Foco visível para navegação por teclado */
-.filtros-consulta .ant-select-focused .ant-select-selector,
-.filtros-consulta .ant-input:focus,
-.filtros-consulta .ant-input-affix-wrapper-focused,
-.filtros-consulta .ant-btn:focus-visible {
-  outline: 2px solid #8a45c4;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(97, 41, 172, 0.12);
-}
-/* ========================================
-   MENU RESPONSIVO
-======================================== */
-
-/* Botões do menu */
-.botao-menu-mobile,
-.botao-fechar-menu {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-}
-
-/* Desktop: menu sempre visível */
-.menu-lateral {
-  flex: 0 0 250px;
-  min-width: 250px !important;
-  max-width: 250px !important;
-  width: 250px !important;
-  min-height: 100vh;
-}
-
-/* Ajuste da estrutura principal */
-.aplicacao {
-  min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.layout-principal {
-  min-width: 0;
-  width: 100%;
-}
-
-/* ========================================
-   TABLETS E CELULARES
-======================================== */
-
-@media (max-width: 991px) {
-
-  .menu-lateral {
-    position: fixed !important;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1001;
-
-    height: 100vh;
-    min-height: 100vh;
-
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .menu-lateral.menu-lateral-aberto {
-    transform: translateX(0);
-  }
-
-  /* Fundo escuro atrás do menu */
-  .menu-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: rgba(10, 5, 30, 0.48);
-  }
-
-  /* Botão de abrir */
-  .botao-menu-mobile {
-    display: flex;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-
-    color: #6129ac;
-    background: #f3eaff;
-    border-radius: 10px;
-    font-size: 20px;
-  }
-
-  /* Botão de fechar */
-  .botao-fechar-menu {
-    display: flex;
-    margin-left: auto;
-    width: 32px;
-    height: 32px;
-
-    color: white;
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
-    font-size: 16px;
-  }
-
-  .marca {
-    gap: 10px;
-  }
-
-  .cabecalho {
-    gap: 12px;
-  }
-}
-
-/* ========================================
-   CELULARES PEQUENOS
-======================================== */
-
-@media (max-width: 480px) {
-
-  .cabecalho {
-    padding: 10px 12px !important;
-    gap: 8px;
-  }
-
-  .cabecalho-identidade {
-    gap: 8px;
-  }
-
-  .cabecalho-simbolo {
-    width: 34px;
-    height: 34px;
-    font-size: 17px;
-  }
-
-  .cabecalho-legenda {
-    font-size: 7px;
-    letter-spacing: 0.7px;
-  }
-
-  .cabecalho-titulo {
-    font-size: 12px;
-  }
-
-  .cabecalho-status {
-    padding: 6px;
-    max-width: 105px;
-  }
-
-  .status-titulo {
-    font-size: 9px;
-  }
-}
-
-
-/* =========================================
-   MENU RECOLHÍVEL — DESKTOP E MOBILE
-========================================= */
-
-/* Botões de controle do menu */
-.botao-menu-desktop,
-.botao-menu-mobile,
-.botao-fechar-menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-/* Botão de recolher no desktop */
-.botao-menu-desktop {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  margin-right: 16px;
-  color: #6129ac;
-  background: #f3eaff;
-  border-radius: 10px;
-  font-size: 19px;
-}
-
-.botao-menu-desktop:hover {
-  color: #fff;
-  background: #6129ac;
-}
-
-/* Botão de abrir no celular */
-.botao-menu-mobile {
-  display: none;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  color: #6129ac;
-  background: #f3eaff;
-  border-radius: 10px;
-  font-size: 20px;
-}
-
-.botao-menu-mobile:hover {
-  color: #fff;
-  background: #6129ac;
-}
-
-/* Botão de fechar dentro do menu mobile */
-.botao-fechar-menu {
-  display: none;
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  margin-left: auto;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-/* Comportamento geral do menu */
-.menu-lateral {
-  min-height: 100vh;
-  overflow: hidden;
-}
-
-.aplicacao {
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-.layout-principal {
-  width: 100%;
-  min-width: 0;
-}
-
-/* Menu recolhido no desktop */
-.menu-lateral.ant-layout-sider-collapsed .marca {
-  justify-content: center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.menu-lateral.ant-layout-sider-collapsed .marca-textos,
-.menu-lateral.ant-layout-sider-collapsed .menu-titulo,
-.menu-lateral.ant-layout-sider-collapsed .menu-rodape {
-  display: none;
-}
-
-.menu-lateral.ant-layout-sider-collapsed .marca-icone {
-  margin: 0;
-}
-
-/* Conteúdo sem espaçamento duplicado */
-.layout-principal > .conteudo {
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-/* =========================================
-   TABLETS E CELULARES
-========================================= */
-
-@media (max-width: 991px) {
-  /* Menu vira uma gaveta lateral */
-  .menu-lateral {
-    position: fixed !important;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1001;
-    width: 250px !important;
-    min-width: 250px !important;
-    max-width: 250px !important;
-    height: 100vh;
-    min-height: 100vh;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .menu-lateral.menu-lateral-aberto {
-    transform: translateX(0);
-  }
-
-  /* Fundo escuro atrás do menu */
-  .menu-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: rgba(10, 5, 30, 0.48);
-  }
-
-  /* Botões */
-  .botao-menu-desktop {
-    display: none;
-  }
-
-  .botao-menu-mobile {
-    display: flex;
-  }
-
-  .botao-fechar-menu {
-    display: flex;
-  }
-
-  /* No mobile, o menu sempre mostra os textos */
-  .menu-lateral .marca-textos,
-  .menu-lateral .menu-titulo,
-  .menu-lateral .menu-rodape {
-    display: initial;
-  }
-
-  .menu-lateral .marca {
-    justify-content: flex-start;
-  }
-
-  .cabecalho {
-    gap: 12px;
-  }
-}
-
-/* =========================================
-   CELULARES PEQUENOS
-========================================= */
-
-@media (max-width: 480px) {
-  .cabecalho {
-    padding: 10px 12px !important;
-    gap: 8px;
-  }
-
-  .cabecalho-identidade {
-    gap: 8px;
-    min-width: 0;
-  }
-
-  .cabecalho-simbolo {
-    width: 34px;
-    height: 34px;
-    font-size: 17px;
-  }
-
-  .cabecalho-textos {
-    min-width: 0;
-  }
-
-  .cabecalho-legenda {
-    font-size: 7px;
-    letter-spacing: 0.7px;
-  }
-
-  .cabecalho-titulo {
-    font-size: 12px;
-  }
-
-  .cabecalho-status {
-    padding: 6px;
-    max-width: 105px;
-  }
-
-  .status-titulo {
-    font-size: 9px;
-  }
-}
-
-/* CORREÇÃO DA LARGURA DO MENU RECOLHIDO NO DESKTOP */
-
-@media (min-width: 992px) {
-
-  /* Menu aberto */
-  .menu-lateral:not(.ant-layout-sider-collapsed) {
-    width: 250px !important;
-    min-width: 250px !important;
-    max-width: 250px !important;
-    flex: 0 0 250px !important;
-  }
-
-  /* Menu recolhido */
-  .menu-lateral.ant-layout-sider-collapsed {
-    width: 80px !important;
-    min-width: 80px !important;
-    max-width: 80px !important;
-    flex: 0 0 80px !important;
-  }
-
-  /* Ajusta o conteúdo interno */
-  .menu-lateral.ant-layout-sider-collapsed .ant-layout-sider-children {
-    width: 80px;
-  }
-
-  /* Centraliza os ícones */
-  .menu-lateral.ant-layout-sider-collapsed .menu-navegacao {
-    width: 80px;
-  }
-
-  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item {
-    width: 80px;
-    padding-inline: 0 !important;
-    text-align: center;
-  }
-
-  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item .ant-menu-item-icon {
-    margin-inline: 0 !important;
-    font-size: 18px;
-  }
-}
-
-/* CENTRALIZAÇÃO DOS ÍCONES NO MENU RECOLHIDO */
-
-@media (min-width: 992px) {
-
-  .menu-lateral.ant-layout-sider-collapsed .ant-menu {
-    width: 80px !important;
-    padding-inline: 0 !important;
-  }
-
-  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 80px !important;
-    height: 48px;
-    margin: 4px 0 !important;
-    padding: 0 !important;
-  }
-
-  .menu-lateral.ant-layout-sider-collapsed .ant-menu-item .ant-menu-item-icon {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    min-width: 24px;
-    margin: 0 !important;
-    font-size: 19px;
-    line-height: 1;
-  }
-
-  .menu-lateral.ant-layout-sider-collapsed .ant-menu-title-content {
-    display: none !important;
+  .indicador .ant-statistic-content {
+    font-size: 27px;
   }
 }

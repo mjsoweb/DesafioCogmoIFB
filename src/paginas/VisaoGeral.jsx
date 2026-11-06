@@ -1,117 +1,3 @@
-<<<<<<< HEAD
-// import { Alert, Card, Col, Row, Select, Typography } from 'antd';
-// import {
-//   EnvironmentOutlined,
-//   CloudOutlined,
-//   ExperimentOutlined,
-// } from '@ant-design/icons';
-// import estacoesData from '../dados/estacoes.json';
-
-// const { Title, Paragraph, Text } = Typography;
-
-// export default function VisaoGeral() {
-//   // Pegamos a primeira estação por padrão para exibir nos indicadores principais
-//   const estacaoAtual = estacoesData[0];
-
-//   return (
-//     <div className="pagina">
-//       <div className="pagina-introducao">
-//         <Text className="sobretitulo">PAINEL DE CONTROLE</Text>
-//         <Title level={2}>Visão Geral</Title>
-//         <Paragraph>
-//           Acompanhe a estrutura de monitoramento das estações
-//           hidrológicas em um só lugar.
-//         </Paragraph>
-//       </div>
-
-//       <Alert
-//         className="alerta-simulado"
-//         type="info"
-//         showIcon
-//         message="Ambiente demonstrativo"
-//         description="As informações e futuras medições deste projeto são simuladas. Não representam condições hidrológicas reais."
-//       />
-
-//       <Card className="painel-card" bordered={false}>
-//         <div className="secao-cabecalho">
-//           <div className="icone-secao">
-//             <EnvironmentOutlined />
-//           </div>
-//           <div>
-//             <Title level={4}>Estação de monitoramento</Title>
-//             <Text type="secondary">
-//               Selecione uma estação para consultar seus indicadores.
-//             </Text>
-//           </div>
-//         </div>
-
-//         <div className="campo-estacao">
-//           <Text strong>Estação selecionada</Text>
-//           <Select
-//             size="large"
-//             placeholder="Selecione uma estação"
-//             className="seletor-estacao"
-//             defaultValue={estacoesData[0].id}
-//             options={estacoesData.map((item) => ({
-//               value: item.id,
-//               label: item.estacao,
-//             }))}
-//           />
-//           <Text type="secondary" className="texto-ajuda">
-//             Seleção carregada a partir do arquivo JSON local.
-//           </Text>
-//         </div>
-//       </Card>
-
-//       <div className="titulo-secao">
-//         <Title level={4}>Indicadores da estação: {estacaoAtual.estacao}</Title>
-//         <Text type="secondary">Dados obtidos do arquivo JSON local</Text>
-//       </div>
-
-//       <Row gutter={[20, 20]}>
-//         <Col xs={24} md={12}>
-//           <Card className="indicador-card" bordered={false}>
-//             <div className="indicador-icone azul">
-//               <ExperimentOutlined />
-//             </div>
-//             <div className="indicador-conteudo">
-//               <Text type="secondary">Nível do rio ({estacaoAtual.rio})</Text>
-//               <Title level={3}>{estacaoAtual.nivel}</Title>
-//               <Text type="secondary">
-//                 Município: {estacaoAtual.municipio}
-//               </Text>
-//             </div>
-//           </Card>
-//         </Col>
-
-//         <Col xs={24} md={12}>
-//           <Card className="indicador-card" bordered={false}>
-//             <div className="indicador-icone verde">
-//               <CloudOutlined />
-//             </div>
-//             <div className="indicador-conteudo">
-//               <Text type="secondary">Precipitação</Text>
-//               <Title level={3}>{estacaoAtual.chuva}</Title>
-//               <Text type="secondary">
-//                 Atualizado em: {estacaoAtual.data}
-//               </Text>
-//             </div>
-//           </Card>
-//         </Col>
-//       </Row>
-
-//       <Card className="painel-card proxima-etapa" bordered={false}>
-//         <Text className="sobretitulo">SPRINT 3 - CONCLUÍDA</Text>
-//         <Title level={4}>Integração de dados JSON locais realizada com sucesso</Title>
-//         <Paragraph>
-//           Os componentes agora exibem informações provenientes diretamente do arquivo JSON local, 
-//           cumprindo os requisitos da Sprint 3 da Cogmo.
-//         </Paragraph>
-//       </Card>
-//     </div>
-//   );
-// }
-
 import { useState, useEffect } from 'react';
 import { Alert, Card, Col, Row, Select, Typography, Spin } from 'antd';
 import {
@@ -119,7 +5,7 @@ import {
   CloudOutlined,
   ExperimentOutlined,
 } from '@ant-design/icons';
-import { getStations, getSummary } from '../api/api';
+import { getStations, getSummary } from '../api';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -175,19 +61,6 @@ export default function VisaoGeral() {
 
   // Encontra os dados da estação atual na lista
   const estacaoAtual = estacoes.find((e) => e.id === estacaoSelecionadaId) || estacoes[0] || {};
-=======
-import { Row, Col, Typography } from "antd";
-
-import CartaoMedicao from "../componentes/CartaoMedicao";
-import InformacoesEstacao from "../componentes/InformacoesEstacao";
-import AvisoSimulacao from "../componentes/AvisoSimulacao";
-import { estacoes, medicaoExemplo } from "../dados/estacoes";
-
-const { Title, Paragraph, Text } = Typography;
-
-function VisaoGeral() {
-  const estacaoSelecionada = estacoes[0];
->>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
 
   return (
     <div className="pagina">
@@ -195,11 +68,11 @@ function VisaoGeral() {
         <Text className="sobretitulo">PAINEL DE CONTROLE</Text>
         <Title level={2}>Visão Geral</Title>
         <Paragraph>
-          Acompanhe as estações de monitoramento hidrológico em um só lugar.
+          Acompanhe a estrutura de monitoramento das estações
+          hidrológicas em um só lugar.
         </Paragraph>
       </div>
 
-<<<<<<< HEAD
       <Alert
         className="alerta-simulado"
         type="info"
@@ -207,15 +80,20 @@ function VisaoGeral() {
         message="Ambiente demonstrativo"
         description={dadosResumo?.message || "As informações e futuras medições deste projeto são simuladas. Não representam condições hidrológicas reais."}
       />
-=======
-      <AvisoSimulacao />
->>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1
 
-      <Title level={4} style={{ marginTop: 24 }}>
-        Estações de monitoramento
-      </Title>
+      <Card className="painel-card" bordered={false}>
+        <div className="secao-cabecalho">
+          <div className="icone-secao">
+            <EnvironmentOutlined />
+          </div>
+          <div>
+            <Title level={4}>Estação de monitoramento</Title>
+            <Text type="secondary">
+              Selecione uma estação para consultar seus indicadores.
+            </Text>
+          </div>
+        </div>
 
-<<<<<<< HEAD
         <div className="campo-estacao">
           <Text strong>Estação selecionada</Text>
           <Select
@@ -287,45 +165,3 @@ function VisaoGeral() {
     </div>
   );
 }
-=======
-      <Row gutter={[16, 16]}>
-        {estacoes.map((estacao) => (
-          <Col xs={24} md={8} key={estacao.id}>
-            <InformacoesEstacao
-              nome={estacao.nome}
-              rio={estacao.rio}
-              municipio={estacao.municipio}
-            />
-          </Col>
-        ))}
-      </Row>
-
-      <Title level={4} style={{ marginTop: 24 }}>
-        Medições da estação selecionada ({estacaoSelecionada.nome} — exemplo)
-      </Title>
-
-      <Row gutter={[16, 16]}>
-        <Col xs={24} md={12}>
-          <CartaoMedicao
-            titulo={`Nível do ${estacaoSelecionada.rio}`}
-            valor={medicaoExemplo.nivel}
-            unidade="m"
-            horario={medicaoExemplo.horario}
-          />
-        </Col>
-
-        <Col xs={24} md={12}>
-          <CartaoMedicao
-            titulo="Precipitação"
-            valor={medicaoExemplo.chuva}
-            unidade="mm/h"
-            horario={medicaoExemplo.horario}
-          />
-        </Col>
-      </Row>
-    </div>
-  );
-}
-
-export default VisaoGeral;
->>>>>>> cf8245c7906d7c5f02cb2cf771dab6dceb2ec3d1

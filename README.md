@@ -1,71 +1,58 @@
-# Dashboard de Monitoramento Hidrológico
+# 🌊 Dashboard de Monitoramento Hidrológico
 
-Projeto desenvolvido no curso de Front-end do IFB, em resposta ao desafio proposto pela **Cogmo Technology**.
+Projeto desenvolvido no curso de Front-end do **IFB**, com base no desafio proposto pela **Cogmo Technology**.
 
-## Sobre o projeto
+## 🎯 Sobre o projeto
 
-O Dashboard de Monitoramento Hidrológico é uma aplicação web desenvolvida para consultar dados simulados de estações de monitoramento, visualizar as últimas medições de nível do rio e precipitação e acompanhar seus históricos por meio de gráficos.
+O objetivo é desenvolver uma aplicação web para consultar dados simulados de estações de monitoramento hidrológico, visualizar as últimas medições do nível do rio e da precipitação e analisar seus históricos por meio de gráficos.
 
-**Importante:** todas as estações e medições são fictícias. A aplicação possui finalidade exclusivamente demonstrativa e não deve ser utilizada para decisões operacionais ou de segurança.
+> ⚠️ **Importante:** todas as estações e medições são fictícias e possuem finalidade exclusivamente demonstrativa. Os dados não devem ser utilizados para decisões operacionais ou de segurança.
 
-## Tecnologias utilizadas
+## 🛠️ Tecnologias utilizadas
 
-- ReactJS
-- Ant Design (AntD)
-- Recharts
-- JavaScript
-- HTML e CSS
-- StackBlitz para desenvolvimento e demonstração online
+- ⚛️ **ReactJS** — construção da interface.
+- 🎨 **Ant Design** — componentes visuais.
+- 📊 **Recharts** — visualização dos gráficos.
+- 🟨 **JavaScript** — lógica e interatividade.
+- 🗂️ **Dados locais (mock)** — simulação das informações, sem necessidade de backend.
+- 💻 **StackBlitz** — ambiente de desenvolvimento online.
 
-## Funcionalidades
+## ✨ Funcionalidades previstas
 
-- Listagem e seleção de estações de monitoramento.
-- Exibição do rio e do município da estação selecionada.
-- Consulta das últimas medições de nível do rio e precipitação, com unidades e horários.
-- Gráficos históricos separados para nível do rio e precipitação.
-- Filtros de período de 12, 24 e 48 horas.
-- Mensagem informativa quando não houver dados disponíveis.
-- Tabela de medições com recursos de consulta, ordenação e filtragem, conforme a implementação.
+- 📍 Listagem e seleção de estações.
+- 🏞️ Exibição do rio e município da estação selecionada.
+- 💧 Consulta da última medição do nível do rio, em metros (m).
+- 🌧️ Consulta da última medição de precipitação, em milímetros por hora (mm/h).
+- 📈 Gráficos históricos separados para nível do rio e precipitação.
+- 🕒 Filtros de período de 12, 24 e 48 horas.
+- 📋 Tabela de medições com opções de ordenação e filtragem.
+- ℹ️ Mensagens informativas para situações sem dados disponíveis.
 
-## Como executar
+*As funcionalidades serão implementadas e validadas durante o desenvolvimento, priorizando os requisitos obrigatórios do desafio.*
 
-O projeto pode ser executado diretamente pelo StackBlitz, sem necessidade de instalar um ambiente de desenvolvimento local.
+## 🚀 Como executar
 
-Para executar localmente:
-
-1. Instale o Node.js.
-2. Baixe ou clone o projeto.
-3. Abra o terminal na pasta do projeto.
-4. Instale as dependências:
+1. Abra o projeto no StackBlitz.
+2. Instale as dependências necessárias:
 
    ```bash
    npm install
+   npm install antd @ant-design/icons recharts
    ```
 
-5. Inicie o ambiente de desenvolvimento:
+3. Execute a aplicação:
 
    ```bash
    npm run dev
    ```
 
-6. Acesse o endereço local indicado no terminal.
+4. Acesse o endereço disponibilizado pelo ambiente de desenvolvimento.
 
-## Dados
+## 👥 Equipe
 
-A aplicação utiliza dados simulados armazenados localmente, permitindo seu funcionamento sem necessidade de backend ou banco de dados.
+Projeto acadêmico desenvolvido em equipe por três integrantes do curso de Front-end do IFB. 
+Maria Júlia, Thalita e Samantha.
 
-Os horários e as unidades das medições são apresentados conforme as regras definidas para o desafio.
+## 📌 Observação
 
-## Objetivo acadêmico
-
-O projeto tem como objetivo aplicar conceitos de desenvolvimento Front-end, incluindo componentes, propriedades (_props_), estados, eventos, visualização de dados, organização do código, responsividade e usabilidade.
-
-## Equipe
-
-Projeto desenvolvido em equipe por estudantes do curso de Front-end do IFB. Maria Júlia, Thalita e Samantha.
-
----
-
-**Desafio Front-end — Dashboard de Monitoramento Hidrológico**  
-**Empresa parceira:** Cogmo Technology  
-**Instituição de ensino:** Instituto Federal de Brasília (IFB)
+O projeto prioriza usabilidade, responsividade, organização do código e visualização clara dos dados, seguindo os requisitos do desafio proposto pela Cogmo Technology.
