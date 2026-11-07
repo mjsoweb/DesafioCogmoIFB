@@ -6,54 +6,20 @@ import {
   ClockCircleOutlined,
   DatabaseOutlined,
 } from '@ant-design/icons';
-import { getStations, getSeries } from '../api';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Area,
+  AreaChart,
+} from 'recharts';
+import { getStations, getSeries } from '../api/api';
 
 const { Title, Paragraph, Text } = Typography;
-
-function EspacoGrafico({ titulo, descricao, icone, unidade, pontos }) {
-  return (
-    <Card className="grafico-card" bordered={false}>
-      <div className="secao-cabecalho">
-        <div className="icone-secao">{icone}</div>
-        <div>
-          <Title level={4}>{titulo}</Title>
-          <Text type="secondary">{descricao}</Text>
-        </div>
-      </div>
-
-      {/* Listagem rápida dos pontos obtidos via API mock */}
-      <div style={{ margin: '16px 0', background: '#fafafa', padding: '12px', borderRadius: '8px', maxHeight: '150px', overflowY: 'auto' }}>
-        <Text strong style={{ display: 'block', marginBottom: '8px' }}>
-          <DatabaseOutlined /> Amostras recuperadas da API:
-        </Text>
-        {pontos && pontos.length > 0 ? (
-          <ul style={{ paddingLeft: '20px', margin: 0 }}>
-            {pontos.slice(0, 5).map((ponto, index) => (
-              <li key={index}>
-                <Text type="secondary">
-                  {new Date(ponto.timestamp).toLocaleString('pt-BR')}: <strong>{ponto.value} {unidade.includes('m') ? 'm' : 'mm/h'}</strong>
-                </Text>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <Text type="secondary">Nenhum ponto retornado para este período.</Text>
-        )}
-      </div>
-
-      <div className="grafico-placeholder">
-        <div className="grafico-placeholder-icone">
-          <LineChartOutlined />
-        </div>
-        <Text strong>Gráfico reservado</Text>
-        <Text type="secondary">
-          A visualização gráfica será implementada em uma próxima sprint.
-        </Text>
-        <Text className="unidade-grafico">{unidade}</Text>
-      </div>
-    </Card>
-  );
-}
 
 export default function HistoricoMedicoes() {
   const [estacoes, setEstacoes] = useState([]);
@@ -63,19 +29,17 @@ export default function HistoricoMedicoes() {
   const [serieChuva, setSerieChuva] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  // 1. Carrega as estações ao abrir a página
   useEffect(() => {
     async function carregarLista() {
       try {
         const resposta = await getStations();
-        if (resposta && resposta.stations) {
-          setEstacoes(resposta.stations);
-          if (resposta.stations.length > 0) {
-            setEstacaoSelecionadaId(resposta.stations[0].id);
-          }
+        const lista = resposta?.stations || [];
+        setEstacoes(lista);
+        if (lista.length > 0) {
+          setEstacaoSelecionadaId(lista[0].id);
         }
       } catch (erro) {
-        console.error("Erro ao carregar estações:", erro);
+        console.error('Erro ao carregar estações:', erro);
       } finally {
         setCarregando(false);
       }
@@ -83,7 +47,6 @@ export default function HistoricoMedicoes() {
     carregarLista();
   }, []);
 
-  // 2. Carrega as séries de nível e chuva sempre que mudar a estação ou as horas
   useEffect(() => {
     if (!estacaoSelecionadaId) return;
 
@@ -92,10 +55,18 @@ export default function HistoricoMedicoes() {
         const dadosNivel = await getSeries(estacaoSelecionadaId, 'level', Number(horasSelecionadas));
         const dadosChuva = await getSeries(estacaoSelecionadaId, 'rain', Number(horasSelecionadas));
         
-        setSerieNivel(dadosNivel?.points || []);
-        setSerieChuva(dadosChuva?.points || []);
+        // Formatando o timestamp para exibir a hora amigável nos gráficos e listas
+        const formatarPontos = (pontos) => 
+          (pontos || []).map(p => ({
+            ...p,
+            horaFormatada: new Date(p.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+            dataCompleta: new Date(p.timestamp).toLocaleString('pt-BR')
+          }));
+
+        setSerieNivel(formatarPontos(dadosNivel?.points));
+        setSerieChuva(formatarPontos(dadosChuva?.points));
       } catch (erro) {
-        console.error("Erro ao carregar histórico:", erro);
+        console.error('Erro ao carregar histórico:', erro);
       }
     }
     carregarSeries();
@@ -112,31 +83,30 @@ export default function HistoricoMedicoes() {
   return (
     <div className="pagina">
       <div className="pagina-introducao">
-        <Text className="sobretitulo">ANÁLISE TEMPORAL</Text>
+        <Text className="sobretitulo" style={{ color: '#007bff', fontWeight: 'bold', fontSize: '12px' }}>ANÁLISE TEMPORAL</Text>
         <Title level={2}>Histórico de Medições</Title>
-        <Paragraph>
-          Estrutura para consultar a evolução do nível do rio e da
-          precipitação ao longo do tempo utilizando a API mock.
+        <Paragraph type="secondary">
+          Acompanhe a evolução temporal do nível do rio e da precipitação através de tabelas de amostras e gráficos interativos.
         </Paragraph>
       </div>
 
-      <Card className="painel-card" bordered={false}>
+      <Card className="painel-card" bordered={false} style={{ marginBottom: 24, borderRadius: '16px' }}>
         <div className="filtros-cabecalho" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div className="secao-cabecalho" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div className="icone-secao">
-              <ClockCircleOutlined />
+            <div className="icone-secao" style={{ background: '#e7f1ff', color: '#007bff', padding: '10px', borderRadius: '10px' }}>
+              <ClockCircleOutlined style={{ fontSize: '20px' }} />
             </div>
             <div>
               <Title level={4} style={{ margin: 0 }}>Período e Estação</Title>
               <Text type="secondary">
-                Filtre os registros temporais para a futura visualização.
+                Filtre os registros temporais para atualizar os dados e gráficos instantaneamente.
               </Text>
             </div>
           </div>
 
           <Space wrap>
             <Select
-              style={{ width: 200 }}
+              style={{ width: 220 }}
               size="large"
               value={estacaoSelecionadaId}
               onChange={(valor) => setEstacaoSelecionadaId(valor)}
@@ -148,46 +118,122 @@ export default function HistoricoMedicoes() {
               onChange={(e) => setHorasSelecionadas(e.target.value)}
               optionType="button"
               buttonStyle="solid"
-              options={[
-                { label: '12 horas', value: '12' },
-                { label: '24 horas', value: '24' },
-                { label: '48 horas', value: '48' },
-              ]}
-            />
+              size="large"
+            >
+              <Radio.Button value="12">12 h</Radio.Button>
+              <Radio.Button value="24">24 h</Radio.Button>
+              <Radio.Button value="48">48 h</Radio.Button>
+            </Radio.Group>
           </Space>
         </div>
-        <Text type="secondary" className="texto-ajuda" style={{ display: 'block', marginTop: '12px' }}>
-          Os controles já integram dados temporais mockados para a Sprint 3.
-        </Text>
       </Card>
 
-      <Row gutter={[24, 24]}>
+      {/* SEÇÃO 1: GRÁFICOS INTERATIVOS RECHARTS */}
+      <Row gutter={[24, 24]} style={{ marginBottom: '24px' }}>
+        {/* Gráfico de Nível do Rio */}
         <Col xs={24} xl={12}>
-          <EspacoGrafico
-            titulo="Nível do rio"
-            descricao="Histórico do nível da água por estação"
-            icone={<LineChartOutlined />}
-            unidade="Unidade prevista: metros (m)"
-            pontos={serieNivel}
-          />
+          <Card title="Nível do rio (Gráfico)" extra={<span className="unidade">Metros (m)</span>} bordered={false} style={{ borderRadius: '16px' }}>
+            <ResponsiveContainer width="100%" height={260}>
+              <LineChart data={serieNivel}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e9ecef" />
+                <XAxis dataKey="horaFormatada" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} domain={['auto', 'auto']} />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  name="Nível (m)"
+                  stroke="#007bff"
+                  strokeWidth={3}
+                  dot={{ r: 3, fill: '#007bff' }}
+                  activeDot={{ r: 6 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </Card>
         </Col>
 
+        {/* Gráfico de Precipitação */}
         <Col xs={24} xl={12}>
-          <EspacoGrafico
-            titulo="Precipitação"
-            descricao="Histórico de chuva por estação"
-            icone={<CloudOutlined />}
-            unidade="Unidade prevista: mm/h"
-            pontos={serieChuva}
-          />
+          <Card title="Precipitação (Gráfico)" extra={<span className="unidade">mm/h</span>} bordered={false} style={{ borderRadius: '16px' }}>
+            <ResponsiveContainer width="100%" height={260}>
+              <AreaChart data={serieChuva}>
+                <defs>
+                  <linearGradient id="gradChuva" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#6f42c1" stopOpacity={0.4} />
+                    <stop offset="100%" stopColor="#6f42c1" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e9ecef" />
+                <XAxis dataKey="horaFormatada" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} domain={['auto', 'auto']} />
+                <Tooltip />
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  name="Precipitação (mm/h)"
+                  stroke="#6f42c1"
+                  fill="url(#gradChuva)"
+                  strokeWidth={3}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </Card>
         </Col>
       </Row>
 
-      <div className="nota-informativa" style={{ marginTop: '24px' }}>
-        <Text type="secondary">
-          Os dados exibidos provêm dos serviços da API mock, preparando a base para os gráficos das próximas sprints.
-        </Text>
-      </div>
+      {/* SEÇÃO 2: AMOSTRAS DETALHADAS DA API (LISTA) */}
+      <Row gutter={[24, 24]}>
+        {/* Amostras Nível */}
+        <Col xs={24} xl={12}>
+          <Card 
+            title={<span><DatabaseOutlined /> Amostras Detalhadas - Nível do Rio</span>} 
+            bordered={false} 
+            style={{ borderRadius: '16px' }}
+          >
+            <div style={{ maxHeight: '220px', overflowY: 'auto', paddingRight: '4px' }}>
+              {serieNivel && serieNivel.length > 0 ? (
+                <ul style={{ paddingLeft: '20px', margin: 0 }}>
+                  {serieNivel.map((ponto, index) => (
+                    <li key={index} style={{ marginBottom: '6px' }}>
+                      <Text type="secondary">
+                        {ponto.dataCompleta}: <strong>{ponto.value} m</strong>
+                      </Text>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <Text type="secondary">Nenhum ponto retornado para este período.</Text>
+              )}
+            </div>
+          </Card>
+        </Col>
+
+        {/* Amostras Precipitação */}
+        <Col xs={24} xl={12}>
+          <Card 
+            title={<span><DatabaseOutlined /> Amostras Detalhadas - Precipitação</span>} 
+            bordered={false} 
+            style={{ borderRadius: '16px' }}
+          >
+            <div style={{ maxHeight: '220px', overflowY: 'auto', paddingRight: '4px' }}>
+              {serieChuva && serieChuva.length > 0 ? (
+                <ul style={{ paddingLeft: '20px', margin: 0 }}>
+                  {serieChuva.map((ponto, index) => (
+                    <li key={index} style={{ marginBottom: '6px' }}>
+                      <Text type="secondary">
+                        {ponto.dataCompleta}: <strong>{ponto.value} mm/h</strong>
+                      </Text>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <Text type="secondary">Nenhum ponto retornado para este período.</Text>
+              )}
+            </div>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 }

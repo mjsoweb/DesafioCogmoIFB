@@ -1,10 +1,10 @@
-import { Layout, Menu, Typography } from 'antd';
+import { useState } from 'react';
+import { Grid, Layout, Menu } from 'antd';
 
 import {
   DashboardOutlined,
   LineChartOutlined,
   TableOutlined,
-  EnvironmentOutlined,
   SafetyCertificateOutlined,
   MenuOutlined,
   MenuFoldOutlined,
@@ -44,7 +44,9 @@ export default function LayoutPrincipal() {
   const [menuRecolhido, setMenuRecolhido] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
 
-  const menuRecolhidoAtual = mobile ? !menuAberto : menuRecolhido;
+  const menuRecolhidoAtual = mobile
+    ? !menuAberto
+    : menuRecolhido;
 
   function selecionarPagina({ key }) {
     navegar(key);
@@ -53,6 +55,8 @@ export default function LayoutPrincipal() {
 
   return (
     <Layout className="aplicacao" hasSider>
+
+      {/* OVERLAY DO MENU MOBILE */}
       {mobile && menuAberto && (
         <div
           className="menu-overlay"
@@ -60,25 +64,38 @@ export default function LayoutPrincipal() {
         />
       )}
 
+      {/* =========================================
+          MENU LATERAL
+      ========================================= */}
       <Sider
         width={250}
         collapsedWidth={mobile ? 0 : 80}
         collapsed={menuRecolhidoAtual}
         trigger={null}
         className={`menu-lateral ${
-          mobile && menuAberto ? 'menu-lateral-aberto' : ''
+          mobile && menuAberto
+            ? 'menu-lateral-aberto'
+            : ''
         }`}
       >
+
+        {/* MARCA */}
         <div className="marca">
-          <div className="marca-icone">
-           <img src="/logo-cogmo.png" alt="Logo Cogmo" />
+          <div className="marca-icone" style={{ background: 'transparent', padding: 0 }}>
+            <img src="/logo-cogmo.png" alt="Logo Cogmo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
 
           <div className="marca-textos">
-            <div className="marca-nome">COGMO</div>
-            <div className="marca-subtitulo">TECHNOLOGY</div>
+            <div className="marca-nome">
+              COGMO
+            </div>
+
+            <div className="marca-subtitulo">
+              TECHNOLOGY
+            </div>
           </div>
 
+          {/* BOTÃO FECHAR - MOBILE */}
           <button
             className="botao-fechar-menu"
             onClick={() => setMenuAberto(false)}
@@ -86,33 +103,60 @@ export default function LayoutPrincipal() {
           >
             <CloseOutlined />
           </button>
+
         </div>
 
-        <div className="menu-titulo">MONITORAMENTO</div>
+        {/* TÍTULO DO MENU */}
+        <div className="menu-titulo">
+          MONITORAMENTO
+        </div>
 
+        {/* NAVEGAÇÃO */}
         <Menu
           theme="dark"
           mode="inline"
-          inlineCollapsed={!mobile && menuRecolhido}
-          selectedKeys={[localizacao.pathname]}
+          inlineCollapsed={
+            !mobile && menuRecolhido
+          }
+          selectedKeys={[
+            localizacao.pathname,
+          ]}
           items={itensMenu}
           onClick={selecionarPagina}
           className="menu-navegacao"
         />
 
+        {/* RODAPÉ DO MENU */}
         <div className="menu-rodape">
           <span className="indicador-ponto" />
-          <span>Ambiente demonstrativo</span>
+
+          <span>
+            Ambiente demonstrativo
+          </span>
         </div>
+
       </Sider>
 
+      {/* =========================================
+          ÁREA PRINCIPAL
+      ========================================= */}
       <Layout className="layout-principal">
+
+        {/* =====================================
+            CABEÇALHO
+        ===================================== */}
         <Header className="cabecalho">
+
+          {/* BOTÃO DESKTOP */}
           <button
             className="botao-menu-desktop"
-            onClick={() => setMenuRecolhido(!menuRecolhido)}
+            onClick={() =>
+              setMenuRecolhido(!menuRecolhido)
+            }
             aria-label={
-              menuRecolhido ? 'Expandir menu' : 'Recolher menu'
+              menuRecolhido
+                ? 'Expandir menu'
+                : 'Recolher menu'
             }
           >
             {menuRecolhido ? (
@@ -122,6 +166,7 @@ export default function LayoutPrincipal() {
             )}
           </button>
 
+          {/* BOTÃO MOBILE */}
           <button
             className="botao-menu-mobile"
             onClick={() => setMenuAberto(true)}
@@ -130,49 +175,70 @@ export default function LayoutPrincipal() {
             <MenuOutlined />
           </button>
 
+          {/* IDENTIDADE */}
           <div className="cabecalho-identidade">
-            <div className="cabecalho-simbolo">
-              <img src="/logo-cogmo.png" alt="Logo Cogmo" />
+
+            <div className="cabecalho-simbolo" style={{ width: '34px', height: '34px' }}>
+              <img src="/logo-cogmo.png" alt="Logo Cogmo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
 
             <div className="cabecalho-textos">
+
               <span className="cabecalho-legenda">
                 COGMO TECHNOLOGY
               </span>
+
               <span className="cabecalho-titulo">
                 Monitoramento Hidrológico
               </span>
+
             </div>
+
           </div>
 
+          {/* STATUS */}
           <div className="cabecalho-status">
+
             <span className="status-icone">
               <SafetyCertificateOutlined />
             </span>
 
             <div className="status-textos">
+
               <span className="status-titulo">
                 Ambiente demonstrativo
               </span>
+
               <span className="status-subtitulo">
                 Dados simulados
               </span>
+
             </div>
 
             <span className="status-ponto" />
+
           </div>
+
         </Header>
 
+        {/* =====================================
+            CONTEÚDO
+        ===================================== */}
         <Content className="conteudo">
+
           <main className="conteudo-principal">
             <Outlet />
           </main>
 
+          {/* RODAPÉ */}
           <footer className="rodape">
-            Cogmo Technology · Projeto Integrador — Bolsa Futuro Digital IFB
+            Cogmo Technology · Projeto Integrador — Bolsa Futuro Digital
           </footer>
+
         </Content>
+
       </Layout>
+
     </Layout>
   );
 }

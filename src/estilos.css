@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 * {
@@ -8,19 +7,36 @@
 body {
   margin: 0;
   font-family: 'Inter', Arial, sans-serif;
-  background: #f3f6fa;
-  color: #17324d;
+  background: #f8f9fa;
+  color: #343a40;
 }
 
 .aplicacao {
   min-height: 100vh;
 }
 
+
+/* =========================================================
+   MENU LATERAL
+========================================================= */
+
 .menu-lateral {
-  background: #102c46 !important;
+  background: #0d1b2a !important;
   min-height: 100vh;
   position: relative;
+  transition: width 0.25s ease;
 }
+
+.menu-lateral .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+/* =========================================================
+   MARCA
+========================================================= */
 
 .marca {
   display: flex;
@@ -28,15 +44,17 @@ body {
   gap: 12px;
   padding: 28px 20px;
   color: white;
+  position: relative;
 }
 
 .marca-icone {
   display: grid;
   place-items: center;
   width: 43px;
+  min-width: 43px;
   height: 43px;
   border-radius: 13px;
-  background: #1a9c9a;
+  background: #6610f2;
   font-size: 23px;
 }
 
@@ -51,31 +69,71 @@ body {
 }
 
 .marca span {
-  color: #b7c8d8;
+  color: #adb5bd;
   font-size: 11px;
   margin-top: 4px;
 }
 
+.marca-textos {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.marca-nome {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.marca-subtitulo {
+  color: #adb5bd;
+  font-size: 10px;
+  margin-top: 5px;
+  letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   TÍTULO DO MENU
+========================================================= */
+
 .menu-titulo {
   padding: 10px 24px;
-  color: #90a8bd;
+  color: #868e96;
   font-size: 10px;
   letter-spacing: 1.5px;
 }
 
+
+/* =========================================================
+   NAVEGAÇÃO
+========================================================= */
+
 .menu-lateral .ant-menu {
-  background: transparent;
-  border-inline-end: none;
+  background: transparent !important;
+  border-inline-end: none !important;
 }
 
 .menu-lateral .ant-menu-item {
   margin: 6px 12px;
   width: calc(100% - 24px);
+  border-radius: 8px;
+}
+
+.menu-lateral .ant-menu-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
 .menu-lateral .ant-menu-item-selected {
-  background: #1d5369 !important;
+  background: #007bff !important;
 }
+
+
+/* =========================================================
+   AVISO / RODAPÉ DO MENU
+========================================================= */
 
 .aviso-lateral {
   position: absolute;
@@ -83,8 +141,8 @@ body {
   left: 18px;
   right: 18px;
   padding: 16px;
-  background: #1a3b55;
-  color: #dceaf5;
+  background: #1b263b;
+  color: #f8f9fa;
   border-radius: 12px;
   font-size: 13px;
 }
@@ -96,22 +154,288 @@ body {
 
 .aviso-lateral span {
   font-size: 11px;
-  color: #b7c8d8;
+  color: #adb5bd;
   line-height: 1.5;
 }
 
-.cabecalho {
-  background: white;
-  padding: 25px 34px;
+
+/* =========================================================
+   RODAPÉ DO MENU ATUAL
+========================================================= */
+
+.menu-rodape {
+  margin-top: auto;
+  padding: 20px;
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  border-bottom: 1px solid #e9eef4;
+  gap: 8px;
+
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10px;
 }
 
+.indicador-ponto {
+  width: 7px;
+  height: 7px;
+  min-width: 7px;
+  border-radius: 50%;
+  background: #e83e8c;
+  display: inline-block;
+}
+
+
+/* =========================================================
+   MENU RECOLHIDO - DESKTOP
+========================================================= */
+
+.menu-lateral.ant-layout-sider-collapsed {
+  width: 80px !important;
+  min-width: 80px !important;
+  max-width: 80px !important;
+}
+
+.menu-lateral.ant-layout-sider-collapsed .marca {
+  padding: 28px 0;
+  justify-content: center;
+}
+
+.menu-lateral.ant-layout-sider-collapsed .marca-textos {
+  display: none;
+}
+
+.menu-lateral.ant-layout-sider-collapsed .menu-titulo {
+  display: none;
+}
+
+
+/* Centralização dos ícones */
+
+.menu-lateral.ant-layout-sider-collapsed
+  .ant-menu-item {
+  padding-inline: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.menu-lateral.ant-layout-sider-collapsed
+  .ant-menu-item .ant-menu-item-icon {
+  margin-inline-end: 0 !important;
+  font-size: 18px;
+}
+
+.menu-lateral.ant-layout-sider-collapsed
+  .ant-menu-title-content {
+  display: none;
+}
+
+.menu-lateral.ant-layout-sider-collapsed
+  .menu-rodape {
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.menu-lateral.ant-layout-sider-collapsed
+  .menu-rodape span:last-child {
+  display: none;
+}
+
+
+/* =========================================================
+   BOTÃO FECHAR MENU
+========================================================= */
+
+.botao-fechar-menu {
+  display: none;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.cabecalho {
+  height: 64px;
+
+  background: white !important;
+
+  padding: 0 25px !important;
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  border-bottom: 1px solid #dee2e6;
+
+  position: relative;
+  z-index: 10;
+}
+
+
+/* =========================================================
+   BOTÃO MENU DESKTOP
+========================================================= */
+
+.botao-menu-desktop {
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #343a40;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  border-radius: 8px;
+
+  transition: background 0.2s ease;
+}
+
+.botao-menu-desktop:hover {
+  background: #f8f9fa;
+}
+
+
+/* =========================================================
+   BOTÃO MENU MOBILE
+========================================================= */
+
+.botao-menu-mobile {
+  display: none;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  background: transparent;
+
+  color: #343a40;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   IDENTIDADE DO CABEÇALHO
+========================================================= */
+
+.cabecalho-identidade {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cabecalho-simbolo {
+  display: grid;
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  color: #6610f2;
+
+  font-size: 21px;
+}
+
+.cabecalho-textos {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.cabecalho-legenda {
+  color: #6610f2;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.cabecalho-titulo {
+  color: #343a40;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  margin-top: 3px;
+}
+
+
+/* =========================================================
+   STATUS DO CABEÇALHO
+========================================================= */
+
+.cabecalho-status {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.status-icone {
+  color: #007bff;
+
+  font-size: 17px;
+
+  display: flex;
+  align-items: center;
+}
+
+.status-textos {
+  display: flex;
+  flex-direction: column;
+
+  line-height: 1.2;
+}
+
+.status-titulo {
+  color: #343a40;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-subtitulo {
+  color: #6c757d;
+
+  font-size: 9px;
+
+  margin-top: 2px;
+}
+
+.status-ponto {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #28a745;
+}
+
+
+/* =========================================================
+   CABEÇALHO ANTIGO
+========================================================= */
+
 .caminho {
-  color: #8292a3;
+  color: #6c757d;
   font-size: 12px;
 }
 
@@ -124,8 +448,18 @@ body {
 .cabecalho p,
 .historico-cabecalho p {
   margin: 0;
-  color: #7a8b9d;
+  color: #6c757d;
   font-size: 13px;
+}
+
+
+/* =========================================================
+   LAYOUT PRINCIPAL
+========================================================= */
+
+.layout-principal {
+  min-width: 0;
+  background: #f8f9fa !important;
 }
 
 .conteudo {
@@ -133,13 +467,25 @@ body {
   max-width: 1600px;
   width: 100%;
   margin: 0 auto;
+
+  background: #f8f9fa;
 }
+
+.conteudo-principal {
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
 
 .seletor-card,
 .indicador,
 .grade-graficos .ant-card {
   border-radius: 16px;
-  box-shadow: 0 5px 22px rgba(23, 50, 77, 0.045);
+  box-shadow: 0 5px 22px rgba(0, 123, 255, 0.045);
 }
 
 .seletor-card .ant-card-body {
@@ -151,7 +497,7 @@ body {
 
 .rotulo,
 .identificacao span {
-  color: #8192a3;
+  color: #6c757d;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -166,6 +512,11 @@ body {
   width: 260px;
 }
 
+
+/* =========================================================
+   IDENTIFICAÇÃO DA ESTAÇÃO
+========================================================= */
+
 .identificacao {
   display: flex;
   align-items: center;
@@ -176,11 +527,16 @@ body {
 .identificacao-icone {
   display: grid;
   place-items: center;
+
   width: 48px;
   height: 48px;
+
   border-radius: 14px;
-  background: #dff4f1;
-  color: #168b83;
+
+  background: #e7f1ff;
+
+  color: #007bff;
+
   font-size: 22px;
 }
 
@@ -191,16 +547,29 @@ body {
 
 .identificacao p {
   margin: 0;
-  color: #78899a;
+  color: #6c757d;
   font-size: 13px;
 }
+
+
+/* =========================================================
+   GRADES
+========================================================= */
 
 .grade-cartoes,
 .grade-graficos {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
   gap: 20px;
 }
+
+
+/* =========================================================
+   INDICADORES
+========================================================= */
 
 .indicador .ant-card-body {
   padding: 24px;
@@ -210,8 +579,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin-bottom: 17px;
-  color: #63788b;
+
+  color: #495057;
+
   font-size: 14px;
   font-weight: 600;
 }
@@ -220,17 +592,22 @@ body {
 .icone-chuva {
   display: grid;
   place-items: center;
+
   width: 42px;
   height: 42px;
+
   border-radius: 13px;
-  background: #e4f3fb;
-  color: #167dAB;
+
+  background: #e7f1ff;
+
+  color: #007bff;
+
   font-size: 25px;
 }
 
 .icone-chuva {
-  background: #def6f0;
-  color: #168b83;
+  background: #f3e8ff;
+  color: #6f42c1;
   font-size: 20px;
 }
 
@@ -240,15 +617,24 @@ body {
 
 .horario {
   margin: 14px 0 0;
-  color: #8392a2;
+
+  color: #6c757d;
+
   font-size: 11px;
 }
+
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
 
 .historico-cabecalho {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 18px;
+
   margin: 34px 0 18px;
 }
 
@@ -256,6 +642,11 @@ body {
   font-size: 19px;
   margin: 0 0 6px;
 }
+
+
+/* =========================================================
+   GRÁFICOS
+========================================================= */
 
 .grade-graficos .ant-card-head {
   min-height: 60px;
@@ -269,36 +660,174 @@ body {
 .unidade {
   font-size: 11px;
   font-weight: 400;
-  color: #7d8e9f;
+  color: #6c757d;
 }
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
 
 .rodape {
   display: flex;
+
   justify-content: space-between;
+
   gap: 12px;
+
   flex-wrap: wrap;
+
   margin-top: 28px;
+
   padding: 20px 0;
-  border-top: 1px solid #e1e8ef;
-  color: #8191a1;
+
+  border-top: 1px solid #dee2e6;
+
+  color: #6c757d;
+
   font-size: 11px;
 }
 
-@media (max-width: 900px) {
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 991px) {
+
+  /* -------------------------------------------------------
+     MENU LATERAL MOBILE
+  ------------------------------------------------------- */
+
   .menu-lateral {
+    position: fixed !important;
+
+    top: 0;
+    left: 0;
+
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+
+    height: 100vh;
+
+    z-index: 1001;
+
+    transform: translateX(-100%);
+
+    transition: transform 0.25s ease;
+  }
+
+  .menu-lateral-aberto {
+    transform: translateX(0);
+  }
+
+  .menu-lateral.ant-layout-sider-collapsed {
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 250px !important;
+  }
+
+
+  /* -------------------------------------------------------
+     BOTÃO FECHAR
+  ------------------------------------------------------- */
+
+  .botao-fechar-menu {
+    display: flex;
+
+    margin-left: auto;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.7);
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+
+    cursor: pointer;
+  }
+
+  .botao-fechar-menu:hover {
+    color: #ffffff;
+  }
+
+
+  /* -------------------------------------------------------
+     OVERLAY
+  ------------------------------------------------------- */
+
+  .menu-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(13, 27, 42, 0.45);
+
+    z-index: 1000;
+  }
+
+
+  /* -------------------------------------------------------
+     CABEÇALHO
+  ------------------------------------------------------- */
+
+  .botao-menu-desktop {
     display: none;
   }
 
-  .conteudo {
-    padding: 22px 18px;
+  .botao-menu-mobile {
+    display: flex;
   }
 
   .cabecalho {
+    height: 64px;
+    padding: 0 18px !important;
+  }
+
+
+  /* -------------------------------------------------------
+     IDENTIDADE
+  ------------------------------------------------------- */
+
+  .cabecalho-identidade {
+    margin-left: 4px;
+  }
+
+
+  /* -------------------------------------------------------
+     STATUS
+  ------------------------------------------------------- */
+
+  .cabecalho-status {
+    display: none;
+  }
+
+
+  /* -------------------------------------------------------
+     CONTEÚDO
+  ------------------------------------------------------- */
+
+  .conteudo {
     padding: 22px 18px;
+    width: 100%;
   }
 }
 
+
+/* =========================================================
+   TABLET / CELULAR
+========================================================= */
+
 @media (max-width: 600px) {
+
   .cabecalho,
   .seletor-card .ant-card-body,
   .historico-cabecalho {
@@ -306,8 +835,17 @@ body {
     flex-direction: column;
   }
 
-  .cabecalho h1 {
-    font-size: 21px;
+  .cabecalho {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .cabecalho-titulo {
+    font-size: 13px;
+  }
+
+  .cabecalho-legenda {
+    font-size: 8px;
   }
 
   .seletor {
@@ -325,5 +863,37 @@ body {
 
   .indicador .ant-statistic-content {
     font-size: 27px;
+  }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .cabecalho {
+    padding: 0 12px !important;
+  }
+
+  .cabecalho-simbolo {
+    width: 28px;
+  }
+
+  .cabecalho-titulo {
+    font-size: 12px;
+  }
+
+  .cabecalho-legenda {
+    font-size: 7px;
+  }
+
+  .conteudo {
+    padding: 18px 14px;
+  }
+
+  .indicador .ant-card-body {
+    padding: 20px;
   }
 }
