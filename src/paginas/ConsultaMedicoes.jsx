@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Table, Card, Typography, Spin, Tag, Space, Button } from 'antd';
-import { DatabaseOutlined, ReloadOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { Table, Card, Typography, Spin, Tag, Space, Button, message } from 'antd';
+import { DatabaseOutlined, ReloadOutlined, EnvironmentOutlined, DownloadOutlined } from '@ant-design/icons';
 import { getStations, getSummary } from '../api/api';
 
 const { Title, Paragraph, Text } = Typography;
@@ -27,9 +27,10 @@ export default function ConsultaMedicoes() {
           }
         }
         setDetalhesResumo(novosResumos);
+        message.success('Tabela atualizada com sucesso!');
       }
     } catch (erro) {
-      console.error('Erro ao carregar medições:', erro);
+      message.error('Erro ao carregar medições da API.');
     } finally {
       setCarregando(false);
     }
@@ -38,6 +39,33 @@ export default function ConsultaMedicoes() {
   useEffect(() => {
     carregarDados();
   }, []);
+
+  // Função sênior para exportar dados em CSV (Gerador de Relatório Corporativo)
+  function exportarCSV() {
+    if (estacoes.length === 0) {
+      message.warning('Não há dados para exportar.');
+      return;
+    }
+
+    let csvContent = "data:text/csv;charset=utf-8,ID,Estacao,Rio,Municipio,Nivel (m),Precipitacao (mm/h)\n";
+    
+    estacoes.forEach((est) => {
+      const resumo = detalhesResumo[est.id];
+      const nivel = resumo?.latest?.level_m ?? 'N/A';
+      const chuva = resumo?.latest?.rain_mm_h ?? 'N/A';
+      csvContent += `${est.id},"${est.name}","${est.river}","${est.municipality}",${nivel},${chuva}\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "relatorio_hidrologico_cogmo.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    message.success('Relatório CSV exportado com sucesso!');
+  }
 
   const colunas = [
     {
@@ -112,7 +140,6 @@ export default function ConsultaMedicoes() {
 
   return (
     <div className="pagina" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
-      {/* Cabeçalho adaptável para telas menores */}
       <div 
         className="pagina-introducao" 
         style={{ 
@@ -128,17 +155,28 @@ export default function ConsultaMedicoes() {
           <Text className="sobretitulo" style={{ color: '#007bff', fontWeight: 'bold', fontSize: '12px' }}>DADOS E REGISTROS</Text>
           <Title level={2} style={{ margin: '4px 0' }}>Consulta de Medições</Title>
           <Paragraph type="secondary" style={{ margin: 0 }}>
-            Listagem detalhada das estações de monitoramento integradas ao serviço mock da API.
+            Listagem detalhada e exportação de relatórios operacionais do sistema.
           </Paragraph>
         </div>
-        <Button 
-          type="primary" 
-          icon={<ReloadOutlined />} 
-          onClick={carregarDados}
-          style={{ background: '#007bff' }}
-        >
-          Atualizar Dados
-        </Button>
+
+        <Space wrap>
+          <Button 
+            icon={<DownloadOutlined />} 
+            onClick={exportarCSV}
+            style={{ borderColor: '#007bff', color: '#007bff' }}
+          >
+            Exportar CSV
+          </Button>
+
+          <Button 
+            type="primary" 
+            icon={<ReloadOutlined />} 
+            onClick={carregarDados}
+            style={{ background: '#007bff' }}
+          >
+            Atualizar
+          </Button>
+        </Space>
       </div>
 
       <Card bordered={false} className="painel-card" style={{ boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)', borderRadius: '16px' }}>
@@ -149,7 +187,6 @@ export default function ConsultaMedicoes() {
           </Text>
         </div>
 
-        {/* Tabela com scroll horizontal automático em telas menores */}
         <Table
           dataSource={estacoes}
           columns={colunas}
