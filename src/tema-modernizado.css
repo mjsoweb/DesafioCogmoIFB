@@ -1,0 +1,1758 @@
+/* Visual modernizado consolidado na ordem original das camadas. */
+
+/* modernizacao.css */
+/* Camada visual opcional. Remover a importação em App.jsx restaura o visual anterior. */
+:root {
+  --cogmo-ink: #1d165c;
+  --cogmo-purple: #6129ac;
+  --cogmo-pink: #f9326e;
+  --cogmo-muted: #64617a;
+  --cogmo-line: #e9e4f1;
+  --cogmo-surface: #ffffff;
+  --cogmo-shadow: 0 12px 36px rgba(29, 22, 92, 0.065);
+}
+
+body,
+.layout-principal,
+.conteudo {
+  background: #f6f4fa !important;
+}
+
+.conteudo {
+  max-width: 1480px;
+  padding: 38px 48px;
+}
+
+.pagina {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.pagina-introducao {
+  margin-bottom: 28px;
+}
+
+.pagina-introducao .ant-typography.ant-typography-h2,
+.pagina-introducao h2 {
+  color: var(--cogmo-ink);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+.pagina-introducao .sobretitulo {
+  letter-spacing: 0.13em;
+  font-size: 11px !important;
+}
+
+.pagina-introducao .ant-typography-secondary,
+.pagina-introducao p {
+  color: var(--cogmo-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 760px;
+}
+
+.pagina .ant-card,
+.pagina .identificacao {
+  border: 1px solid var(--cogmo-line) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--cogmo-shadow) !important;
+  background: var(--cogmo-surface);
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.pagina .ant-card:hover {
+  border-color: #d9c9ec !important;
+  box-shadow: 0 16px 42px rgba(29, 22, 92, 0.095) !important;
+}
+
+.pagina .ant-card .ant-card-body {
+  padding: 26px;
+}
+
+.pagina .ant-card .ant-card-head {
+  min-height: 62px;
+  border-bottom-color: var(--cogmo-line);
+  padding: 0 26px;
+}
+
+.pagina .ant-card-head-title {
+  color: var(--cogmo-ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.seletor-card {
+  background: linear-gradient(110deg, #ffffff 66%, #f4edfb) !important;
+}
+
+.seletor-card .ant-card-body {
+  min-height: 104px;
+}
+
+.rotulo,
+.identificacao span {
+  color: var(--cogmo-purple);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.seletor-card h3,
+.identificacao h2 {
+  color: var(--cogmo-ink);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pagina .identificacao {
+  margin: 0 0 24px !important;
+  padding: 20px 24px !important;
+}
+
+.grade-cartoes,
+.grade-graficos {
+  gap: 24px;
+}
+
+.pagina .indicador {
+  position: relative;
+  overflow: hidden;
+  border-left: 1px solid var(--cogmo-line) !important;
+}
+
+.pagina .indicador::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cogmo-purple), var(--cogmo-pink));
+}
+
+.indicador-topo {
+  color: var(--cogmo-ink);
+  font-size: 15px;
+  margin-bottom: 22px;
+}
+
+.indicador .ant-statistic-content {
+  font-size: clamp(32px, 3vw, 42px);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.indicador .ant-statistic-content-suffix {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+.horario {
+  color: var(--cogmo-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.pagina .ant-select-selector,
+.pagina .ant-btn,
+.pagina .ant-radio-button-wrapper {
+  border-radius: 10px;
+}
+
+.pagina .ant-btn-primary {
+  box-shadow: 0 6px 16px rgba(97, 41, 172, 0.2);
+}
+
+.pagina .ant-table-wrapper {
+  overflow: hidden;
+  border: 1px solid var(--cogmo-line);
+  border-radius: 12px;
+}
+
+.pagina .ant-table-thead > tr > th {
+  background: #f7f3fb;
+  color: var(--cogmo-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pagina .ant-table-tbody > tr > td {
+  color: var(--cogmo-muted);
+  font-size: 13px;
+}
+
+.pagina .ant-table-tbody > tr:hover > td {
+  background: #faf7fd !important;
+}
+
+.pagina .unidade {
+  color: var(--cogmo-muted);
+  font-size: 12px;
+}
+
+.rodape {
+  margin-top: 42px;
+  border-top-color: var(--cogmo-line);
+  font-size: 12px;
+}
+
+/* O menu cresce sobre o conteúdo, sem deslocar os gráficos. */
+@media (min-width: 992px) {
+  .menu-lateral {
+    flex: 0 0 80px !important;
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+    z-index: 30;
+    overflow: visible;
+  }
+
+  .menu-lateral .ant-layout-sider-children {
+    position: sticky;
+    top: 0;
+    width: 80px;
+    height: 100vh;
+    overflow: hidden;
+    background: #180e30;
+    box-shadow: 4px 0 24px rgba(29, 22, 92, 0.12);
+    transition: width 250ms ease;
+  }
+
+  .menu-lateral:not(.ant-layout-sider-collapsed) .ant-layout-sider-children {
+    width: 250px;
+  }
+}
+
+@media (max-width: 991px) {
+  .conteudo { padding: 26px 24px; }
+}
+
+@media (max-width: 600px) {
+  .conteudo { padding: 20px 16px; }
+  .pagina-introducao { margin-bottom: 20px; }
+  .pagina-introducao .ant-typography.ant-typography-h2,
+  .pagina-introducao h2 { font-size: 26px; }
+  .pagina .ant-card .ant-card-body { padding: 20px; }
+  .pagina .ant-card .ant-card-head { padding: 0 20px; }
+  .seletor-card .ant-card-body { min-height: 0; }
+  .grade-cartoes,
+  .grade-graficos { gap: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina .ant-card,
+  .menu-lateral .ant-layout-sider-children { transition: none; }
+}
+
+/* modernizacao-extra.css */
+/* Segunda camada visual. Remover somente esta importação em App.jsx restaura a primeira modernização. */
+:root {
+  --extra-violeta: #55229e;
+  --extra-rosa: #ec2f70;
+  --extra-texto: #211a43;
+  --extra-suave: #f9f7fd;
+  --extra-borda: #e7e0f0;
+  --extra-sombra: 0 2px 5px rgba(30, 18, 73, .025), 0 18px 46px rgba(48, 27, 95, .075);
+}
+
+body,
+.layout-principal,
+.conteudo {
+  background: #f7f5fb !important;
+}
+
+.layout-principal {
+  background-image: radial-gradient(circle at 85% -8%, rgba(217, 194, 247, .37), transparent 34%) !important;
+}
+
+.conteudo {
+  background: transparent !important;
+  padding-top: 46px;
+}
+
+.pagina-introducao {
+  position: relative;
+  padding-bottom: 24px;
+  margin-bottom: 30px;
+}
+
+.pagina-introducao::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 72px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--extra-violeta), var(--extra-rosa));
+}
+
+.pagina-introducao .sobretitulo {
+  display: inline-block;
+  color: var(--extra-violeta) !important;
+  font-weight: 800 !important;
+  letter-spacing: .105em;
+}
+
+.pagina-introducao .ant-typography.ant-typography-h2,
+.pagina-introducao h2 {
+  color: var(--extra-texto);
+  font-size: clamp(29px, 2.6vw, 38px);
+  letter-spacing: -.045em;
+}
+
+.pagina-introducao p {
+  color: #68627c;
+  font-size: 15px;
+}
+
+.pagina .ant-card,
+.pagina .identificacao {
+  border-color: var(--extra-borda) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--extra-sombra) !important;
+}
+
+.pagina .ant-card {
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.pagina .ant-card:hover {
+  border-color: #d7c9e9 !important;
+  box-shadow: 0 6px 16px rgba(48, 27, 95, .045), 0 24px 55px rgba(48, 27, 95, .105) !important;
+}
+
+.pagina .ant-card .ant-card-head {
+  min-height: 66px;
+  border-bottom-color: #f0ebf6;
+}
+
+.pagina .ant-card-head-title {
+  color: var(--extra-texto);
+  font-weight: 750;
+  letter-spacing: -.015em;
+}
+
+.pagina .seletor-card {
+  background: linear-gradient(116deg, #fff 50%, #f2eafa 100%) !important;
+  border-color: #e2d6f1 !important;
+}
+
+.pagina .seletor-card .ant-card-body {
+  min-height: 116px;
+}
+
+.seletor-card h3,
+.identificacao h2 {
+  color: var(--extra-texto);
+  letter-spacing: -.025em;
+}
+
+.pagina .identificacao {
+  border-left: 4px solid var(--extra-violeta) !important;
+  padding-left: 22px !important;
+}
+
+.pagina .indicador::before {
+  height: 5px;
+}
+
+.pagina .indicador .ant-card-body {
+  padding: 30px;
+}
+
+.indicador-topo {
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.icone-agua,
+.icone-chuva {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+}
+
+.indicador .ant-statistic-content {
+  font-weight: 800;
+  letter-spacing: -.055em;
+}
+
+.pagina .ant-tag {
+  border-radius: 999px;
+  border-color: transparent;
+  padding: 3px 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pagina .ant-select-selector,
+.pagina .ant-btn,
+.pagina .ant-radio-button-wrapper {
+  border-radius: 11px;
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.pagina .ant-select-selector {
+  border-color: #ded4ec !important;
+  box-shadow: 0 2px 6px rgba(48, 27, 95, .025);
+}
+
+.pagina .ant-select-focused .ant-select-selector,
+.pagina .ant-select:hover .ant-select-selector {
+  border-color: #9d74cd !important;
+}
+
+.pagina .ant-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.pagina .ant-btn:focus-visible,
+.pagina .ant-radio-button-wrapper:focus-visible,
+.menu-lateral .ant-menu-item:focus-visible,
+.botao-menu-mobile:focus-visible {
+  outline: 3px solid rgba(236, 47, 112, .45);
+  outline-offset: 3px;
+}
+
+.pagina .ant-radio-group {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 13px;
+  background: #f2edf8;
+}
+
+.pagina .ant-radio-button-wrapper {
+  border: 0 !important;
+  background: transparent;
+  box-shadow: none !important;
+  font-weight: 650;
+}
+
+.pagina .ant-radio-button-wrapper::before {
+  display: none !important;
+}
+
+.pagina .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background: #fff !important;
+  color: var(--extra-violeta) !important;
+  box-shadow: 0 2px 8px rgba(55, 29, 101, .12) !important;
+}
+
+.pagina .ant-table-wrapper {
+  border-radius: 14px;
+  border-color: var(--extra-borda);
+}
+
+.pagina .ant-table-thead > tr > th {
+  background: #f6f1fb;
+  color: #4d3972;
+  font-size: 12px;
+  letter-spacing: .025em;
+}
+
+.pagina .ant-table-tbody > tr > td {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-bottom-color: #f1edf6;
+}
+
+.pagina .ant-table-tbody > tr:hover > td {
+  background: #f9f5fd !important;
+}
+
+.pagina .recharts-cartesian-grid-horizontal line,
+.pagina .recharts-cartesian-grid-vertical line {
+  stroke: #eee8f4;
+}
+
+.pagina .recharts-default-tooltip {
+  border: 1px solid var(--extra-borda) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 30px rgba(39, 21, 81, .13) !important;
+  padding: 10px 14px !important;
+}
+
+.menu-lateral .ant-layout-sider-children {
+  background: linear-gradient(180deg, #211043 0%, #180d35 100%);
+}
+
+.menu-lateral .ant-menu-item {
+  min-height: 46px;
+  border-radius: 11px;
+  font-weight: 600;
+  transition: background .2s ease, color .2s ease;
+}
+
+.menu-lateral .ant-menu-item-selected {
+  background: linear-gradient(100deg, #632db3, #7a37bd) !important;
+  box-shadow: 0 6px 16px rgba(10, 4, 27, .18);
+}
+
+.menu-lateral .ant-menu-item:hover {
+  background: rgba(255, 255, 255, .12) !important;
+}
+
+.menu-lateral .ant-menu-item-selected:hover {
+  background: linear-gradient(100deg, #6d33bd, #8541c7) !important;
+}
+
+.menu-titulo {
+  color: #d0c0e3;
+  font-weight: 700;
+}
+
+.rodape {
+  color: #817b91;
+}
+
+@media (max-width: 991px) {
+  .conteudo { padding-top: 28px; }
+}
+
+@media (max-width: 600px) {
+  .conteudo { padding-top: 20px; }
+  .pagina-introducao { padding-bottom: 18px; }
+  .pagina-introducao .ant-typography.ant-typography-h2,
+  .pagina-introducao h2 { font-size: 28px; }
+  .pagina .indicador .ant-card-body { padding: 23px; }
+  .pagina .seletor-card .ant-card-body { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina .ant-card,
+  .pagina .ant-btn,
+  .pagina .ant-select-selector,
+  .pagina .ant-radio-button-wrapper,
+  .menu-lateral .ant-menu-item { transition: none; }
+}
+
+/* layout-compacto.css */
+/* Terceira camada opcional: grids e ritmo vertical. */
+.conteudo {
+  max-width: 1560px;
+  padding: 30px 36px;
+}
+
+.pagina {
+  max-width: 1440px;
+}
+
+.pagina-introducao {
+  margin-bottom: 2px !important;
+  padding-bottom: 16px;
+}
+
+.pagina-introducao .ant-typography.ant-typography-h2,
+.pagina-introducao h2 {
+  margin-top: 4px;
+  margin-bottom: 6px;
+  line-height: 1.14;
+}
+
+.pagina-introducao p {
+  margin-bottom: 0;
+  line-height: 1.45;
+}
+
+.pagina .ant-card .ant-card-body {
+  padding: 20px 22px;
+}
+
+.pagina .ant-card .ant-card-head {
+  min-height: 54px;
+  padding: 0 22px;
+}
+
+.pagina .ant-card-head-title {
+  line-height: 1.3;
+}
+
+/* Visão Geral: contexto da estação em uma linha e leituras em outra. */
+.pagina:has(> .grade-cartoes) {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  gap: 16px;
+  align-content: start;
+}
+
+.pagina:has(> .grade-cartoes) > .pagina-introducao,
+.pagina:has(> .grade-cartoes) > .ant-alert,
+.pagina:has(> .grade-cartoes) > .grade-cartoes {
+  grid-column: 1 / -1;
+}
+
+.pagina:has(> .grade-cartoes):not(:has(> .identificacao)) > .seletor-card {
+  grid-column: 1 / -1;
+}
+
+.pagina:has(> .grade-cartoes) > .seletor-card {
+  margin-bottom: 0 !important;
+  min-width: 0;
+}
+
+.pagina .seletor-card .ant-card-body {
+  min-height: 100px;
+}
+
+.pagina:has(> .grade-cartoes) > .identificacao {
+  min-width: 0;
+  min-height: 100px;
+  margin: 0 !important;
+  padding: 18px 22px !important;
+}
+
+.grade-cartoes,
+.grade-graficos {
+  gap: 16px;
+}
+
+.pagina .indicador .ant-card-body {
+  padding: 22px 24px;
+}
+
+.indicador-topo {
+  margin-bottom: 12px;
+}
+
+.indicador .ant-statistic {
+  margin-bottom: 10px;
+}
+
+.indicador .ant-statistic-content {
+  font-size: clamp(30px, 2.6vw, 38px);
+}
+
+.horario {
+  margin-top: 10px;
+}
+
+/* Histórico: espaçamento uniforme entre filtro, gráficos e amostras. */
+.pagina:has(.filtros-cabecalho) {
+  display: grid;
+  gap: 16px;
+}
+
+.pagina:has(.filtros-cabecalho) > .painel-card {
+  margin-bottom: 0 !important;
+}
+
+.pagina:has(.filtros-cabecalho) > .ant-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 !important;
+}
+
+.pagina:has(.filtros-cabecalho) > .ant-row > .ant-col {
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  flex: none;
+  padding: 0 !important;
+}
+
+.pagina:has(.filtros-cabecalho) > .ant-row > .ant-col > .ant-card {
+  height: 100%;
+}
+
+.pagina:has(.filtros-cabecalho) .recharts-responsive-container {
+  height: 230px !important;
+}
+
+.pagina:has(.filtros-cabecalho) .ant-card:has(.ant-card-extra [aria-expanded="false"]) .ant-card-body {
+  display: none;
+}
+
+/* Consulta: cabeçalho e tabela mais próximos, sem comprimir os dados. */
+.pagina:has(> .painel-card .ant-table-wrapper) {
+  display: grid;
+  gap: 16px;
+}
+
+.pagina:has(> .painel-card .ant-table-wrapper) > .pagina-introducao {
+  margin-bottom: 0 !important;
+}
+
+.pagina .ant-table-tbody > tr > td {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.rodape {
+  margin-top: 26px;
+  padding: 16px 0;
+}
+
+@media (max-width: 1199px) {
+  .pagina:has(.filtros-cabecalho) > .ant-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .conteudo { padding: 24px; }
+  .pagina:has(> .grade-cartoes) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pagina:has(> .grade-cartoes) > .pagina-introducao,
+  .pagina:has(> .grade-cartoes) > .ant-alert,
+  .pagina:has(> .grade-cartoes) > .grade-cartoes,
+  .pagina:has(> .grade-cartoes) > .seletor-card {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .conteudo { padding: 18px 16px; }
+  .pagina:has(> .grade-cartoes),
+  .pagina:has(.filtros-cabecalho),
+  .pagina:has(> .painel-card .ant-table-wrapper) { gap: 14px; }
+  .pagina-introducao { padding-bottom: 14px; }
+  .pagina .ant-card .ant-card-body { padding: 18px; }
+  .pagina .ant-card .ant-card-head { padding: 0 18px; }
+  .pagina .indicador .ant-card-body { padding: 20px; }
+  .pagina .seletor-card .ant-card-body { min-height: 0; }
+  .pagina:has(> .grade-cartoes) > .identificacao { min-height: 0; }
+}
+
+/* tipografia-refinada.css */
+/* Quarta camada opcional: tipografia compacta dos cabeçalhos de página. */
+.pagina-introducao .ant-typography.ant-typography-h2,
+.pagina-introducao h2 {
+  color: #211a43;
+  font-size: clamp(25px, 2vw, 30px);
+  font-weight: 720;
+  letter-spacing: -.035em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.pagina-introducao .ant-typography-secondary,
+.pagina-introducao p {
+  color: #625d74;
+  font-size: 13.5px;
+  font-weight: 450;
+  line-height: 1.55;
+  letter-spacing: .005em;
+  max-width: 900px;
+  text-wrap: pretty;
+}
+
+.pagina-introducao .sobretitulo {
+  font-size: 10px !important;
+  font-weight: 750 !important;
+  letter-spacing: .11em;
+}
+
+.pagina-introducao::after {
+  width: 56px;
+  height: 2px;
+}
+
+@media (max-width: 600px) {
+  .pagina-introducao .ant-typography.ant-typography-h2,
+  .pagina-introducao h2 {
+    font-size: 24px;
+  }
+
+  .pagina-introducao .ant-typography-secondary,
+  .pagina-introducao p {
+    font-size: 13px;
+  }
+}
+
+/* titulos-principais.css */
+/* Quinta etapa: títulos principais e rótulos de contexto nas três páginas. */
+.pagina-introducao .cabecalho-titulos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  row-gap: 8px;
+  margin-bottom: 7px;
+  min-width: 0;
+}
+
+.pagina-introducao .cabecalho-titulos .ant-typography.ant-typography-h2 {
+  flex: 0 1 auto;
+  margin: 0;
+  color: #211a43;
+  font-size: clamp(23px, 2vw, 29px);
+  font-weight: 780;
+  letter-spacing: -.035em;
+  line-height: 1.2;
+}
+
+.pagina-introducao .titulo-secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 31px;
+  padding: 5px 12px;
+  border: 1px solid #e7ddf2;
+  border-radius: 999px;
+  background: #f3edfa;
+  color: #5b3295;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pagina-introducao .titulo-secundario::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: #ee397d;
+}
+
+.pagina-introducao:has(> .ant-space) > div:first-child {
+  flex: 1 1 660px;
+  min-width: 0;
+}
+
+.pagina-introducao:has(> .ant-space) > .ant-space {
+  align-self: center;
+}
+
+@media (max-width: 600px) {
+  .pagina-introducao .cabecalho-titulos {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pagina-introducao .cabecalho-titulos .ant-typography.ant-typography-h2 {
+    font-size: 23px;
+  }
+
+  .pagina-introducao .titulo-secundario {
+    min-height: 28px;
+    font-size: 10px;
+  }
+}
+
+/* cabecalho-compacto.css */
+/* Sexta etapa: nome da página como título, contexto como rótulo discreto. */
+.pagina-introducao {
+  padding-bottom: 12px;
+}
+
+.pagina-introducao .cabecalho-titulos {
+  column-gap: 16px;
+  row-gap: 5px;
+  margin-bottom: 4px;
+}
+
+.pagina-introducao .cabecalho-titulos .ant-typography.ant-typography-h2 {
+  font-size: clamp(21px, 1.7vw, 25px);
+  font-weight: 730;
+  letter-spacing: -.03em;
+}
+
+.pagina-introducao .titulo-secundario {
+  min-height: 25px;
+  padding: 3px 9px;
+  gap: 7px;
+  background: #f6f1fb;
+  border-color: #ebe2f4;
+  color: #654889;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .07em;
+}
+
+.pagina-introducao .titulo-secundario::before {
+  width: 5px;
+  height: 5px;
+  flex-basis: 5px;
+}
+
+.pagina-introducao .ant-typography-secondary,
+.pagina-introducao p {
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.pagina-introducao::after {
+  width: 44px;
+}
+
+@media (max-width: 600px) {
+  .pagina-introducao .cabecalho-titulos .ant-typography.ant-typography-h2 {
+    font-size: 21px;
+  }
+
+  .pagina-introducao .titulo-secundario {
+    font-size: 9px;
+  }
+
+  .pagina-introducao .ant-typography-secondary,
+  .pagina-introducao p {
+    font-size: 12px;
+  }
+}
+
+/* visao-geral-proxima.css */
+/* Sétima etapa: aproxima o subtítulo e sobe o conteúdo da Visão Geral. */
+.conteudo:has(.pagina-visao-geral) {
+  padding-top: 18px;
+}
+
+.pagina-visao-geral {
+  gap: 12px !important;
+}
+
+.pagina-visao-geral .pagina-introducao {
+  padding-bottom: 6px;
+  margin-bottom: 0 !important;
+}
+
+.pagina-visao-geral .pagina-introducao::after {
+  display: none;
+}
+
+.pagina-visao-geral .cabecalho-titulos {
+  justify-content: flex-start;
+  column-gap: 12px;
+  row-gap: 3px;
+  margin-bottom: 2px;
+}
+
+.pagina-visao-geral .pagina-introducao .titulo-secundario {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #6a4c8e;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: normal;
+}
+
+.pagina-visao-geral .pagina-introducao .titulo-secundario::before {
+  display: none;
+}
+
+.pagina-visao-geral .pagina-introducao p {
+  margin: 0;
+}
+
+.pagina-visao-geral .seletor-card .ant-card-body {
+  min-height: 82px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.pagina-visao-geral .indicador .ant-card-body {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+@media (max-width: 600px) {
+  .conteudo:has(.pagina-visao-geral) { padding-top: 12px; }
+  .pagina-visao-geral .cabecalho-titulos { align-items: flex-start; }
+  .pagina-visao-geral .seletor-card .ant-card-body { min-height: 0; }
+}
+
+/* cabecalhos-proximos.css */
+/* Oitava etapa: estende o cabeçalho próximo ao Histórico e à Consulta. */
+.conteudo:has(.pagina-cabecalho-proximo) {
+  padding-top: 18px;
+}
+
+.pagina-cabecalho-proximo {
+  gap: 12px !important;
+}
+
+.pagina-cabecalho-proximo .pagina-introducao {
+  padding-bottom: 6px;
+  margin-bottom: 0 !important;
+}
+
+.pagina-cabecalho-proximo .pagina-introducao::after {
+  display: none;
+}
+
+.pagina-cabecalho-proximo .cabecalho-titulos {
+  justify-content: flex-start;
+  column-gap: 12px;
+  row-gap: 3px;
+  margin-bottom: 2px;
+}
+
+.pagina-cabecalho-proximo .pagina-introducao .titulo-secundario {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #6a4c8e;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: normal;
+}
+
+.pagina-cabecalho-proximo .pagina-introducao .titulo-secundario::before {
+  display: none;
+}
+
+.pagina-cabecalho-proximo .pagina-introducao p {
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .conteudo:has(.pagina-cabecalho-proximo) { padding-top: 12px; }
+  .pagina-cabecalho-proximo .cabecalho-titulos { align-items: flex-start; }
+}
+
+/* filtros-historico-compactos.css */
+/* Décima etapa: filtro temporal compacto e controles centralizados. */
+.pagina:has(.filtros-cabecalho) > .painel-card .ant-card-body {
+  padding: 12px 18px;
+}
+
+.pagina .filtros-cabecalho {
+  display: grid !important;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 10px 18px !important;
+}
+
+.pagina .filtros-cabecalho > .secao-cabecalho {
+  min-width: 0;
+  gap: 10px !important;
+}
+
+.pagina .filtros-cabecalho .icone-secao {
+  flex: 0 0 auto;
+  padding: 7px !important;
+  border-radius: 9px !important;
+}
+
+.pagina .filtros-cabecalho .icone-secao .anticon {
+  font-size: 18px !important;
+}
+
+.pagina .filtros-cabecalho .secao-cabecalho h4 {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.pagina .filtros-cabecalho .secao-cabecalho .ant-typography-secondary {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.pagina .filtros-cabecalho > .ant-space {
+  width: 100%;
+  min-width: 0;
+  justify-content: center;
+  row-gap: 8px;
+}
+
+@media (max-width: 1100px) {
+  .pagina .filtros-cabecalho {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pagina .filtros-cabecalho > .ant-space {
+    justify-content: center;
+  }
+}
+
+/* barra-historico.css */
+/* Faixa superior do Histórico com a paleta da barra lateral. */
+.pagina-historico > .pagina-introducao {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 24px;
+  border: 1px solid #342052;
+  border-left: 4px solid #f9326e;
+  border-radius: 16px;
+  background: linear-gradient(105deg, #211043 0%, #180d35 100%);
+  box-shadow: 0 12px 30px rgba(24, 13, 53, .16);
+}
+
+.pagina-historico > .pagina-introducao .cabecalho-titulos {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 5px;
+}
+
+.pagina-historico > .pagina-introducao h2 {
+  color: #fff !important;
+}
+
+.pagina-historico > .pagina-introducao .ant-typography-secondary,
+.pagina-historico > .pagina-introducao p {
+  position: relative;
+  z-index: 1;
+  color: #e5dcef !important;
+}
+
+@media (max-width: 600px) {
+  .pagina-historico > .pagina-introducao {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
+}
+
+/* barra-historico-total.css */
+/* Faixa do Histórico ocupa o topo inteiro da área principal. */
+.conteudo:has(.pagina-historico) {
+  padding-top: 0 !important;
+}
+
+.pagina-historico {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.pagina-historico > .pagina-introducao {
+  width: calc(100vw - 80px);
+  margin-left: calc(50% - (100vw - 80px) / 2);
+  padding: 20px max(36px, calc(50vw - 760px));
+  border: 0;
+  border-bottom: 3px solid #f9326e;
+  border-radius: 0;
+}
+
+@media (max-width: 991px) {
+  .conteudo:has(.pagina-historico) {
+    position: relative;
+  }
+
+  .conteudo:has(.pagina-historico) .controles-menu {
+    position: absolute;
+    top: 12px;
+    right: 24px;
+    z-index: 40;
+    margin: 0;
+  }
+
+  .conteudo:has(.pagina-historico) .botao-menu-mobile {
+    color: #fff;
+    background: rgba(255, 255, 255, .12);
+    border-radius: 10px;
+  }
+
+  .pagina-historico > .pagina-introducao {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 18px 72px 18px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .conteudo:has(.pagina-historico) .controles-menu {
+    top: 10px;
+    right: 16px;
+  }
+
+  .pagina-historico > .pagina-introducao {
+    padding: 16px 64px 16px 16px;
+  }
+}
+
+/* barra-historico-fina.css */
+/* Reduz a altura da faixa superior do Histórico. */
+.pagina-historico > .pagina-introducao {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.pagina-historico > .pagina-introducao .cabecalho-titulos {
+  margin-bottom: 2px;
+}
+
+.pagina-historico > .pagina-introducao h2 {
+  font-size: 22px !important;
+  line-height: 1.15;
+}
+
+.pagina-historico > .pagina-introducao p {
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+
+@media (max-width: 600px) {
+  .pagina-historico > .pagina-introducao {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .pagina-historico > .pagina-introducao h2 {
+    font-size: 20px !important;
+  }
+}
+
+/* barra-historico-branca.css */
+/* Faixa superior branca com borda vermelha, mantendo a largura e altura atuais. */
+.pagina-historico > .pagina-introducao {
+  background: #fff;
+  border: 2px solid #f9326e;
+  box-shadow: 0 6px 20px rgba(249, 50, 110, .08);
+}
+
+.pagina-historico > .pagina-introducao h2 {
+  color: #1d165c !important;
+}
+
+.pagina-historico > .pagina-introducao .ant-typography-secondary,
+.pagina-historico > .pagina-introducao p {
+  color: #625d74 !important;
+}
+
+/* cabecalho-historico-card.css */
+/* O cabeçalho do Histórico segue o padrão visual dos outros cartões. */
+.conteudo:has(.pagina-historico) {
+  padding-top: 18px !important;
+}
+
+.pagina-historico > .pagina-introducao {
+  width: 100%;
+  margin-left: 0;
+  padding: 18px 22px;
+  border: 1px solid #e7e0f0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(30, 18, 73, .025), 0 18px 46px rgba(48, 27, 95, .075);
+}
+
+.pagina-historico > .pagina-introducao h2 {
+  color: #211a43 !important;
+}
+
+.pagina-historico > .pagina-introducao p {
+  color: #625d74 !important;
+}
+
+@media (max-width: 991px) {
+  .conteudo:has(.pagina-historico) {
+    padding-top: 24px !important;
+  }
+
+  .conteudo:has(.pagina-historico) .controles-menu {
+    position: static;
+    margin-bottom: 12px;
+  }
+
+  .conteudo:has(.pagina-historico) .botao-menu-mobile {
+    color: #1d165c;
+    background: transparent;
+  }
+}
+
+@media (max-width: 600px) {
+  .conteudo:has(.pagina-historico) {
+    padding-top: 18px !important;
+  }
+
+  .pagina-historico > .pagina-introducao {
+    padding: 16px 18px;
+    border-radius: 18px;
+  }
+}
+
+/* cabecalho-historico-baixo.css */
+/* Compacta somente a altura do cartão de apresentação do Histórico. */
+.pagina-historico > .pagina-introducao {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.pagina-historico > .pagina-introducao .cabecalho-titulos {
+  margin-bottom: 0;
+}
+
+.pagina-historico > .pagina-introducao h2 {
+  font-size: 20px !important;
+  line-height: 1.2;
+}
+
+.pagina-historico > .pagina-introducao p {
+  line-height: 1.35;
+}
+
+@media (max-width: 600px) {
+  .pagina-historico > .pagina-introducao {
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+}
+
+/* historico-sem-folga-topo.css */
+/* Encosta o primeiro cartão do Histórico no topo da área principal. */
+@media (min-width: 992px) {
+  .conteudo:has(.pagina-historico) {
+    padding-top: 0 !important;
+  }
+}
+
+/* historico-folga-pequena.css */
+/* Pequena folga acima do primeiro cartão do Histórico. */
+@media (min-width: 992px) {
+  .conteudo:has(.pagina-historico) {
+    padding-top: 8px !important;
+  }
+}
+
+/* apresentacao-card-outras-paginas.css */
+/* Repete na Visão Geral e na Consulta o cartão de apresentação do Histórico. */
+@media (min-width: 992px) {
+  .conteudo:has(.pagina-apresentacao-card) {
+    padding-top: 8px !important;
+  }
+}
+
+.pagina-apresentacao-card > .pagina-introducao {
+  padding: 10px 22px;
+  border: 1px solid #e7e0f0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(30, 18, 73, .025), 0 18px 46px rgba(48, 27, 95, .075);
+}
+
+.pagina-apresentacao-card > .pagina-introducao::after {
+  display: none;
+}
+
+.pagina-apresentacao-card > .pagina-introducao .cabecalho-titulos {
+  margin-bottom: 0;
+}
+
+.pagina-apresentacao-card > .pagina-introducao h2 {
+  color: #211a43 !important;
+  font-size: 20px !important;
+  line-height: 1.2;
+}
+
+.pagina-apresentacao-card > .pagina-introducao p {
+  color: #625d74;
+  font-size: 11.5px;
+  line-height: 1.35;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .pagina-apresentacao-card > .pagina-introducao {
+    padding: 11px 18px;
+    border-radius: 18px;
+  }
+}
+
+/* botoes-consulta-externos.css */
+/* Botões da Consulta retornam à direita do cabeçalho, fora do cartão. */
+.pagina-consulta .consulta-cabecalho {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.pagina-consulta .consulta-cabecalho > .pagina-introducao {
+  min-width: 0;
+  margin: 0 !important;
+  padding: 10px 22px;
+  border: 1px solid #e7e0f0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(30, 18, 73, .025), 0 18px 46px rgba(48, 27, 95, .075);
+}
+
+.pagina-consulta .consulta-cabecalho > .pagina-introducao::after {
+  display: none;
+}
+
+.pagina-consulta .consulta-cabecalho > .pagina-introducao .cabecalho-titulos {
+  margin-bottom: 0;
+}
+
+.pagina-consulta .consulta-cabecalho > .pagina-introducao h2 {
+  color: #211a43 !important;
+  font-size: 20px !important;
+  line-height: 1.2;
+}
+
+.pagina-consulta .consulta-cabecalho > .pagina-introducao p {
+  color: #625d74;
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+
+.pagina-consulta .consulta-acoes {
+  justify-self: end;
+}
+
+@media (max-width: 700px) {
+  .pagina-consulta .consulta-cabecalho {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .pagina-consulta .consulta-acoes {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagina-consulta .consulta-cabecalho > .pagina-introducao {
+    padding: 11px 18px;
+    border-radius: 18px;
+  }
+}
+
+/* historico-layout-referencia.css */
+/* Organização editorial inspirada no template Sales Attribution da Lovable. */
+.pagina-historico:has(.historico-topo) {
+  gap: 18px;
+}
+
+.historico-topo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(440px, .95fr);
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.historico-topo > .pagina-introducao {
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 20px 0 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.historico-topo > .pagina-introducao::after {
+  display: none;
+}
+
+.historico-topo > .pagina-introducao h2 {
+  color: #1d165c !important;
+  font-size: clamp(25px, 2.1vw, 30px) !important;
+  font-weight: 760;
+  letter-spacing: -.035em;
+}
+
+.historico-topo > .pagina-introducao p {
+  max-width: 650px;
+  margin-top: 7px;
+  color: #625d74 !important;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.historico-topo > .painel-card {
+  margin: 0 !important;
+  align-self: stretch;
+}
+
+.historico-topo > .painel-card .ant-card-body {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 14px 18px;
+}
+
+.historico-topo .filtros-cabecalho {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 10px !important;
+  width: 100%;
+}
+
+.historico-topo .filtros-cabecalho > .ant-space {
+  justify-content: flex-start;
+}
+
+.historico-resumo {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid #e7e0f0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(30, 18, 73, .025), 0 18px 46px rgba(48, 27, 95, .075);
+}
+
+.historico-resumo::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, #6129ac, #f9326e);
+}
+
+.historico-resumo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 18px 24px 16px;
+}
+
+.historico-resumo-item + .historico-resumo-item {
+  border-left: 1px solid #eee8f4;
+}
+
+.historico-resumo-item span,
+.historico-kpi > span {
+  color: #705e8d;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .1em;
+}
+
+.historico-resumo-item strong {
+  overflow: hidden;
+  color: #1d165c;
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.historico-resumo-item small {
+  color: #716c80;
+  font-size: 11px;
+}
+
+.pagina-historico > .historico-graficos > .ant-col > .ant-card {
+  border-color: #e7e0f0 !important;
+  box-shadow: 0 2px 5px rgba(30, 18, 73, .025), 0 18px 46px rgba(48, 27, 95, .075) !important;
+}
+
+.pagina-historico > .historico-graficos .ant-card-head {
+  min-height: 58px;
+}
+
+.historico-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.historico-kpi {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 18px 20px;
+  border: 1px solid #e7e0f0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(30, 18, 73, .025), 0 12px 30px rgba(48, 27, 95, .055);
+}
+
+.historico-kpi strong {
+  margin-top: 8px;
+  color: #1d165c;
+  font-size: clamp(21px, 2vw, 28px);
+  font-weight: 780;
+  letter-spacing: -.04em;
+  line-height: 1.1;
+}
+
+.historico-kpi strong small {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.historico-kpi p {
+  margin: 7px 0 0;
+  color: #716c80;
+  font-size: 11px;
+}
+
+@media (max-width: 1199px) {
+  .historico-topo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .historico-topo > .pagina-introducao {
+    padding-right: 0;
+  }
+
+  .historico-topo .filtros-cabecalho {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+  }
+
+  .historico-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .historico-resumo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .historico-resumo-item + .historico-resumo-item {
+    border-left: 0;
+    border-top: 1px solid #eee8f4;
+  }
+
+  .historico-resumo-item {
+    padding: 13px 18px;
+  }
+
+  .historico-topo .filtros-cabecalho {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .historico-kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* historico-graficos-lado-a-lado.css */
+/* Dois cartões de gráfico lado a lado também em janelas médias. */
+@media (min-width: 820px) {
+  .pagina.pagina-historico:has(.filtros-cabecalho) > .historico-graficos.ant-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* consulta-acento-vermelho.css */
+/* Detalhe vermelho no cartão de dados da terceira tela. */
+.pagina-consulta > .painel-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.pagina-consulta > .painel-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: #f9326e;
+}
+
+/* cards-sem-acento-colorido.css */
+/* Remove as faixas coloridas decorativas dos cartões. */
+.pagina .indicador::before,
+.pagina-historico .historico-resumo::before,
+.pagina-consulta > .painel-card::before {
+  display: none !important;
+}
+
+.pagina .indicador,
+.pagina .seletor-card {
+  border-color: #e7e0f0 !important;
+}
+
+/* menu-por-clique.css */
+/* O menu recolhido mantem logo, botao e icones de navegacao visiveis. */
+@media (min-width: 992px) {
+  .menu-lateral.ant-layout-sider-collapsed .menu-rodape {
+    display: none;
+  }
+
+  .menu-lateral.ant-layout-sider-collapsed .marca {
+    flex-direction: column;
+    padding: 28px 0;
+  }
+
+  .menu-lateral:not(.ant-layout-sider-collapsed) .marca {
+    justify-content: space-between;
+  }
+}
+
+.botao-alternar-menu {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.botao-alternar-menu:hover,
+.botao-alternar-menu:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.botao-alternar-menu:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 991px) {
+  .botao-alternar-menu {
+    display: none;
+  }
+}
+
+/* rotulos-roxos.css */
+/* Rótulos pequenos em caixa alta seguem o roxo da Estação de Monitoramento. */
+.pagina .rotulo,
+.pagina-historico .historico-resumo-item > span,
+.pagina-historico .historico-kpi > span,
+.pagina-introducao .sobretitulo {
+  color: #6129ac;
+}
+
+/* historico-titulo-card.css */
+/* Apresentacao do Historico no mesmo card compacto das outras paginas. */
+.pagina-historico .historico-topo > .pagina-introducao {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  padding: 10px 22px;
+  border: 1px solid #e7e0f0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(30, 18, 73, .025), 0 18px 46px rgba(48, 27, 95, .075);
+}
+
+.pagina-historico .historico-topo > .pagina-introducao .cabecalho-titulos {
+  margin-bottom: 0;
+}
+
+.pagina-historico .historico-topo > .pagina-introducao h2 {
+  color: #211a43 !important;
+  font-size: 20px !important;
+  line-height: 1.2;
+}
+
+.pagina-historico .historico-topo > .pagina-introducao p {
+  max-width: none;
+  margin: 0;
+  color: #625d74 !important;
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+
+@media (max-width: 600px) {
+  .pagina-historico .historico-topo > .pagina-introducao {
+    padding: 11px 18px;
+    border-radius: 18px;
+  }
+}

@@ -25,7 +25,7 @@ export function getSummary(stationId: string): Promise<SummaryResponse> {
   return request('/api/stations/' + encodeURIComponent(stationId) + '/summary')
 }
 
-export function getSeries(stationId: string, metric: Metric, hours: number): Promise<SeriesResponse> {
+export function getSeries(stationId: string, metric: Metric = 'level', hours = 24): Promise<SeriesResponse> {
   if (mode === 'mock') return mockApi.getSeries(stationId, metric, hours)
   const query = new URLSearchParams({ metric, hours: String(hours) })
   return request('/api/stations/' + encodeURIComponent(stationId) + '/series?' + query.toString())

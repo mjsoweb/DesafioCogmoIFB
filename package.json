@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
+    "demo:dao": "node scripts/demonstrar-daos.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -27,9 +27,8 @@ export default function ConsultaMedicoes() {
           }
         }
         setDetalhesResumo(novosResumos);
-        message.success('Tabela atualizada com sucesso!');
       }
-    } catch (erro) {
+    } catch {
       message.error('Erro ao carregar medições da API.');
     } finally {
       setCarregando(false);
@@ -126,7 +125,7 @@ export default function ConsultaMedicoes() {
     {
       title: 'Status',
       key: 'status',
-      render: () => <Tag color="success">Ativa (Mock)</Tag>,
+      render: () => <Tag color="success">Ativa</Tag>,
     },
   ];
 
@@ -139,7 +138,8 @@ export default function ConsultaMedicoes() {
   }
 
   return (
-    <div className="pagina" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div className="pagina pagina-cabecalho-proximo pagina-apresentacao-card pagina-consulta" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+      <div className="consulta-cabecalho">
       <div 
         className="pagina-introducao" 
         style={{ 
@@ -152,18 +152,20 @@ export default function ConsultaMedicoes() {
         }}
       >
         <div>
-          <Text className="sobretitulo" style={{ color: '#007bff', fontWeight: 'bold', fontSize: '12px' }}>DADOS E REGISTROS</Text>
-          <Title level={2} style={{ margin: '4px 0' }}>Consulta de Medições</Title>
+          <div className="cabecalho-titulos">
+            <Title level={2}>Dados e registros</Title>
+          </div>
           <Paragraph type="secondary" style={{ margin: 0 }}>
             Listagem detalhada e exportação de relatórios operacionais do sistema.
           </Paragraph>
         </div>
+      </div>
 
-        <Space wrap>
+        <Space wrap className="consulta-acoes">
           <Button 
             icon={<DownloadOutlined />} 
             onClick={exportarCSV}
-            style={{ borderColor: '#007bff', color: '#007bff' }}
+            style={{ borderColor: '#6129ac', color: '#6129ac' }}
           >
             Exportar CSV
           </Button>
@@ -172,7 +174,7 @@ export default function ConsultaMedicoes() {
             type="primary" 
             icon={<ReloadOutlined />} 
             onClick={carregarDados}
-            style={{ background: '#007bff' }}
+            style={{ background: '#6129ac' }}
           >
             Atualizar
           </Button>
@@ -181,7 +183,7 @@ export default function ConsultaMedicoes() {
 
       <Card bordered={false} className="painel-card" style={{ boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)', borderRadius: '16px' }}>
         <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <DatabaseOutlined style={{ color: '#007bff' }} />
+          <DatabaseOutlined style={{ color: '#6129ac' }} />
           <Text strong style={{ fontSize: 16 }}>
             Estações Cadastradas ({estacoes.length})
           </Text>

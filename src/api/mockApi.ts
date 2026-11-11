@@ -11,7 +11,7 @@ let errorAlreadyUsed = false
 
 async function pause(): Promise<void> {
   const milliseconds = scenario === 'slow' ? 1800 : 350
-  await new Promise((resolve) => window.setTimeout(resolve, milliseconds))
+  await new Promise((resolve) => globalThis.setTimeout(resolve, milliseconds))
   if (scenario === 'error' && !errorAlreadyUsed) {
     errorAlreadyUsed = true
     throw new Error('Falha simulada ao consultar a API. Tente novamente.')
@@ -32,18 +32,34 @@ function makeValue(stationIndex: number, hourIndex: number, metric: Metric): num
   return wetHour ? Number((0.4 + ((hourIndex + stationIndex) % 4) * 0.35).toFixed(2)) : 0
 }
 
+function erro(code: string, message: string, status: number): Error & { code: string; status: number } {
+  return Object.assign(new Error(message), { code, status })
+}
+
+function stationIndex(stationId: string): number {
+  const index = stations.findIndex((station) => station.id === stationId)
+  if (index < 0) throw erro('station_not_found', 'Estação não encontrada.', 404)
+  return index
+}
+
+function validarSerie(metric: string, hours: number): void {
+  if (metric !== 'level' && metric !== 'rain') throw erro('invalid_metric', 'Métrica inválida.', 400)
+  if (!Number.isInteger(hours) || hours < 1 || hours > 72) throw erro('invalid_hours', 'Período inválido.', 400)
+}
+
 export async function getStations(): Promise<StationsResponse> {
   await pause()
   return {
     data_mode: 'simulation',
-    stations: stations.map((station) => ({ ...station, updated_at: hoursFromNow(0) })),
+    stations: stations.map((station) => ({ ...station, updated_at: hoursFromNow(0) }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR')),
   }
 }
 
 export async function getSummary(stationId: string): Promise<SummaryResponse> {
   await pause()
-  const stationIndex = Math.max(0, stations.findIndex((station) => station.id === stationId))
-  const station = stations[stationIndex]
+  const index = stationIndex(stationId)
+  const station = stations[index]
   return {
     data_mode: 'simulation',
     message: 'Amostra simulada. Não representa condições reais.',
@@ -51,23 +67,24 @@ export async function getSummary(stationId: string): Promise<SummaryResponse> {
     latest: {
       level_observed_at: hoursFromNow(0),
       rain_observed_at: hoursFromNow(0),
-      level_m: makeValue(stationIndex, 72, 'level'),
-      rain_mm_h: makeValue(stationIndex, 72, 'rain'),
+      level_m: makeValue(index, 72, 'level'),
+      rain_mm_h: makeValue(index, 72, 'rain'),
     },
   }
 }
 
-export async function getSeries(stationId: string, metric: Metric, hours: number): Promise<SeriesResponse> {
+export async function getSeries(stationId: string, metric: Metric = 'level', hours = 24): Promise<SeriesResponse> {
   await pause()
-  const stationIndex = Math.max(0, stations.findIndex((station) => station.id === stationId))
+  validarSerie(metric, hours)
+  const index = stationIndex(stationId)
   const end = new Date()
   end.setUTCMinutes(0, 0, 0)
   const start = new Date(end.getTime() - hours * 60 * 60 * 1000)
   const points = scenario === 'empty'
     ? []
-    : Array.from({ length: hours + 1 }, (_value, index) => ({
-        timestamp: new Date(start.getTime() + index * 60 * 60 * 1000).toISOString(),
-        value: makeValue(stationIndex, 72 - hours + index, metric),
+    : Array.from({ length: hours + 1 }, (_value, hourIndex) => ({
+        timestamp: new Date(start.getTime() + hourIndex * 60 * 60 * 1000).toISOString(),
+        value: makeValue(index, 72 - hours + hourIndex, metric),
       }))
 
   return {

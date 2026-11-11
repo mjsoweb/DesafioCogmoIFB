@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Card, Col, Radio, Row, Typography, Spin, Select, Space } from 'antd';
+import { Button, Card, Col, Radio, Row, Typography, Spin, Select, Space } from 'antd';
 import {
-  LineChartOutlined,
-  CloudOutlined,
   ClockCircleOutlined,
   DatabaseOutlined,
 } from '@ant-design/icons';
@@ -25,6 +23,8 @@ export default function HistoricoMedicoes() {
   const [estacoes, setEstacoes] = useState([]);
   const [estacaoSelecionadaId, setEstacaoSelecionadaId] = useState(null);
   const [horasSelecionadas, setHorasSelecionadas] = useState(24);
+  const [mostrarAmostrasNivel, setMostrarAmostrasNivel] = useState(false);
+  const [mostrarAmostrasChuva, setMostrarAmostrasChuva] = useState(false);
   const [serieNivel, setSerieNivel] = useState([]);
   const [serieChuva, setSerieChuva] = useState([]);
   const [carregando, setCarregando] = useState(true);
@@ -80,11 +80,17 @@ export default function HistoricoMedicoes() {
     );
   }
 
+  const estacaoAtual = estacoes.find((estacao) => estacao.id === estacaoSelecionadaId);
+  const ultimoNivel = serieNivel.at(-1)?.value;
+  const ultimaChuva = serieChuva.at(-1)?.value;
+
   return (
-    <div className="pagina">
+    <div className="pagina pagina-cabecalho-proximo pagina-historico">
+      <div className="historico-topo">
       <div className="pagina-introducao">
-        <Text className="sobretitulo" style={{ color: '#007bff', fontWeight: 'bold', fontSize: '12px' }}>ANÁLISE TEMPORAL</Text>
-        <Title level={2}>Histórico de Medições</Title>
+        <div className="cabecalho-titulos">
+          <Title level={2}>Análise temporal</Title>
+        </div>
         <Paragraph type="secondary">
           Acompanhe a evolução temporal do nível do rio e da precipitação através de tabelas de amostras e gráficos interativos.
         </Paragraph>
@@ -93,7 +99,7 @@ export default function HistoricoMedicoes() {
       <Card className="painel-card" bordered={false} style={{ marginBottom: 24, borderRadius: '16px' }}>
         <div className="filtros-cabecalho" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div className="secao-cabecalho" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div className="icone-secao" style={{ background: '#e7f1ff', color: '#007bff', padding: '10px', borderRadius: '10px' }}>
+            <div className="icone-secao" style={{ background: '#f3e8ff', color: '#6129ac', padding: '10px', borderRadius: '10px' }}>
               <ClockCircleOutlined style={{ fontSize: '20px' }} />
             </div>
             <div>
@@ -127,12 +133,31 @@ export default function HistoricoMedicoes() {
           </Space>
         </div>
       </Card>
+      </div>
+
+      <section className="historico-resumo" aria-label="Resumo do período">
+        <div className="historico-resumo-item">
+          <span>ESTAÇÃO SELECIONADA</span>
+          <strong>{estacaoAtual?.name || '—'}</strong>
+          <small>{estacaoAtual?.river || 'Rio não informado'}</small>
+        </div>
+        <div className="historico-resumo-item">
+          <span>JANELA DE ANÁLISE</span>
+          <strong>{horasSelecionadas} horas</strong>
+          <small>Período exibido nos gráficos</small>
+        </div>
+        <div className="historico-resumo-item">
+          <span>REGISTROS NO PERÍODO</span>
+          <strong>{serieNivel.length + serieChuva.length}</strong>
+          <small>Nível do rio e precipitação</small>
+        </div>
+      </section>
 
       {/* SEÇÃO 1: GRÁFICOS INTERATIVOS RECHARTS */}
-      <Row gutter={[24, 24]} style={{ marginBottom: '24px' }}>
+      <Row className="historico-graficos" gutter={[24, 24]} style={{ marginBottom: '24px' }}>
         {/* Gráfico de Nível do Rio */}
         <Col xs={24} xl={12}>
-          <Card title="Nível do rio (Gráfico)" extra={<span className="unidade">Metros (m)</span>} bordered={false} style={{ borderRadius: '16px' }}>
+          <Card title="Nível do rio" extra={<span className="unidade">Metros (m)</span>} bordered={false} style={{ borderRadius: '16px' }}>
             <ResponsiveContainer width="100%" height={260}>
               <LineChart data={serieNivel}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e9ecef" />
@@ -155,7 +180,7 @@ export default function HistoricoMedicoes() {
 
         {/* Gráfico de Precipitação */}
         <Col xs={24} xl={12}>
-          <Card title="Precipitação (Gráfico)" extra={<span className="unidade">mm/h</span>} bordered={false} style={{ borderRadius: '16px' }}>
+          <Card title="Precipitação" extra={<span className="unidade">mm/h</span>} bordered={false} style={{ borderRadius: '16px' }}>
             <ResponsiveContainer width="100%" height={260}>
               <AreaChart data={serieChuva}>
                 <defs>
@@ -182,16 +207,40 @@ export default function HistoricoMedicoes() {
         </Col>
       </Row>
 
+      <section className="historico-kpis" aria-label="Indicadores do período">
+        <div className="historico-kpi">
+          <span>NÍVEL MAIS RECENTE</span>
+          <strong>{ultimoNivel == null ? '—' : Number(ultimoNivel).toFixed(2)} <small>m</small></strong>
+          <p>Última amostra de nível</p>
+        </div>
+        <div className="historico-kpi">
+          <span>CHUVA MAIS RECENTE</span>
+          <strong>{ultimaChuva == null ? '—' : Number(ultimaChuva).toFixed(2)} <small>mm/h</small></strong>
+          <p>Última amostra de chuva</p>
+        </div>
+        <div className="historico-kpi">
+          <span>AMOSTRAS DE NÍVEL</span>
+          <strong>{serieNivel.length}</strong>
+          <p>No período selecionado</p>
+        </div>
+        <div className="historico-kpi">
+          <span>AMOSTRAS DE CHUVA</span>
+          <strong>{serieChuva.length}</strong>
+          <p>No período selecionado</p>
+        </div>
+      </section>
+
       {/* SEÇÃO 2: AMOSTRAS DETALHADAS DA API (LISTA) */}
-      <Row gutter={[24, 24]}>
+      <Row className="historico-amostras" gutter={[24, 24]}>
         {/* Amostras Nível */}
         <Col xs={24} xl={12}>
           <Card 
             title={<span><DatabaseOutlined /> Amostras Detalhadas - Nível do Rio</span>} 
+            extra={<Button type="link" aria-expanded={mostrarAmostrasNivel} aria-controls="amostras-nivel" onClick={() => setMostrarAmostrasNivel((visivel) => !visivel)}>{mostrarAmostrasNivel ? 'Ocultar' : 'Exibir'}</Button>}
             bordered={false} 
             style={{ borderRadius: '16px' }}
           >
-            <div style={{ maxHeight: '220px', overflowY: 'auto', paddingRight: '4px' }}>
+            {mostrarAmostrasNivel && <div id="amostras-nivel" style={{ maxHeight: '220px', overflowY: 'auto', paddingRight: '4px' }}>
               {serieNivel && serieNivel.length > 0 ? (
                 <ul style={{ paddingLeft: '20px', margin: 0 }}>
                   {serieNivel.map((ponto, index) => (
@@ -205,7 +254,7 @@ export default function HistoricoMedicoes() {
               ) : (
                 <Text type="secondary">Nenhum ponto retornado para este período.</Text>
               )}
-            </div>
+            </div>}
           </Card>
         </Col>
 
@@ -213,10 +262,11 @@ export default function HistoricoMedicoes() {
         <Col xs={24} xl={12}>
           <Card 
             title={<span><DatabaseOutlined /> Amostras Detalhadas - Precipitação</span>} 
+            extra={<Button type="link" aria-expanded={mostrarAmostrasChuva} aria-controls="amostras-chuva" onClick={() => setMostrarAmostrasChuva((visivel) => !visivel)}>{mostrarAmostrasChuva ? 'Ocultar' : 'Exibir'}</Button>}
             bordered={false} 
             style={{ borderRadius: '16px' }}
           >
-            <div style={{ maxHeight: '220px', overflowY: 'auto', paddingRight: '4px' }}>
+            {mostrarAmostrasChuva && <div id="amostras-chuva" style={{ maxHeight: '220px', overflowY: 'auto', paddingRight: '4px' }}>
               {serieChuva && serieChuva.length > 0 ? (
                 <ul style={{ paddingLeft: '20px', margin: 0 }}>
                   {serieChuva.map((ponto, index) => (
@@ -230,7 +280,7 @@ export default function HistoricoMedicoes() {
               ) : (
                 <Text type="secondary">Nenhum ponto retornado para este período.</Text>
               )}
-            </div>
+            </div>}
           </Card>
         </Col>
       </Row>

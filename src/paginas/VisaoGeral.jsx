@@ -4,11 +4,10 @@ import {
   CloudOutlined,
   DashboardOutlined,
   WarningOutlined,
-  CheckCircleOutlined,
 } from '@ant-design/icons';
 import { getStations, getSummary } from '../api/api';
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 export default function VisaoGeral() {
   const [estacoes, setEstacoes] = useState([]);
@@ -25,7 +24,6 @@ export default function VisaoGeral() {
         if (lista.length > 0) {
           setEstacaoSelecionadaId(lista[0].id);
         }
-        message.success('Estações carregadas com sucesso via API Mock!');
       } catch (erro) {
         message.error(erro.message || 'Erro ao carregar estações.');
       } finally {
@@ -58,8 +56,6 @@ export default function VisaoGeral() {
     );
   }
 
-  const estacaoAtual = estacoes.find((e) => e.id === estacaoSelecionadaId);
-
   const valorNivel = resumo?.latest?.level_m ?? 0;
   const horarioNivel = resumo?.latest?.level_observed_at;
   const valorChuva = resumo?.latest?.rain_mm_h ?? 0;
@@ -70,10 +66,11 @@ export default function VisaoGeral() {
   const chuvaAlerta = valorChuva > 2.0;
 
   return (
-    <div className="pagina">
+    <div className="pagina pagina-visao-geral pagina-apresentacao-card">
       <div className="pagina-introducao">
-        <Text className="sobretitulo" style={{ color: '#007bff', fontWeight: 'bold', fontSize: '12px' }}>PAINEL DE CONTROLE INTELIGENTE</Text>
-        <Title level={2}>Visão Geral e Alertas</Title>
+        <div className="cabecalho-titulos">
+          <Title level={2}>Painel de controle inteligente</Title>
+        </div>
         <Paragraph type="secondary">
           Monitoramento em tempo real com regras automáticas de limiar (Thresholds) para suporte à decisão.
         </Paragraph>
@@ -108,19 +105,6 @@ export default function VisaoGeral() {
         />
       </Card>
 
-      {estacaoAtual && (
-        <div className="identificacao" style={{ background: '#fff', padding: '16px 20px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)', display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-          <div style={{ background: '#e7f1ff', padding: '10px', display: 'grid', placeItems: 'center', borderRadius: '12px' }}>
-            <img src="/logo-cogmo.png" alt="Logo" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-          </div>
-          <div>
-            <span style={{ fontSize: '10px', color: '#6c757d', fontWeight: 'bold' }}>ESTAÇÃO ATIVA</span>
-            <h2 style={{ margin: '2px 0', fontSize: '18px' }}>{estacaoAtual.name}</h2>
-            <p style={{ margin: 0, fontSize: '13px', color: '#6c757d' }}>{estacaoAtual.river} — {estacaoAtual.municipality}</p>
-          </div>
-        </div>
-      )}
-
       <div className="grade-cartoes">
         {/* Card Nível do Rio */}
         <Card 
@@ -133,7 +117,7 @@ export default function VisaoGeral() {
         >
           <div className="indicador-topo">
             <span>Nível do rio</span>
-            <div className="icone-agua" style={{ background: nivelAlerta ? '#fffbe6' : '#e7f1ff', color: nivelAlerta ? '#faad14' : '#007bff' }}>
+            <div className="icone-agua" style={{ background: nivelAlerta ? '#fffbe6' : '#e7f1ff', color: nivelAlerta ? '#faad14' : '#6129ac' }}>
               <DashboardOutlined />
             </div>
           </div>
@@ -141,7 +125,7 @@ export default function VisaoGeral() {
             value={valorNivel}
             precision={2}
             suffix="m"
-            valueStyle={{ color: nivelAlerta ? '#faad14' : '#007bff', fontWeight: 700 }}
+            valueStyle={{ color: nivelAlerta ? '#faad14' : '#1d165c', fontWeight: 700 }}
           />
           <Tag color={nivelAlerta ? 'warning' : 'blue'}>
             {nivelAlerta ? 'Nível Elevado (Alerta)' : 'Condição Normal'}
@@ -172,7 +156,7 @@ export default function VisaoGeral() {
             value={valorChuva}
             precision={2}
             suffix="mm/h"
-            valueStyle={{ color: chuvaAlerta ? '#f5222d' : '#6f42c1', fontWeight: 700 }}
+            valueStyle={{ color: chuvaAlerta ? '#f5222d' : '#1d165c', fontWeight: 700 }}
           />
           <Tag color={chuvaAlerta ? 'error' : 'purple'}>
             {chuvaAlerta ? 'Chuva Intensa' : 'Baixa / Sem Chuva'}

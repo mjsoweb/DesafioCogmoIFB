@@ -8,7 +8,39 @@ body {
   margin: 0;
   font-family: 'Inter', Arial, sans-serif;
   background: #f8f9fa;
-  color: #343a40;
+  color: #666666;
+}
+
+/* Cores tipográficas do site oficial da Cogmo. */
+.pagina h1,
+.pagina h2,
+.pagina h3,
+.pagina h4,
+.pagina .ant-typography strong,
+.pagina .ant-statistic-content,
+.pagina .ant-card-head-title {
+  color: #1d165c;
+}
+
+.pagina p,
+.pagina .ant-typography-secondary,
+.pagina .horario,
+.pagina .ant-table-cell {
+  color: #666666;
+}
+
+.pagina .ant-btn-link,
+.pagina a {
+  color: #6129ac;
+}
+
+
+.pagina .ant-tag {
+  color: #1d165c !important;
+}
+
+.pagina .recharts-text {
+  fill: #666666;
 }
 
 .aplicacao {
@@ -45,6 +77,12 @@ body {
   padding: 28px 20px;
   color: white;
   position: relative;
+}
+
+.logo-oficial-menu {
+  width: 133px;
+  height: 44px;
+  object-fit: contain;
 }
 
 .marca-icone {
@@ -101,7 +139,7 @@ body {
 
 .menu-titulo {
   padding: 10px 24px;
-  color: #868e96;
+  color: #bdbdbe;
   font-size: 10px;
   letter-spacing: 1.5px;
 }
@@ -127,7 +165,7 @@ body {
 }
 
 .menu-lateral .ant-menu-item-selected {
-  background: #007bff !important;
+  background: #6129ac !important;
 }
 
 
@@ -198,6 +236,11 @@ body {
 .menu-lateral.ant-layout-sider-collapsed .marca {
   padding: 28px 0;
   justify-content: center;
+}
+
+.menu-lateral.ant-layout-sider-collapsed .logo-oficial-menu {
+  width: 68px;
+  height: 28px;
 }
 
 .menu-lateral.ant-layout-sider-collapsed .marca-textos {
@@ -289,7 +332,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  color: #343a40;
+  color: #1d165c;
 
   font-size: 18px;
 
@@ -318,7 +361,7 @@ body {
   border: none;
   background: transparent;
 
-  color: #343a40;
+  color: #1d165c;
 
   align-items: center;
   justify-content: center;
@@ -346,7 +389,7 @@ body {
   width: 34px;
   height: 34px;
 
-  color: #6610f2;
+  color: #6129ac;
 
   font-size: 21px;
 }
@@ -358,7 +401,7 @@ body {
 }
 
 .cabecalho-legenda {
-  color: #6610f2;
+  color: #6129ac;
 
   font-size: 9px;
   font-weight: 800;
@@ -367,7 +410,7 @@ body {
 }
 
 .cabecalho-titulo {
-  color: #343a40;
+  color: #1d165c;
 
   font-size: 15px;
   font-weight: 700;
@@ -390,7 +433,7 @@ body {
 }
 
 .status-icone {
-  color: #007bff;
+  color: #6129ac;
 
   font-size: 17px;
 
@@ -406,14 +449,14 @@ body {
 }
 
 .status-titulo {
-  color: #343a40;
+  color: #1d165c;
 
   font-size: 11px;
   font-weight: 700;
 }
 
 .status-subtitulo {
-  color: #6c757d;
+  color: #666666;
 
   font-size: 9px;
 
@@ -435,7 +478,7 @@ body {
 ========================================================= */
 
 .caminho {
-  color: #6c757d;
+  color: #666666;
   font-size: 12px;
 }
 
@@ -448,7 +491,7 @@ body {
 .cabecalho p,
 .historico-cabecalho p {
   margin: 0;
-  color: #6c757d;
+  color: #666666;
   font-size: 13px;
 }
 
@@ -476,6 +519,12 @@ body {
   min-width: 0;
 }
 
+.controles-menu {
+  display: none;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
 
 /* =========================================================
    CARDS
@@ -497,7 +546,7 @@ body {
 
 .rotulo,
 .identificacao span {
-  color: #6c757d;
+  color: #666666;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -535,7 +584,7 @@ body {
 
   background: #e7f1ff;
 
-  color: #007bff;
+  color: #6129ac;
 
   font-size: 22px;
 }
@@ -547,7 +596,7 @@ body {
 
 .identificacao p {
   margin: 0;
-  color: #6c757d;
+  color: #666666;
   font-size: 13px;
 }
 
@@ -582,7 +631,7 @@ body {
 
   margin-bottom: 17px;
 
-  color: #495057;
+  color: #1d165c;
 
   font-size: 14px;
   font-weight: 600;
@@ -600,14 +649,14 @@ body {
 
   background: #e7f1ff;
 
-  color: #007bff;
+  color: #6129ac;
 
   font-size: 25px;
 }
 
 .icone-chuva {
   background: #f3e8ff;
-  color: #6f42c1;
+  color: #6129ac;
   font-size: 20px;
 }
 
@@ -618,7 +667,7 @@ body {
 .horario {
   margin: 14px 0 0;
 
-  color: #6c757d;
+  color: #666666;
 
   font-size: 11px;
 }
@@ -660,7 +709,7 @@ body {
 .unidade {
   font-size: 11px;
   font-weight: 400;
-  color: #6c757d;
+  color: #666666;
 }
 
 
@@ -683,7 +732,7 @@ body {
 
   border-top: 1px solid #dee2e6;
 
-  color: #6c757d;
+  color: #666666;
 
   font-size: 11px;
 }
@@ -694,6 +743,10 @@ body {
 ========================================================= */
 
 @media (max-width: 991px) {
+
+  .controles-menu {
+    display: flex;
+  }
 
   /* -------------------------------------------------------
      MENU LATERAL MOBILE
