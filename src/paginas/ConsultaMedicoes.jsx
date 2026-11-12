@@ -189,13 +189,36 @@ export default function ConsultaMedicoes() {
           </Text>
         </div>
 
-        <Table
-          dataSource={estacoes}
-          columns={colunas}
-          rowKey="id"
-          pagination={false}
-          scroll={{ x: 'max-content' }}
-        />
+        <div className="consulta-tabela">
+          <Table
+            dataSource={estacoes}
+            columns={colunas}
+            rowKey="id"
+            pagination={false}
+            scroll={{ x: 'max-content' }}
+          />
+        </div>
+        <div className="consulta-lista" aria-label="Estações cadastradas">
+          {estacoes.map((estacao) => {
+            const ultimo = detalhesResumo[estacao.id]?.latest;
+            return (
+              <article className="consulta-estacao" key={estacao.id}>
+                <div className="consulta-estacao-topo">
+                  <div>
+                    <strong>{estacao.name}</strong>
+                    <span><EnvironmentOutlined /> {estacao.municipality}</span>
+                  </div>
+                  <Tag color="success">Ativa</Tag>
+                </div>
+                <div className="consulta-estacao-dados">
+                  <div><span>Rio principal</span><strong>{estacao.river}</strong></div>
+                  <div><span>Nível</span><strong>{ultimo?.level_m ?? '--'} m</strong></div>
+                  <div><span>Precipitação</span><strong>{ultimo?.rain_mm_h ?? '--'} mm/h</strong></div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </Card>
     </div>
   );

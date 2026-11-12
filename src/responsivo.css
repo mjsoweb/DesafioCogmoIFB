@@ -1,0 +1,240 @@
+/* Ajustes finais para que as três páginas usem a largura disponível. */
+#root,
+.aplicacao,
+.layout-principal,
+.conteudo,
+.conteudo-principal,
+.pagina {
+  min-width: 0;
+}
+
+.pagina .ant-card,
+.pagina .ant-card-body,
+.pagina .ant-row,
+.pagina .ant-col {
+  min-width: 0;
+}
+
+.pagina .ant-typography,
+.pagina .ant-card-head-title {
+  overflow-wrap: anywhere;
+}
+
+.consulta-lista {
+  display: none;
+}
+
+.filtro-estacao {
+  width: 220px;
+  max-width: 100%;
+}
+
+@media (max-width: 991px) {
+  .layout-principal {
+    width: 100%;
+  }
+
+  .conteudo {
+    padding: 24px;
+  }
+
+  .controles-menu {
+    min-height: 44px;
+  }
+
+  .botao-menu-mobile {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .menu-lateral,
+  .menu-lateral.ant-layout-sider-collapsed {
+    width: min(280px, 86vw) !important;
+    min-width: min(280px, 86vw) !important;
+    max-width: min(280px, 86vw) !important;
+    height: 100dvh;
+    overflow-y: auto;
+  }
+
+  .menu-lateral .ant-layout-sider-children {
+    min-height: 100%;
+  }
+}
+
+@media (max-width: 819px) {
+  .pagina.pagina-historico:has(.filtros-cabecalho) > .historico-graficos.ant-row,
+  .pagina.pagina-historico:has(.filtros-cabecalho) > .historico-amostras.ant-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .conteudo {
+    padding: 16px;
+  }
+
+  .pagina .seletor-card .ant-card-body {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pagina .seletor-card .seletor {
+    width: 100%;
+  }
+
+  .pagina .grade-cartoes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .historico-resumo-item strong {
+    white-space: normal;
+  }
+
+  .pagina-consulta .consulta-acoes {
+    justify-self: stretch;
+    display: flex;
+    width: 100%;
+  }
+
+  .pagina-consulta .consulta-acoes .ant-space-item {
+    flex: 1;
+  }
+
+  .pagina-consulta .consulta-acoes .ant-btn {
+    width: 100%;
+  }
+
+  .consulta-tabela {
+    display: none;
+  }
+
+  .consulta-lista {
+    display: grid;
+    gap: 12px;
+  }
+
+  .consulta-estacao {
+    padding: 16px;
+    border: 1px solid #e7e0f0;
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .consulta-estacao-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .consulta-estacao-topo > div {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .consulta-estacao-topo strong,
+  .consulta-estacao-dados strong {
+    color: #1d165c;
+    overflow-wrap: anywhere;
+  }
+
+  .consulta-estacao-topo span,
+  .consulta-estacao-dados span {
+    color: #666;
+    font-size: 12px;
+  }
+
+  .consulta-estacao-dados {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #eee8f4;
+  }
+
+  .consulta-estacao-dados > div {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagina-historico .historico-topo,
+  .pagina-historico .filtros-cabecalho {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .historico-topo .filtros-cabecalho > .ant-space {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .historico-topo .filtros-cabecalho > .ant-space > .ant-space-item {
+    width: 100%;
+  }
+
+  .historico-topo .filtro-estacao {
+    width: 100%;
+  }
+
+  .historico-topo .ant-radio-group {
+    display: flex;
+    width: 100%;
+  }
+
+  .historico-topo .ant-radio-button-wrapper {
+    flex: 1;
+    padding-inline: 8px;
+    text-align: center;
+  }
+
+  .pagina-historico .ant-card-head {
+    align-items: flex-start;
+    gap: 8px;
+    padding-block: 12px;
+  }
+
+  .pagina-historico .ant-card-head-title {
+    white-space: normal;
+  }
+
+  .pagina-historico .ant-card-extra {
+    margin-inline-start: 0;
+  }
+
+  .pagina-historico .historico-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pagina-historico .historico-kpi {
+    padding: 14px;
+  }
+
+  .rodape {
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 420px) {
+  .conteudo {
+    padding: 14px 12px;
+  }
+
+  .pagina .ant-card .ant-card-body {
+    padding: 16px;
+  }
+
+  .pagina-historico .historico-kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .consulta-estacao-dados {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

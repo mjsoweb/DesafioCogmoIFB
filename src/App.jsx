@@ -5,6 +5,7 @@ import HistoricoMedicoes from './paginas/HistoricoMedicoes';
 import ConsultaMedicoes from './paginas/ConsultaMedicoes';
 import './estilos.css';
 import './tema-modernizado.css';
+import './responsivo.css';
 
 export default function App() {
   return (

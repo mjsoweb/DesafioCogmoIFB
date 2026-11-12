@@ -112,7 +112,7 @@ export default function HistoricoMedicoes() {
 
           <Space wrap>
             <Select
-              style={{ width: 220 }}
+              className="filtro-estacao"
               size="large"
               value={estacaoSelecionadaId}
               onChange={(valor) => setEstacaoSelecionadaId(valor)}
