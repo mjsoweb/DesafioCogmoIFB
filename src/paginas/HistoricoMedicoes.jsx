@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Card, Col, Radio, Row, Typography, Spin, Select, Space } from 'antd';
+import { Alert, Button, Card, Col, Radio, Row, Typography, Spin, Select, Space } from 'antd';
 import {
   ClockCircleOutlined,
   DatabaseOutlined,
@@ -15,9 +15,27 @@ import {
   Area,
   AreaChart,
 } from 'recharts';
-import { getStations, getSeries } from '../api/api';
+import EstacaoDAO from '../objetos/dao/EstacaoDAOBackEnd.mjs';
+import ObservacaoDAO from '../objetos/dao/ObservacaoDAOBackEnd.mjs';
 
-const { Title, Paragraph, Text } = Typography;
+const estacaoDAO = new EstacaoDAO();
+const observacaoDAO = new ObservacaoDAO();
+
+function pontosParaGrafico(pontos) {
+  return pontos.flatMap((ponto, index) => {
+    if (index === 0) return [ponto];
+    const anterior = new Date(pontos[index - 1].timestamp).getTime();
+    const atual = new Date(ponto.timestamp).getTime();
+    const lacunas = [];
+    for (let instante = anterior + 60 * 60 * 1000; instante < atual; instante += 60 * 60 * 1000) {
+      const timestamp = new Date(instante).toISOString();
+      lacunas.push({ timestamp, value: null, horaFormatada: new Date(timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) });
+    }
+    return [...lacunas, ponto];
+  });
+}
+
+const { Title, Text } = Typography;
 
 export default function HistoricoMedicoes() {
   const [estacoes, setEstacoes] = useState([]);
@@ -28,48 +46,63 @@ export default function HistoricoMedicoes() {
   const [serieNivel, setSerieNivel] = useState([]);
   const [serieChuva, setSerieChuva] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  const [carregandoSeries, setCarregandoSeries] = useState(false);
+  const [erro, setErro] = useState(null);
 
   useEffect(() => {
+    let ativo = true;
     async function carregarLista() {
       try {
-        const resposta = await getStations();
-        const lista = resposta?.stations || [];
+        const lista = await estacaoDAO.listar();
+        if (!ativo) return;
         setEstacoes(lista);
         if (lista.length > 0) {
           setEstacaoSelecionadaId(lista[0].id);
         }
       } catch (erro) {
-        console.error('Erro ao carregar estações:', erro);
+        if (ativo) setErro(erro.message || 'Erro ao carregar estações.');
       } finally {
-        setCarregando(false);
+        if (ativo) setCarregando(false);
       }
     }
     carregarLista();
+    return () => { ativo = false; };
   }, []);
 
   useEffect(() => {
     if (!estacaoSelecionadaId) return;
-
+    let ativo = true;
     async function carregarSeries() {
+      setSerieNivel([]);
+      setSerieChuva([]);
+      setErro(null);
+      setCarregandoSeries(true);
       try {
-        const dadosNivel = await getSeries(estacaoSelecionadaId, 'level', Number(horasSelecionadas));
-        const dadosChuva = await getSeries(estacaoSelecionadaId, 'rain', Number(horasSelecionadas));
+        const [dadosNivel, dadosChuva] = await Promise.all([
+          observacaoDAO.listarSerie(estacaoSelecionadaId, 'level', Number(horasSelecionadas)),
+          observacaoDAO.listarSerie(estacaoSelecionadaId, 'rain', Number(horasSelecionadas)),
+        ]);
+        if (!ativo) return;
         
         // Formatando o timestamp para exibir a hora amigável nos gráficos e listas
         const formatarPontos = (pontos) => 
-          (pontos || []).map(p => ({
-            ...p,
-            horaFormatada: new Date(p.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-            dataCompleta: new Date(p.timestamp).toLocaleString('pt-BR')
+          pontos.map(p => ({
+            timestamp: p.observedAt,
+            value: p.value,
+            horaFormatada: new Date(p.observedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+            dataCompleta: new Date(p.observedAt).toLocaleString('pt-BR')
           }));
 
         setSerieNivel(formatarPontos(dadosNivel?.points));
         setSerieChuva(formatarPontos(dadosChuva?.points));
       } catch (erro) {
-        console.error('Erro ao carregar histórico:', erro);
+        if (ativo) setErro(erro.message || 'Erro ao carregar histórico.');
+      } finally {
+        if (ativo) setCarregandoSeries(false);
       }
     }
     carregarSeries();
+    return () => { ativo = false; };
   }, [estacaoSelecionadaId, horasSelecionadas]);
 
   if (carregando) {
@@ -80,22 +113,15 @@ export default function HistoricoMedicoes() {
     );
   }
 
-  const estacaoAtual = estacoes.find((estacao) => estacao.id === estacaoSelecionadaId);
   const ultimoNivel = serieNivel.at(-1)?.value;
   const ultimaChuva = serieChuva.at(-1)?.value;
 
   return (
     <div className="pagina pagina-cabecalho-proximo pagina-historico">
+      {erro && <Alert type="error" message={erro} showIcon style={{ marginBottom: 24 }} />}
+      {!erro && estacoes.length === 0 && <Alert message="Nenhuma estação disponível." showIcon style={{ marginBottom: 24 }} />}
+      {carregandoSeries && <Spin tip="Carregando séries"><div style={{ minHeight: 48 }} /></Spin>}
       <div className="historico-topo">
-      <div className="pagina-introducao">
-        <div className="cabecalho-titulos">
-          <Title level={2}>Análise temporal</Title>
-        </div>
-        <Paragraph type="secondary">
-          Acompanhe a evolução temporal do nível do rio e da precipitação através de tabelas de amostras e gráficos interativos.
-        </Paragraph>
-      </div>
-
       <Card className="painel-card" bordered={false} style={{ marginBottom: 24, borderRadius: '16px' }}>
         <div className="filtros-cabecalho" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div className="secao-cabecalho" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -135,37 +161,20 @@ export default function HistoricoMedicoes() {
       </Card>
       </div>
 
-      <section className="historico-resumo" aria-label="Resumo do período">
-        <div className="historico-resumo-item">
-          <span>ESTAÇÃO SELECIONADA</span>
-          <strong>{estacaoAtual?.name || '—'}</strong>
-          <small>{estacaoAtual?.river || 'Rio não informado'}</small>
-        </div>
-        <div className="historico-resumo-item">
-          <span>JANELA DE ANÁLISE</span>
-          <strong>{horasSelecionadas} horas</strong>
-          <small>Período exibido nos gráficos</small>
-        </div>
-        <div className="historico-resumo-item">
-          <span>REGISTROS NO PERÍODO</span>
-          <strong>{serieNivel.length + serieChuva.length}</strong>
-          <small>Nível do rio e precipitação</small>
-        </div>
-      </section>
-
       {/* SEÇÃO 1: GRÁFICOS INTERATIVOS RECHARTS */}
       <Row className="historico-graficos" gutter={[24, 24]} style={{ marginBottom: '24px' }}>
         {/* Gráfico de Nível do Rio */}
         <Col xs={24} xl={12}>
           <Card title="Nível do rio" extra={<span className="unidade">Metros (m)</span>} bordered={false} style={{ borderRadius: '16px' }}>
             <ResponsiveContainer width="100%" height={260}>
-              <LineChart data={serieNivel}>
+              <LineChart data={pontosParaGrafico(serieNivel)}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e9ecef" />
                 <XAxis dataKey="horaFormatada" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
                 <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} domain={['auto', 'auto']} />
                 <Tooltip />
                 <Line
-                  type="monotone"
+                  type="linear"
+                  connectNulls={false}
                   dataKey="value"
                   name="Nível (m)"
                   stroke="#007bff"
@@ -182,7 +191,7 @@ export default function HistoricoMedicoes() {
         <Col xs={24} xl={12}>
           <Card title="Precipitação" extra={<span className="unidade">mm/h</span>} bordered={false} style={{ borderRadius: '16px' }}>
             <ResponsiveContainer width="100%" height={260}>
-              <AreaChart data={serieChuva}>
+              <AreaChart data={pontosParaGrafico(serieChuva)}>
                 <defs>
                   <linearGradient id="gradChuva" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#6f42c1" stopOpacity={0.4} />
@@ -194,7 +203,8 @@ export default function HistoricoMedicoes() {
                 <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12 }} domain={['auto', 'auto']} />
                 <Tooltip />
                 <Area
-                  type="monotone"
+                  type="linear"
+                  connectNulls={false}
                   dataKey="value"
                   name="Precipitação (mm/h)"
                   stroke="#6f42c1"

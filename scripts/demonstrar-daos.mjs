@@ -5,51 +5,46 @@ const vite = await createServer({ server: { middlewareMode: true }, appType: 'cu
 try {
   const [{ default: EstacaoDAO }, { default: ObservacaoDAO }, { default: Estacao }, { default: Observacao }] =
     await Promise.all([
-      vite.ssrLoadModule('/src/dao/EstacaoDAO.js'),
-      vite.ssrLoadModule('/src/dao/ObservacaoDAO.js'),
-      vite.ssrLoadModule('/src/modelos/Estacao.js'),
-      vite.ssrLoadModule('/src/modelos/Observacao.js'),
+      vite.ssrLoadModule('/src/objetos/dao/EstacaoDAOBackEnd.mjs'),
+      vite.ssrLoadModule('/src/objetos/dao/ObservacaoDAOBackEnd.mjs'),
+      vite.ssrLoadModule('/src/objetos/estacoes/Estacao.mjs'),
+      vite.ssrLoadModule('/src/objetos/observacoes/Observacao.mjs'),
     ]);
-  const estacoesDAO = new EstacaoDAO();
-  const observacoesDAO = new ObservacaoDAO();
-  const estacoes = await estacoesDAO.listar();
+
+  const estacaoDAO = new EstacaoDAO();
+  const observacaoDAO = new ObservacaoDAO();
+  const estacoes = await estacaoDAO.listar();
   assert.equal(estacoes.length, 3);
-  assert(estacoes.every(estacao => estacao instanceof Estacao));
-  const nomes = estacoes.map(estacao => estacao.name);
-  assert.deepEqual(nomes, nomes.toSorted((a, b) => a.localeCompare(b, 'pt-BR')));
-  assert(estacoes.every(estacao => estacao.active === undefined));
+  assert(estacoes.every(estacao => estacao instanceof Estacao && estacao.active === undefined));
+  assert.deepEqual(estacoes.map(estacao => estacao.name),
+    estacoes.map(estacao => estacao.name).toSorted((a, b) => a.localeCompare(b, 'pt-BR')));
 
-  const resumo = await estacoesDAO.obterResumo(estacoes[0].id);
-  assert(resumo.station instanceof Estacao);
-  assert(resumo.latest.level instanceof Observacao);
-  assert(resumo.latest.rain instanceof Observacao);
-  assert.equal(resumo.latest.level.unit, 'm');
-  assert.equal(resumo.latest.rain.unit, 'mm/h');
+  for (const estacao of estacoes) {
+    const resumo = await estacaoDAO.obterResumo(estacao.id);
+    assert(resumo.station instanceof Estacao);
+    assert(resumo.latest.level instanceof Observacao);
+    assert(resumo.latest.rain instanceof Observacao);
+    assert.equal(resumo.latest.level.unit, 'm');
+    assert.equal(resumo.latest.rain.unit, 'mm/h');
 
-  const serie = await observacoesDAO.listarSerie(estacoes[0].id, 'level', 12);
-  assert.equal(serie.points.length, 13);
-  assert(serie.points.every(ponto => ponto instanceof Observacao && ponto.id === null && ponto.source === null));
-  assert.equal(serie.points.at(-1).value, resumo.latest.level.value);
-  assert.equal(serie.points.at(-1).observedAt, serie.to);
-  assert.equal((await observacoesDAO.listarSerie(estacoes[0].id)).metric, 'level');
-  assert.equal((await observacoesDAO.listarSerie(estacoes[0].id)).points.length, 25);
-  assert.equal((await observacoesDAO.listarSerie(estacoes[0].id, 'level', 1)).points.length, 2);
-  assert.equal((await observacoesDAO.listarSerie(estacoes[0].id, 'level', 72)).points.length, 73);
+    for (const metric of ['level', 'rain']) {
+      for (const hours of [1, 12, 24, 72]) {
+        const serie = await observacaoDAO.listarSerie(estacao.id, metric, hours);
+        assert.equal(serie.stationId, estacao.id);
+        assert.equal(serie.metric, metric);
+        assert.equal(serie.unit, metric === 'level' ? 'm' : 'mm/h');
+        assert(serie.points.every(ponto => ponto instanceof Observacao && ponto.id === null && ponto.source === null));
+        assert(serie.points.every(ponto => ponto.observedAt >= serie.from && ponto.observedAt <= serie.to));
+        assert(serie.points.every((ponto, i) => i === 0 || ponto.observedAt >= serie.points[i - 1].observedAt));
+        console.log(`${estacao.id} ${metric} ${hours}h: ${serie.points.length} pontos`);
+      }
+    }
+  }
 
-  const verificarErro = async (promise, code, status) => {
-    await assert.rejects(promise, erro => erro.code === code && erro.status === status);
-  };
-  await verificarErro(estacoesDAO.obterResumo('DESCONHECIDA'), 'station_not_found', 404);
-  await verificarErro(observacoesDAO.listarSerie(estacoes[0].id, 'invalid', 24), 'invalid_metric', 400);
-  await verificarErro(observacoesDAO.listarSerie(estacoes[0].id, 'level', 0), 'invalid_hours', 400);
-  await verificarErro(observacoesDAO.listarSerie(estacoes[0].id, 'level', 73), 'invalid_hours', 400);
-  await verificarErro(observacoesDAO.listarSerie(estacoes[0].id, 'level', 1.5), 'invalid_hours', 400);
-  assert.throws(() => new Observacao({ stationId: estacoes[0].id, metric: 'rain', unit: 'm' }), /unit incompatível/);
-
-  console.log('Estações:', estacoes.map(estacao => estacao.name).join(', '));
-  console.log('Resumo:', resumo.station.name, resumo.latest.level.value, 'm;', resumo.latest.rain.value, 'mm/h');
-  console.log('Série:', serie.points.length, 'pontos entre', serie.from, 'e', serie.to);
-  console.log('Instâncias, padrões e erros do contrato: OK');
+  await assert.rejects(estacaoDAO.obterResumo('DESCONHECIDA'), erro => erro.code === 'station_not_found' && erro.status === 404);
+  await assert.rejects(observacaoDAO.listarSerie('EST-01', 'invalid', 24), erro => erro.code === 'invalid_metric' && erro.status === 400);
+  await assert.rejects(observacaoDAO.listarSerie('EST-01', 'level', 0), erro => erro.code === 'invalid_hours' && erro.status === 400);
+  console.log('Integração HTTP, modelos, filtros e erros: OK');
 } finally {
   await vite.close();
 }

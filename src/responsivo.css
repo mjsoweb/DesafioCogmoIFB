@@ -238,3 +238,122 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Desktop usa a área principal inteira e preserva os painéis lado a lado. */
+@media (min-width: 992px) {
+  .conteudo {
+    width: 100%;
+    max-width: none;
+    padding-right: clamp(24px, 2.5vw, 48px);
+    padding-left: clamp(24px, 2.5vw, 48px);
+  }
+
+  .conteudo-principal,
+  .pagina {
+    width: 100%;
+    max-width: none;
+  }
+
+  .pagina-consulta {
+    max-width: none !important;
+  }
+
+  .pagina-historico > .historico-graficos.ant-row,
+  .pagina-historico > .historico-amostras.ant-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .pagina-historico .recharts-responsive-container {
+    height: 290px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .pagina-introducao h2,
+  .pagina-apresentacao-card > .pagina-introducao h2,
+  .pagina-consulta .consulta-cabecalho > .pagina-introducao h2,
+  .pagina-historico .historico-topo > .pagina-introducao h2 {
+    font-size: clamp(25px, 1.9vw, 30px) !important;
+  }
+
+  .pagina-apresentacao-card > .pagina-introducao p,
+  .pagina-consulta .consulta-cabecalho > .pagina-introducao p,
+  .pagina-historico .historico-topo > .pagina-introducao p {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1279px) {
+  .historico-topo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Sem os cartões de apresentação, filtros e ações ocupam o topo. */
+.pagina-historico .historico-topo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.pagina-consulta .consulta-cabecalho {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (min-width: 992px) {
+  .pagina-historico .historico-topo .filtros-cabecalho {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+  }
+}
+
+/* Leituras principais com mais presença, sem alterar os demais cartões. */
+.pagina-visao-geral .grade-cartoes > .indicador {
+  min-height: 280px;
+}
+
+.pagina-visao-geral .grade-cartoes > .indicador .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  padding: 32px 36px !important;
+}
+
+.pagina-visao-geral .indicador-topo {
+  margin-bottom: 18px;
+  font-size: 18px;
+}
+
+.pagina-visao-geral .icone-agua,
+.pagina-visao-geral .icone-chuva {
+  width: 56px;
+  height: 56px;
+  font-size: 27px;
+}
+
+.pagina-visao-geral .indicador .ant-statistic {
+  margin-bottom: 18px;
+}
+
+.pagina-visao-geral .indicador .ant-statistic-content {
+  font-size: clamp(40px, 3.4vw, 52px);
+}
+
+.pagina-visao-geral .horario {
+  margin: 0;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .pagina-visao-geral .grade-cartoes > .indicador,
+  .pagina-visao-geral .grade-cartoes > .indicador .ant-card-body {
+    min-height: 230px;
+  }
+
+  .pagina-visao-geral .grade-cartoes > .indicador .ant-card-body {
+    padding: 24px !important;
+  }
+
+  .pagina-visao-geral .indicador .ant-statistic-content {
+    font-size: 40px;
+  }
+}

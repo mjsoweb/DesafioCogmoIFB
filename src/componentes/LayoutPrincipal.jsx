@@ -39,6 +39,7 @@ export default function LayoutPrincipal() {
   const mobile = !telas.lg;
 
   const [menuAberto, setMenuAberto] = useState(false);
+  const [menuDesktopExpandido, setMenuDesktopExpandido] = useState(true);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -77,7 +78,7 @@ export default function LayoutPrincipal() {
         ref={menuRef}
         width={250}
         collapsedWidth={mobile ? 0 : 80}
-        collapsed={!menuAberto}
+        collapsed={mobile ? !menuAberto : !menuDesktopExpandido}
         trigger={null}
         className={`menu-lateral ${
           mobile && menuAberto
@@ -93,12 +94,12 @@ export default function LayoutPrincipal() {
           <button
             type="button"
             className="botao-alternar-menu"
-            onClick={() => setMenuAberto((aberto) => !aberto)}
-            aria-label={menuAberto ? 'Fechar menu' : 'Abrir menu'}
-            aria-expanded={menuAberto}
-            title={menuAberto ? 'Fechar menu' : 'Abrir menu'}
+            onClick={() => setMenuDesktopExpandido((expandido) => !expandido)}
+            aria-label={menuDesktopExpandido ? 'Recolher menu' : 'Expandir menu'}
+            aria-expanded={menuDesktopExpandido}
+            title={menuDesktopExpandido ? 'Recolher menu' : 'Expandir menu'}
           >
-            {menuAberto ? <CloseOutlined /> : <MenuOutlined />}
+            {menuDesktopExpandido ? <CloseOutlined /> : <MenuOutlined />}
           </button>
 
           {/* BOTÃO FECHAR - MOBILE */}
@@ -121,7 +122,7 @@ export default function LayoutPrincipal() {
         <Menu
           theme="dark"
           mode="inline"
-          inlineCollapsed={!mobile && !menuAberto}
+          inlineCollapsed={!mobile && !menuDesktopExpandido}
           selectedKeys={[
             localizacao.pathname,
           ]}

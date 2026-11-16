@@ -1,51 +1,59 @@
 import { useState, useEffect } from 'react';
-import { Card, Select, Spin, Tag, Typography, Statistic, message, Alert } from 'antd';
+import { Card, Select, Spin, Statistic, Alert } from 'antd';
 import {
   CloudOutlined,
   DashboardOutlined,
-  WarningOutlined,
 } from '@ant-design/icons';
-import { getStations, getSummary } from '../api/api';
+import EstacaoDAO from '../objetos/dao/EstacaoDAOBackEnd.mjs';
 
-const { Title, Paragraph } = Typography;
+const estacaoDAO = new EstacaoDAO();
 
 export default function VisaoGeral() {
   const [estacoes, setEstacoes] = useState([]);
   const [estacaoSelecionadaId, setEstacaoSelecionadaId] = useState(null);
   const [resumo, setResumo] = useState(null);
   const [carregando, setCarregando] = useState(true);
+  const [carregandoResumo, setCarregandoResumo] = useState(false);
+  const [erro, setErro] = useState(null);
 
   useEffect(() => {
+    let ativo = true;
     async function carregarEstacoes() {
       try {
-        const resposta = await getStations();
-        const lista = resposta?.stations || [];
+        const lista = await estacaoDAO.listar();
+        if (!ativo) return;
         setEstacoes(lista);
         if (lista.length > 0) {
           setEstacaoSelecionadaId(lista[0].id);
         }
       } catch (erro) {
-        message.error(erro.message || 'Erro ao carregar estações.');
+        if (ativo) setErro(erro.message || 'Erro ao carregar estações.');
       } finally {
-        setCarregando(false);
+        if (ativo) setCarregando(false);
       }
     }
     carregarEstacoes();
+    return () => { ativo = false; };
   }, []);
 
   useEffect(() => {
     if (!estacaoSelecionadaId) return;
-
+    let ativo = true;
     async function carregarResumo() {
+      setResumo(null);
+      setErro(null);
+      setCarregandoResumo(true);
       try {
-        const dadosResumo = await getSummary(estacaoSelecionadaId);
-        setResumo(dadosResumo);
+        const dadosResumo = await estacaoDAO.obterResumo(estacaoSelecionadaId);
+        if (ativo) setResumo(dadosResumo);
       } catch (erro) {
-        message.error(erro.message || 'Falha ao consultar dados da estação.');
-        setResumo(null);
+        if (ativo) setErro(erro.message || 'Falha ao consultar dados da estação.');
+      } finally {
+        if (ativo) setCarregandoResumo(false);
       }
     }
     carregarResumo();
+    return () => { ativo = false; };
   }, [estacaoSelecionadaId]);
 
   if (carregando) {
@@ -56,37 +64,17 @@ export default function VisaoGeral() {
     );
   }
 
-  const valorNivel = resumo?.latest?.level_m ?? 0;
-  const horarioNivel = resumo?.latest?.level_observed_at;
-  const valorChuva = resumo?.latest?.rain_mm_h ?? 0;
-  const horarioChuva = resumo?.latest?.rain_observed_at;
-
-  // Lógica de Alerta (Thresholds de Segurança Hidrológica)
-  const nivelAlerta = valorNivel > 1.8;
-  const chuvaAlerta = valorChuva > 2.0;
+  const valorNivel = resumo?.latest?.level?.value;
+  const horarioNivel = resumo?.latest?.level?.observedAt;
+  const valorChuva = resumo?.latest?.rain?.value;
+  const horarioChuva = resumo?.latest?.rain?.observedAt;
 
   return (
-    <div className="pagina pagina-visao-geral pagina-apresentacao-card">
-      <div className="pagina-introducao">
-        <div className="cabecalho-titulos">
-          <Title level={2}>Painel de controle inteligente</Title>
-        </div>
-        <Paragraph type="secondary">
-          Monitoramento em tempo real com regras automáticas de limiar (Thresholds) para suporte à decisão.
-        </Paragraph>
-      </div>
+    <div className="pagina pagina-visao-geral">
 
-      {/* Alerta dinâmico de Defesa Civil se passar do limite */}
-      {(nivelAlerta || chuvaAlerta) && (
-        <Alert
-          message="Atenção: Indicadores acima da média operacional!"
-          description="Os sensores registraram níveis elevados de água ou precipitação nesta estação. Monitore com atenção."
-          type="warning"
-          showIcon
-          icon={<WarningOutlined />}
-          style={{ marginBottom: '24px', borderRadius: '12px', border: '1px solid #ffe58f' }}
-        />
-      )}
+      {erro && <Alert type="error" message={erro} showIcon style={{ marginBottom: 24 }} />}
+      {!erro && estacoes.length === 0 && <Alert message="Nenhuma estação disponível." showIcon style={{ marginBottom: 24 }} />}
+      {carregandoResumo && <Spin tip="Carregando leituras"><div style={{ minHeight: 48 }} /></Spin>}
 
       <Card className="seletor-card" bordered={false} style={{ marginBottom: 24, borderRadius: '16px' }}>
         <div>
@@ -112,29 +100,24 @@ export default function VisaoGeral() {
           bordered={false} 
           style={{ 
             borderRadius: '16px', 
-            borderLeft: nivelAlerta ? '5px solid #faad14' : '5px solid #007bff' 
+            borderLeft: '5px solid #007bff'
           }}
         >
           <div className="indicador-topo">
             <span>Nível do rio</span>
-            <div className="icone-agua" style={{ background: nivelAlerta ? '#fffbe6' : '#e7f1ff', color: nivelAlerta ? '#faad14' : '#6129ac' }}>
+            <div className="icone-agua" style={{ background: '#e7f1ff', color: '#6129ac' }}>
               <DashboardOutlined />
             </div>
           </div>
           <Statistic
-            value={valorNivel}
+            value={valorNivel ?? '—'}
             precision={2}
             suffix="m"
-            valueStyle={{ color: nivelAlerta ? '#faad14' : '#1d165c', fontWeight: 700 }}
+            valueStyle={{ color: '#1d165c', fontWeight: 700 }}
           />
-          <Tag color={nivelAlerta ? 'warning' : 'blue'}>
-            {nivelAlerta ? 'Nível Elevado (Alerta)' : 'Condição Normal'}
-          </Tag>
-          {horarioNivel && (
-            <p className="horario">
-              Última leitura: {new Date(horarioNivel).toLocaleTimeString('pt-BR')}
-            </p>
-          )}
+          <p className="horario">
+            Última leitura: {horarioNivel ? new Date(horarioNivel).toLocaleString('pt-BR') : '—'}
+          </p>
         </Card>
 
         {/* Card Precipitação */}
@@ -143,29 +126,24 @@ export default function VisaoGeral() {
           bordered={false} 
           style={{ 
             borderRadius: '16px',
-            borderLeft: chuvaAlerta ? '5px solid #f5222d' : '5px solid #6f42c1' 
+            borderLeft: '5px solid #6f42c1'
           }}
         >
           <div className="indicador-topo">
             <span>Precipitação</span>
-            <div className="icone-chuva" style={{ background: chuvaAlerta ? '#fff1f0' : '#f3e8ff', color: chuvaAlerta ? '#f5222d' : '#6f42c1' }}>
+            <div className="icone-chuva" style={{ background: '#f3e8ff', color: '#6f42c1' }}>
               <CloudOutlined />
             </div>
           </div>
           <Statistic
-            value={valorChuva}
+            value={valorChuva ?? '—'}
             precision={2}
             suffix="mm/h"
-            valueStyle={{ color: chuvaAlerta ? '#f5222d' : '#1d165c', fontWeight: 700 }}
+            valueStyle={{ color: '#1d165c', fontWeight: 700 }}
           />
-          <Tag color={chuvaAlerta ? 'error' : 'purple'}>
-            {chuvaAlerta ? 'Chuva Intensa' : 'Baixa / Sem Chuva'}
-          </Tag>
-          {horarioChuva && (
-            <p className="horario">
-              Última leitura: {new Date(horarioChuva).toLocaleTimeString('pt-BR')}
-            </p>
-          )}
+          <p className="horario">
+            Última leitura: {horarioChuva ? new Date(horarioChuva).toLocaleString('pt-BR') : '—'}
+          </p>
         </Card>
       </div>
     </div>

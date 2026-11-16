@@ -1,42 +1,50 @@
-import { useState, useEffect } from 'react';
-import { Table, Card, Typography, Spin, Tag, Space, Button, message } from 'antd';
+import { useState, useEffect, useRef } from 'react';
+import { Alert, Table, Card, Typography, Spin, Tag, Space, Button, message } from 'antd';
 import { DatabaseOutlined, ReloadOutlined, EnvironmentOutlined, DownloadOutlined } from '@ant-design/icons';
-import { getStations, getSummary } from '../api/api';
+import EstacaoDAO from '../objetos/dao/EstacaoDAOBackEnd.mjs';
 
-const { Title, Paragraph, Text } = Typography;
+const estacaoDAO = new EstacaoDAO();
+
+const { Text } = Typography;
 
 export default function ConsultaMedicoes() {
   const [estacoes, setEstacoes] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [detalhesResumo, setDetalhesResumo] = useState({});
+  const [erro, setErro] = useState(null);
+  const requisicaoAtual = useRef(0);
 
   async function carregarDados() {
+    const requisicao = ++requisicaoAtual.current;
     setCarregando(true);
+    setErro(null);
     try {
-      const resposta = await getStations();
-      if (resposta && resposta.stations) {
-        setEstacoes(resposta.stations);
-        
-        const novosResumos = {};
-        for (const est of resposta.stations) {
-          try {
-            const sum = await getSummary(est.id);
-            novosResumos[est.id] = sum;
-          } catch (e) {
-            console.error(`Erro ao buscar resumo para ${est.id}`, e);
-          }
-        }
-        setDetalhesResumo(novosResumos);
+      const lista = await estacaoDAO.listar();
+      const resultados = await Promise.allSettled(lista.map(est => estacaoDAO.obterResumo(est.id)));
+      if (requisicao !== requisicaoAtual.current) return;
+      const novosResumos = {};
+      resultados.forEach((resultado, index) => {
+        if (resultado.status === 'fulfilled') novosResumos[lista[index].id] = resultado.value;
+      });
+      setEstacoes(lista);
+      setDetalhesResumo(novosResumos);
+      if (resultados.some(resultado => resultado.status === 'rejected')) {
+        setErro('Alguns resumos não puderam ser carregados.');
       }
-    } catch {
-      message.error('Erro ao carregar medições da API.');
+    } catch (erro) {
+      if (requisicao === requisicaoAtual.current) {
+        setEstacoes([]);
+        setDetalhesResumo({});
+        setErro(erro.message || 'Erro ao carregar medições da API.');
+      }
     } finally {
-      setCarregando(false);
+      if (requisicao === requisicaoAtual.current) setCarregando(false);
     }
   }
 
   useEffect(() => {
     carregarDados();
+    return () => { requisicaoAtual.current += 1; };
   }, []);
 
   // Função sênior para exportar dados em CSV (Gerador de Relatório Corporativo)
@@ -50,8 +58,8 @@ export default function ConsultaMedicoes() {
     
     estacoes.forEach((est) => {
       const resumo = detalhesResumo[est.id];
-      const nivel = resumo?.latest?.level_m ?? 'N/A';
-      const chuva = resumo?.latest?.rain_mm_h ?? 'N/A';
+      const nivel = resumo?.latest?.level?.value ?? 'N/A';
+      const chuva = resumo?.latest?.rain?.value ?? 'N/A';
       csvContent += `${est.id},"${est.name}","${est.river}","${est.municipality}",${nivel},${chuva}\n`;
     });
 
@@ -97,8 +105,8 @@ export default function ConsultaMedicoes() {
       key: 'nivel',
       render: (_, record) => {
         const resumo = detalhesResumo[record.id];
-        const val = resumo?.latest?.level_m;
-        return val !== undefined ? (
+        const val = resumo?.latest?.level?.value;
+        return val != null ? (
           <Tag color="cyan" style={{ fontSize: '13px', padding: '4px 8px' }}>
             <strong>{val} m</strong>
           </Tag>
@@ -112,8 +120,8 @@ export default function ConsultaMedicoes() {
       key: 'chuva',
       render: (_, record) => {
         const resumo = detalhesResumo[record.id];
-        const val = resumo?.latest?.rain_mm_h;
-        return val !== undefined ? (
+        const val = resumo?.latest?.rain?.value;
+        return val != null ? (
           <Tag color="purple" style={{ fontSize: '13px', padding: '4px 8px' }}>
             <strong>{val} mm/h</strong>
           </Tag>
@@ -121,11 +129,6 @@ export default function ConsultaMedicoes() {
           <Text type="secondary">--</Text>
         );
       },
-    },
-    {
-      title: 'Status',
-      key: 'status',
-      render: () => <Tag color="success">Ativa</Tag>,
     },
   ];
 
@@ -138,29 +141,9 @@ export default function ConsultaMedicoes() {
   }
 
   return (
-    <div className="pagina pagina-cabecalho-proximo pagina-apresentacao-card pagina-consulta" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+    <div className="pagina pagina-cabecalho-proximo pagina-consulta" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+      {erro && <Alert type="error" message={erro} showIcon style={{ marginBottom: 24 }} />}
       <div className="consulta-cabecalho">
-      <div 
-        className="pagina-introducao" 
-        style={{ 
-          marginBottom: '24px', 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'flex-start', 
-          flexWrap: 'wrap',
-          gap: '16px' 
-        }}
-      >
-        <div>
-          <div className="cabecalho-titulos">
-            <Title level={2}>Dados e registros</Title>
-          </div>
-          <Paragraph type="secondary" style={{ margin: 0 }}>
-            Listagem detalhada e exportação de relatórios operacionais do sistema.
-          </Paragraph>
-        </div>
-      </div>
-
         <Space wrap className="consulta-acoes">
           <Button 
             icon={<DownloadOutlined />} 
@@ -208,12 +191,11 @@ export default function ConsultaMedicoes() {
                     <strong>{estacao.name}</strong>
                     <span><EnvironmentOutlined /> {estacao.municipality}</span>
                   </div>
-                  <Tag color="success">Ativa</Tag>
                 </div>
                 <div className="consulta-estacao-dados">
                   <div><span>Rio principal</span><strong>{estacao.river}</strong></div>
-                  <div><span>Nível</span><strong>{ultimo?.level_m ?? '--'} m</strong></div>
-                  <div><span>Precipitação</span><strong>{ultimo?.rain_mm_h ?? '--'} mm/h</strong></div>
+                  <div><span>Nível</span><strong>{ultimo?.level?.value ?? '--'} m</strong></div>
+                  <div><span>Precipitação</span><strong>{ultimo?.rain?.value ?? '--'} mm/h</strong></div>
                 </div>
               </article>
             );
