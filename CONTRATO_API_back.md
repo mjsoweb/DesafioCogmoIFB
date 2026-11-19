@@ -7,7 +7,7 @@ Esta referência é igual para as trilhas backend e frontend. O backend é o res
 - Prefixo: /api
 - Formato: JSON com UTF-8.
 - Horários: ISO 8601 em UTC, com Z, por exemplo 2026-09-28T12:00:00Z.
-- Tamanho das janelas: inteiro entre 1 e 72 horas.
+- Janelas disponíveis: 12, 24 ou 48 horas.
 - Métricas aceitas: level e rain.
 - level é medido em metros (m); rain é medida em milímetros por hora (mm/h).
 - Uma lacuna de horário continua sendo uma lacuna. Não preencher por interpolação.
@@ -73,7 +73,7 @@ Cada métrica tem um horário próprio (level_observed_at ou rain_observed_at). 
 Parâmetros:
 
 - metric: level ou rain. Padrão: level.
-- hours: janela inteira de 1 a 72. Padrão: 24.
+- hours: 12, 24 ou 48 horas. Padrão: 24.
 
 Resposta 200:
 
@@ -97,7 +97,7 @@ Retorne apenas observações dentro da janela e em ordem ascendente. Os campos f
 
 ## Erros
 
-Use o formato abaixo para estação inexistente (404), métrica inválida (400) ou horas fora do limite (400):
+Use o formato abaixo para estação inexistente (404), métrica inválida (400) ou janela diferente de 12, 24 ou 48 horas (400):
 
 ~~~json
 {

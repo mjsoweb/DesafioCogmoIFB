@@ -28,7 +28,7 @@ try {
     assert.equal(resumo.latest.rain.unit, 'mm/h');
 
     for (const metric of ['level', 'rain']) {
-      for (const hours of [1, 12, 24, 72]) {
+      for (const hours of [12, 24, 48]) {
         const serie = await observacaoDAO.listarSerie(estacao.id, metric, hours);
         assert.equal(serie.stationId, estacao.id);
         assert.equal(serie.metric, metric);
@@ -44,6 +44,7 @@ try {
   await assert.rejects(estacaoDAO.obterResumo('DESCONHECIDA'), erro => erro.code === 'station_not_found' && erro.status === 404);
   await assert.rejects(observacaoDAO.listarSerie('EST-01', 'invalid', 24), erro => erro.code === 'invalid_metric' && erro.status === 400);
   await assert.rejects(observacaoDAO.listarSerie('EST-01', 'level', 0), erro => erro.code === 'invalid_hours' && erro.status === 400);
+  await assert.rejects(observacaoDAO.listarSerie('EST-01', 'level', 36), erro => erro.code === 'invalid_hours' && erro.status === 400);
   console.log('Integração HTTP, modelos, filtros e erros: OK');
 } finally {
   await vite.close();

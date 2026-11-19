@@ -5,7 +5,7 @@ Use este contrato para o mock e para a integração com a trilha backend. O mock
 - Prefixo: /api
 - JSON UTF-8; horários ISO 8601 em UTC com Z.
 - Métricas: level (metros, m) ou rain (milímetros por hora, mm/h).
-- Janela inteira de 1 a 72 horas.
+- Janelas disponíveis: 12, 24 ou 48 horas.
 - As séries podem conter lacunas; não invente pontos.
 - data_mode deve aparecer como simulation.
 
