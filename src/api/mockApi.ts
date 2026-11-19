@@ -44,7 +44,7 @@ function stationIndex(stationId: string): number {
 
 function validarSerie(metric: string, hours: number): void {
   if (metric !== 'level' && metric !== 'rain') throw erro('invalid_metric', 'Métrica inválida.', 400)
-  if (!Number.isInteger(hours) || hours < 1 || hours > 72) throw erro('invalid_hours', 'Período inválido.', 400)
+  if (![12, 24, 48].includes(hours)) throw erro('invalid_hours', 'A janela deve ser de 12, 24 ou 48 horas.', 400)
 }
 
 export async function getStations(): Promise<StationsResponse> {

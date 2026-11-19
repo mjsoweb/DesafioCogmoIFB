@@ -10,8 +10,8 @@ export default class ObservacaoDAOBackEnd {
     if (metric !== 'level' && metric !== 'rain') {
       throw Object.assign(new Error('Métrica inválida.'), { code: 'invalid_metric', status: 400 });
     }
-    if (!Number.isInteger(hours) || hours < 1 || hours > 72) {
-      throw Object.assign(new Error('A janela deve ter entre 1 e 72 horas.'), { code: 'invalid_hours', status: 400 });
+    if (![12, 24, 48].includes(hours)) {
+      throw Object.assign(new Error('A janela deve ser de 12, 24 ou 48 horas.'), { code: 'invalid_hours', status: 400 });
     }
     if (!this.seriesBaseUrl || this.seriesBaseUrl.includes('COLE_AQUI')) {
       throw new Error('URL da API não configurada.');

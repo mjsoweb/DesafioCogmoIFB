@@ -2,6 +2,8 @@
 
 Projeto do curso de Front-end do IFB para o desafio da Cogmo Technology.
 
+Acesse o projeto:https://desafio-cogmo-ifb-1.vercel.app/
+
 ## Telas
 
 - **Visão Geral:** seleção de estação, últimas leituras e indicadores.
@@ -55,7 +57,7 @@ Na Sprint 5, o mock de `src/api/mockApi.ts` era a fonte canônica para os DAOs. 
 - `series.points[]` vira uma lista de `Observacao`. O contexto da série fornece `stationId`, `metric` e `unit`; cada ponto fornece somente `timestamp` e `value`. Por isso os getters `id` e `source` permanecem `null`: o endpoint não os envia. `from`, `to`, `interval_minutes` e `data_mode` permanecem no resultado da série, sem serem calculados novamente a partir dos pontos.
 - Um registro persistido da tabela `observations`, descrita em `MODELO_DE_DADOS.md`, pode fornecer `id` e `source` para uma `Observacao`; esse registro completo não é retornado pelo endpoint de série.
 
-Os métodos de consulta rejeitam estação desconhecida com `code: station_not_found` e `status: 404`; métrica inválida e horas fora do intervalo inteiro de 1 a 72 geram `invalid_metric` ou `invalid_hours` com `status: 400`. Na Sprint 5, esses códigos eram propriedades do erro no mock. Na Sprint 6, os erros HTTP são convertidos para o mesmo formato no cliente.
+Os métodos de consulta rejeitam estação desconhecida com `code: station_not_found` e `status: 404`; métrica inválida e janelas diferentes de 12, 24 ou 48 horas geram `invalid_metric` ou `invalid_hours` com `status: 400`. Na Sprint 5, esses códigos eram propriedades do erro no mock. Na Sprint 6, os erros HTTP são convertidos para o mesmo formato no cliente.
 
 ### Exemplo de uso
 
@@ -89,7 +91,7 @@ O projeto usa Vite para carregar os módulos TypeScript. Para executar uma demon
 npm run demo:dao
 ```
 
-Na Sprint 6, esse comando consulta os Webhooks publicados e verifica as três estações, as duas métricas, janelas de 1, 12, 24 e 72 horas, modelos, ordenação e erros. Requer conexão com a API. Os cenários `VITE_DEMO_CENARIO=empty`, `slow` e `error` pertencem somente ao mock antigo e não afetam a aplicação integrada.
+Na Sprint 6, esse comando consulta os Webhooks publicados e verifica as três estações, as duas métricas, janelas de 12, 24 e 48 horas, modelos, ordenação e erros. Requer conexão com a API. Os cenários `VITE_DEMO_CENARIO=empty`, `slow` e `error` pertencem somente ao mock antigo e não afetam a aplicação integrada.
 
 ## Sprint 6 — integração HTTP
 
