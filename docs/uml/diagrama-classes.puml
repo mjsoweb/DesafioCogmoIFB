@@ -1,0 +1,71 @@
+@startuml
+title Diagrama de Classes — Dashboard de Monitoramento Hidrológico (Cogmo Technology)
+
+skinparam classAttributeIconSize 0
+skinparam monochrome false
+skinparam shadowing false
+
+package "Modelos de Domínio (src/objetos)" {
+  class Estacao {
+    - #id : string
+    - #name : string
+    - #river : string
+    - #municipality : string
+    - #active : boolean | undefined
+    - #updatedAt : string | null
+    --
+    + constructor(dados: Object)
+    + get id() : string
+    + get name() : string
+    + get river() : string
+    + get municipality() : string
+    + get active() : boolean | undefined
+    + get updatedAt() : string | null
+  }
+
+  class Observacao {
+    - #id : string | number | null
+    - #stationId : string
+    - #metric : 'level' | 'rain'
+    - #observedAt : string | null
+    - #value : number | null
+    - #unit : 'm' | 'mm/h'
+    - #source : string | null
+    --
+    + constructor(dados: Object)
+    + get id() : string | number | null
+    + get stationId() : string
+    + get metric() : 'level' | 'rain'
+    + get observedAt() : string | null
+    + get value() : number | null
+    + get unit() : 'm' | 'mm/h'
+    + get source() : string | null
+  }
+}
+
+package "Camada de Acesso a Dados (src/objetos/dao)" {
+  class EstacaoDAOBackEnd {
+    + stationsUrl : string
+    + summaryBaseUrl : string
+    --
+    + constructor()
+    + consultarJSON(url: string) : Promise<Object>
+    + listar() : Promise<Estacao[]>
+    + obterResumo(stationId: string) : Promise<Object>
+  }
+
+  class ObservacaoDAOBackEnd {
+    + seriesBaseUrl : string
+    --
+    + constructor()
+    + listarSerie(stationId: string, metric?: string, hours?: number) : Promise<Object>
+  }
+}
+
+' Relacionamentos
+Estacao "1" -- "0..*" Observacao : possui (stationId) >
+EstacaoDAOBackEnd ..> Estacao : instancia >
+EstacaoDAOBackEnd ..> Observacao : instancia (resumo) >
+ObservacaoDAOBackEnd ..> Observacao : instancia (série) >
+
+@enduml
