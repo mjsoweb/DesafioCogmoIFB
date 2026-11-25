@@ -228,7 +228,7 @@ Reinicie o Vite após alterar o `.env.local`. Variáveis `VITE_` são públicas 
 
 ## 14. Autoria
 
-- Maria Júlia Santos Oliveira, Thalita e Samantha Raquel de Assis Corrêa
+- Maria Júlia Santos Oliveira, Thalita Santos da Silva e Samantha Raquel de Assis Corrêa
 - Curso de Front-end — Instituto Federal de Brasília (IFB)
 - Projeto Integrador — Bolsa Futuro Digital (BFD), em parceria com a Cogmo Technology
 
