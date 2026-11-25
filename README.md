@@ -90,11 +90,7 @@ Dashboard web que apresenta o nível de rios (m) e a precipitação (mm/h) de tr
 | RNF07 | Código verificado por lint e build | Atendido (`npm run lint`: 0 avisos; `npm run build`: sucesso) |
 
 ## 8. Telas da aplicação
-
-> As imagens abaixo devem estar em `docs/imagens/` (veja [docs/imagens/LEIA-ME.md](docs/imagens/LEIA-ME.md)).
-> 
-**Versão mobile:** https://drive.google.com/file/d/1NLEd6Hp1-eZ4DzqD3EKwegMjJ1LbRevw/view?usp=drivesdk
-> 
+ 
 **Visão Geral:** seleção de estação e cartões de nível (m) e precipitação (mm/h), cada um com seu horário.
 
 ![Tela Visão Geral](docs/imagens/visao-geral-1.png)
@@ -106,6 +102,16 @@ Dashboard web que apresenta o nível de rios (m) e a precipitação (mm/h) de tr
 **Consulta de Medições:** tabela de estações cadastradas com últimas leituras e botão de exportação CSV.
 
 ![Tela Consulta de Medições](docs/imagens/consultas.png)
+
+<h2>Versão Mobile</h2>
+
+Confira também a versão mobile do projeto e veja como a interface se adapta aos dispositivos móveis!
+
+<p align="center">
+<a href="https://drive.google.com/file/d/1NLEd6Hp1-eZ4DzqD3EKwegMjJ1LbRevw/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">
+<img src="https://img.shields.io/badge/📱%20VER%20VERSÃO%20MOBILE-Visualizar%20agora-16A34A?style=for-the-badge&labelColor=111827" alt="Visualizar versão mobile">
+</a>
+</p>
 
 ## 9. Evidências e testes
 
