@@ -1,7 +1,3 @@
-
-
-Acesse o projeto:https://desafio-cogmo-ifb-1.vercel.app/
-
 # Dashboard de Monitoramento Hidrológico
 
 Projeto Integrador — **Bolsa Futuro Digital (BFD)** · Empresa parceira: **Cogmo Technology**
@@ -9,6 +5,15 @@ Projeto Integrador — **Bolsa Futuro Digital (BFD)** · Empresa parceira: **Cog
 Dashboard web que apresenta o nível de rios (m) e a precipitação (mm/h) de três estações de monitoramento **fictícias**. O problema proposto pela Cogmo é dar a quem acompanha as estações uma visão rápida e confiável das últimas leituras e do histórico recente. A solução é uma aplicação ReactJS com três telas (Visão Geral, Histórico de Medições e Consulta de Medições) que consome uma API REST simulada, publicada em n8n.
 
 > ⚠️ **Todos os dados são simulados.** Não representam condições hidrológicas reais e não devem ser usados para decisões de segurança.
+
+<h2>Acesse o Projeto</h2>
+
+<p align="center">
+<a href="https://desafio-cogmo-ifb-1.vercel.app/" target="_blank" rel="noopener noreferrer">
+<img src="https://img.shields.io/badge/✨%20VISUALIZAR%20PROJETO-ACESSAR%20AGORA-2563EB?style=for-the-badge&labelColor=111827" alt="Visualizar projeto" height="55">
+</a>
+</p>
+
 
 ## 1. Deploy da aplicação
 
@@ -87,7 +92,9 @@ Dashboard web que apresenta o nível de rios (m) e a precipitação (mm/h) de tr
 ## 8. Telas da aplicação
 
 > As imagens abaixo devem estar em `docs/imagens/` (veja [docs/imagens/LEIA-ME.md](docs/imagens/LEIA-ME.md)).
-
+> 
+**Versão mobile:** https://drive.google.com/file/d/1NLEd6Hp1-eZ4DzqD3EKwegMjJ1LbRevw/view?usp=drivesdk
+> 
 **Visão Geral:** seleção de estação e cartões de nível (m) e precipitação (mm/h), cada um com seu horário.
 
 ![Tela Visão Geral](docs/imagens/visao-geral.png)
@@ -215,7 +222,7 @@ Reinicie o Vite após alterar o `.env.local`. Variáveis `VITE_` são públicas 
 
 ## 14. Autoria
 
-- Maria Júlia, Thalita e Samantha
+- Maria Júlia Santos Oliveira, Thalita e Samantha Raquel de Assis Corrêa
 - Curso de Front-end — Instituto Federal de Brasília (IFB)
 - Projeto Integrador — Bolsa Futuro Digital (BFD), em parceria com a Cogmo Technology
 
