@@ -97,15 +97,15 @@ Dashboard web que apresenta o nível de rios (m) e a precipitação (mm/h) de tr
 > 
 **Visão Geral:** seleção de estação e cartões de nível (m) e precipitação (mm/h), cada um com seu horário.
 
-![Tela Visão Geral](docs/imagens/visao-geral.png)
+![Tela Visão Geral](docs/imagens/visao-geral-1.png)
 
 **Histórico de Medições:** filtros de estação e período (12/24/48 h), gráficos separados de nível e chuva, indicadores e amostras detalhadas.
 
-![Tela Histórico de Medições](docs/imagens/historico.png)
+![Tela Histórico de Medições](docs/imagens/historico-medicoes.png)
 
 **Consulta de Medições:** tabela de estações cadastradas com últimas leituras e botão de exportação CSV.
 
-![Tela Consulta de Medições](docs/imagens/consulta.png)
+![Tela Consulta de Medições](docs/imagens/consultas.png)
 
 ## 9. Evidências e testes
 
